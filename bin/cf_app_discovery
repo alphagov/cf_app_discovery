@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift("lib")
+
+require "cf_app_discovery"
+
+CfAppDiscovery.run(
+  api_endpoint: ENV.fetch("API_ENDPOINT"),
+  api_token: ENV.fetch("API_TOKEN"),
+  targets_path: ENV.fetch("TARGETS_PATH"),
+  paas_domain: ENV.fetch("PAAS_DOMAIN"),
+)
