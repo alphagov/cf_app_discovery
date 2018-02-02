@@ -2,11 +2,14 @@
 
 $LOAD_PATH.unshift("lib")
 
+require "bundler/setup"
 require "cf_app_discovery"
 
 CfAppDiscovery.run(
   api_endpoint: ENV.fetch("API_ENDPOINT"),
-  api_token: ENV.fetch("API_TOKEN"),
+  uaa_endpoint: ENV.fetch("UAA_ENDPOINT"),
+  uaa_username: ENV.fetch("UAA_USERNAME"),
+  uaa_password: ENV.fetch("UAA_PASSWORD"),
+  paas_domain:  ENV.fetch("PAAS_DOMAIN"),
   targets_path: ENV.fetch("TARGETS_PATH"),
-  paas_domain: ENV.fetch("PAAS_DOMAIN"),
 )
