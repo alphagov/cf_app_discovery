@@ -7,8 +7,8 @@ class CfAppDiscovery
       self.api_token = api_token
     end
 
-    def apps
-      get("/v2/apps")
+    def apps(path)
+      get(path)
     end
 
   private
@@ -17,7 +17,7 @@ class CfAppDiscovery
       uri = URI.parse("#{api_endpoint}#{path}")
 
       request = Net::HTTP::Get.new(uri)
-      request["Authorization"] = "bearer #{api_token}"
+      request['Authorization'] = "bearer #{api_token}"
 
       response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
         http.request(request)

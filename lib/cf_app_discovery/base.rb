@@ -8,17 +8,36 @@ class CfAppDiscovery
     @uaa_endpoint = params.fetch(:uaa_endpoint)
     @uaa_username = params.fetch(:uaa_username)
     @uaa_password = params.fetch(:uaa_password)
-    @paas_domain  = params.fetch(:paas_domain)
+    @paas_domain = params.fetch(:paas_domain)
     @targets_path = params.fetch(:targets_path)
   end
 
   def run
-    write_templates
+    process_targets
   end
 
 private
 
-  def write_templates
+  def process_targets
+    path = '/v2/apps?results-per-page=1'
+    client = create_client
+
+    loop do
+      puts "Path: #{path}"
+
+      apps = get_apps(client, path)
+      parser = create_parser(apps)
+      targets = get_targets(parser)
+
+      write_templates(targets)
+
+      path = get_next_url(parser)
+
+      break if path.nil?
+    end
+  end
+
+  def write_templates(targets)
     Template.new(
       targets_path: @targets_path,
       targets: targets,
@@ -26,15 +45,27 @@ private
     ).write_all
   end
 
-  def targets
-    Parser.new(apps).targets
+  def get_targets(parser)
+    parser.targets
   end
 
-  def apps
+  def get_next_url(parser)
+    parser.next_url
+  end
+
+  def create_parser(apps)
+    Parser.new(apps)
+  end
+
+  def get_apps(client, path)
+    client.apps(path)
+  end
+
+  def create_client
     Client.new(
       api_endpoint: @api_endpoint,
       api_token: access_token,
-    ).apps
+    )
   end
 
   def access_token
