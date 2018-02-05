@@ -7,8 +7,8 @@ class CfAppDiscovery
       self.api_token = api_token
     end
 
-    def apps
-      get("/v2/apps")
+    def apps(next_url = nil)
+      get(next_url || "/v2/apps")
     end
 
   private

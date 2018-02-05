@@ -16,4 +16,12 @@ RSpec.describe CfAppDiscovery::Client do
   it "returns the apps data from the api" do
     expect(subject.apps).to eq(endpoint.response_body)
   end
+
+  it "can be paginated" do
+    stub_request(:get, /second-page/)
+      .to_return(body: { title: "Second page of results" }.to_json)
+
+    result = subject.apps("/second-page")
+    expect(result).to eq(title: "Second page of results")
+  end
 end
