@@ -3,21 +3,17 @@ require "spec_helper"
 RSpec.describe CfAppDiscovery::Client do
   include StubHelper
 
-  before do
-    stub_apps_api_endpoint
-  end
+  let(:endpoint) { StubbableEndpoint::Apps }
+  before { stub_endpoint(endpoint) }
 
   subject do
     described_class.new(
-      api_endpoint: "http://example.com",
+      api_endpoint: "http://api.example.com",
       api_token: "dummy-oauth-token",
     )
   end
 
-  describe "#apps" do
-    it "returns the parsed response data" do
-      data = subject.apps
-      expect(data).to eq(response_data)
-    end
+  it "returns the apps data from the api" do
+    expect(subject.apps).to eq(endpoint.response_body)
   end
 end

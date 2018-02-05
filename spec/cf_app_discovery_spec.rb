@@ -4,17 +4,20 @@ RSpec.describe CfAppDiscovery do
   include StubHelper
 
   before do
-    stub_apps_api_endpoint
+    stub_endpoint(StubbableEndpoint::Auth)
+    stub_endpoint(StubbableEndpoint::Apps)
   end
 
   let(:targets_path) { Dir.mktmpdir }
 
   it "reads app instances from the API and writes to the targets directory" do
     CfAppDiscovery.run(
-      api_endpoint: "http://example.com",
-      api_token: "dummy-oauth-token",
+      api_endpoint: "http://api.example.com",
+      uaa_endpoint: "http://uaa.example.com",
+      uaa_username: "uaa-username",
+      uaa_password: "uaa-password",
+      paas_domain:  "example.com",
       targets_path: targets_path,
-      paas_domain: "example.com",
     )
 
     listing = Dir["#{targets_path}/*.json"]
