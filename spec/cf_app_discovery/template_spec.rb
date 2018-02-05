@@ -1,6 +1,8 @@
 require "spec_helper"
 
 RSpec.describe CfAppDiscovery::Template do
+  include StubHelper
+
   let(:targets) do
     [
       CfAppDiscovery::Parser::Target.new(
@@ -60,5 +62,24 @@ RSpec.describe CfAppDiscovery::Template do
         },
       },
     ]
+  end
+
+  context "when the target files already exist" do
+    before do
+      subject.write_all
+      @first, @second = Dir["#{targets_path}/*.json"]
+
+      File.open(@first, "w") { |f| f.write("this content is out of date") }
+
+      FileUtils.touch(@first, mtime: 0)
+      FileUtils.touch(@second, mtime: 0)
+    end
+
+    it "only writes files that have changed" do
+      subject.write_all
+
+      expect(File.mtime(@first).to_i).not_to eq(0), "File should have been written"
+      expect(File.mtime(@second).to_i).to eq(0), "File should not have been written"
+    end
   end
 end

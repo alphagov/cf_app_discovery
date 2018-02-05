@@ -9,15 +9,20 @@ class CfAppDiscovery
     end
 
     def write_all
-      targets.each do |target|
-        write(target, content(target))
-      end
+      targets.each { |t| write_if_changed(t) }
     end
 
   private
 
-    def content(target)
-      target.instances.times.map do |index|
+    def write_if_changed(target)
+      json = json_content(target)
+      path = guid_path(target)
+
+      write(json, path) unless identical?(json, path)
+    end
+
+    def json_content(target)
+      data = target.instances.times.map do |index|
         {
           targets: ["#{target.name}.#{paas_domain}"],
           labels: {
@@ -27,14 +32,24 @@ class CfAppDiscovery
           }
         }
       end
+
+      JSON.pretty_generate(data)
     end
 
-    def write(target, content)
-      json = JSON.pretty_generate(content)
+    def guid_path(target)
+      "#{targets_path}/#{target.guid}.json"
+    end
 
-      File.open("#{targets_path}/#{target.guid}.json", "w") do |file|
-        file.write(json)
-      end
+    def write(content, path)
+      File.open(path, "w") { |f| f.write(content) }
+    end
+
+    def identical?(content, path)
+      File.exist?(path) && md5(File.read(path)) == md5(content)
+    end
+
+    def md5(content)
+      Digest::MD5.hexdigest(content)
     end
   end
 end

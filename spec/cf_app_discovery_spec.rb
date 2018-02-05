@@ -26,7 +26,5 @@ RSpec.describe CfAppDiscovery do
     expect(names).to eq(%w(app-1-guid.json app-2-guid.json))
   end
 
-  it "does not write files if they haven't changed"
-
   it "sets the user agent to something"
 end
