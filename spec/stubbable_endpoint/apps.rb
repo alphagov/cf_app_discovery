@@ -1,6 +1,6 @@
 module StubbableEndpoint
   module Apps
-    module_function
+  module_function
 
     def method
       :get
@@ -11,7 +11,7 @@ module StubbableEndpoint
     end
 
     def request_headers
-      { "Authorization"=>"bearer dummy-oauth-token" }
+      { "Authorization" => "bearer dummy-oauth-token" }
     end
 
     def request_body

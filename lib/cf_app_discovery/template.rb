@@ -14,7 +14,7 @@ class CfAppDiscovery
       end
     end
 
-    private
+  private
 
     def content(target)
       target.instances.times.map do |index|

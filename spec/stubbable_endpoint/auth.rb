@@ -1,6 +1,6 @@
 module StubbableEndpoint
   module Auth
-    module_function
+  module_function
 
     def method
       :post
@@ -11,7 +11,7 @@ module StubbableEndpoint
     end
 
     def request_headers
-      { "Authorization"=>"Basic Y2Y6" }
+      { "Authorization" => "Basic Y2Y6" }
     end
 
     def request_body

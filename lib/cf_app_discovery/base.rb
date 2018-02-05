@@ -16,7 +16,7 @@ class CfAppDiscovery
     write_templates
   end
 
-  private
+private
 
   def write_templates
     Template.new(

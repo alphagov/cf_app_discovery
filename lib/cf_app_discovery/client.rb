@@ -11,7 +11,7 @@ class CfAppDiscovery
       get("/v2/apps")
     end
 
-    private
+  private
 
     def get(path)
       uri = URI.parse("#{api_endpoint}#{path}")

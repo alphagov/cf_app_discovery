@@ -18,7 +18,7 @@ class CfAppDiscovery
       ).info.fetch("access_token")
     end
 
-    private
+  private
 
     def token_issuer
       CF::UAA::TokenIssuer.new(uaa_endpoint, "cf", "", {})
