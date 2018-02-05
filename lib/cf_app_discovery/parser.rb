@@ -19,6 +19,10 @@ class CfAppDiscovery
       end
     end
 
+    def next_url
+      data.fetch(:next_url)
+    end
+
     class Target
       attr_accessor :guid, :name, :instances
 

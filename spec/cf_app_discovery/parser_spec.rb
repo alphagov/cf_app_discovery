@@ -3,7 +3,7 @@ require "spec_helper"
 RSpec.describe CfAppDiscovery::Parser do
   let(:data) do
     {
-      next_url: nil,
+      next_url: '/v2/apps?results-per-page=10&page=2',
       prev_url: nil,
       resources: [
         {
@@ -37,5 +37,9 @@ RSpec.describe CfAppDiscovery::Parser do
     expect(second.guid).to eq("app-2-guid")
     expect(second.name).to eq("app-2")
     expect(second.instances).to eq(3)
+  end
+
+  it 'recovers next url' do
+    expect(subject.next_url).to eq('/v2/apps?results-per-page=10&page=2')
   end
 end

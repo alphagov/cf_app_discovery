@@ -14,6 +14,6 @@ RSpec.describe CfAppDiscovery::Client do
   end
 
   it "returns the apps data from the api" do
-    expect(subject.apps).to eq(endpoint.response_body)
+    expect(subject.apps('/v2/apps')).to eq(endpoint.response_body)
   end
 end

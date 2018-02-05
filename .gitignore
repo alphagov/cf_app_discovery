@@ -1,0 +1,19 @@
+.idea
+*.iml
+
+*.backup
+
+# Created by https://www.gitignore.io/api/terraform
+
+### Terraform ###
+# Compiled files
+*.tfstate
+*.tfstate.backup
+
+# Module directory
+.terraform/
+
+### Terraform Patch ###
+*.tfvars
+
+# End of https://www.gitignore.io/api/terraform
