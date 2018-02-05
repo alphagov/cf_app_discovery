@@ -8,7 +8,7 @@ class CfAppDiscovery
       self.paas_domain = paas_domain
     end
 
-    def write_all
+    def write_targets
       targets.each { |t| write_if_changed(t) }
     end
 

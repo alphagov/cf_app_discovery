@@ -29,7 +29,7 @@ RSpec.describe CfAppDiscovery::Template do
   let(:targets_path) { Dir.mktmpdir }
 
   it "writes files named after the target guids" do
-    subject.write_all
+    subject.write_targets
 
     listing = Dir["#{targets_path}/*.json"]
     names = listing.map { |s| File.basename(s) }
@@ -38,7 +38,7 @@ RSpec.describe CfAppDiscovery::Template do
   end
 
   it "writes an entry per instance for each target" do
-    subject.write_all
+    subject.write_targets
 
     listing = Dir["#{targets_path}/*.json"]
     contents = listing.map { |path| File.read(path) }
@@ -66,7 +66,7 @@ RSpec.describe CfAppDiscovery::Template do
 
   context "when the target files already exist" do
     before do
-      subject.write_all
+      subject.write_targets
       @first, @second = Dir["#{targets_path}/*.json"]
 
       File.open(@first, "w") { |f| f.write("this content is out of date") }
@@ -76,7 +76,7 @@ RSpec.describe CfAppDiscovery::Template do
     end
 
     it "only writes files that have changed" do
-      subject.write_all
+      subject.write_targets
 
       expect(File.mtime(@first).to_i).not_to eq(0), "File should have been written"
       expect(File.mtime(@second).to_i).to eq(0), "File should not have been written"

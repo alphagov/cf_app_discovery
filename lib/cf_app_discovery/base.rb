@@ -24,7 +24,7 @@ class CfAppDiscovery
         paas_domain: paas_domain,
       )
 
-      template.write_all
+      template.write_targets
     end
   end
 end
