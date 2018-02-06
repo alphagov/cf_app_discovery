@@ -9,15 +9,19 @@ RSpec.describe CfAppDiscovery::Template do
         guid: "app-1-guid",
         name: "app-1",
         instances: 2,
-        state: "",
-        env: {},
+        state: "STARTED",
+        env: {
+          PROMETHEUS_METRICS_PATH: "/metrics"
+        },
       ),
       CfAppDiscovery::Parser::Target.new(
         guid: "app-2-guid",
         name: "app-2",
-        instances: 3,
-        state: "",
-        env: {},
+        instances: 1,
+        state: "STARTED",
+        env: {
+          PROMETHEUS_METRICS_PATH: "/prometheus"
+        },
       ),
     ]
   end
@@ -48,9 +52,10 @@ RSpec.describe CfAppDiscovery::Template do
     contents = listing.map { |path| File.read(path) }
 
     first = JSON.parse(contents.first, symbolize_names: true)
+    last = JSON.parse(contents.last, symbolize_names: true)
     expect(first).to eq [
       {
-        targets: ["app-1.example.com"],
+        targets: ["app-1.example.com/metrics"],
         labels: {
           __param_cf_app_guid: "app-1-guid",
           __param_cf_app_instance_index: 0,
@@ -58,11 +63,22 @@ RSpec.describe CfAppDiscovery::Template do
         },
       },
       {
-        targets: ["app-1.example.com"],
+        targets: ["app-1.example.com/metrics"],
         labels: {
           __param_cf_app_guid: "app-1-guid",
           __param_cf_app_instance_index: 1,
           cf_app_instance: 1,
+        },
+      },
+    ]
+
+    expect(last).to eq [
+      {
+        targets: ["app-2.example.com/prometheus"],
+        labels: {
+          __param_cf_app_guid: "app-2-guid",
+          __param_cf_app_instance_index: 0,
+          cf_app_instance: 0,
         },
       },
     ]
