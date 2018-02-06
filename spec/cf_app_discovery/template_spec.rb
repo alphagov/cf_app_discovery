@@ -9,11 +9,15 @@ RSpec.describe CfAppDiscovery::Template do
         guid: "app-1-guid",
         name: "app-1",
         instances: 2,
+        state: "",
+        env: {},
       ),
       CfAppDiscovery::Parser::Target.new(
         guid: "app-2-guid",
         name: "app-2",
         instances: 3,
+        state: "",
+        env: {},
       ),
     ]
   end

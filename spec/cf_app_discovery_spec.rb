@@ -24,7 +24,7 @@ RSpec.describe CfAppDiscovery do
     listing = Dir["#{targets_path}/*.json"]
     names = listing.map { |s| File.basename(s) }
 
-    expect(names).to eq(%w(app-1-guid.json app-2-guid.json app-3-guid.json))
+    expect(names).to eq(%w(app-2-guid.json app-3-guid.json))
   end
 
   it "sets the user agent to something"

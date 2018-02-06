@@ -32,6 +32,10 @@ module StubbableEndpoint
             entity: {
               name: "app-3",
               instances: 1,
+              state: "STARTED",
+              environment_json: {
+                PROMETHEUS_METRICS_PATH: "/prometheus"
+              },
             },
           },
         ]

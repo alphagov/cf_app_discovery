@@ -7,7 +7,7 @@ RSpec.describe CfAppDiscovery::Cleaner do
   let(:guid) { "00000000-0000-0000-0000-000000000001" }
   let(:old_guid) { "00000000-0000-0000-0000-000000000000" }
   let(:current_target) do
-    CfAppDiscovery::Parser::Target.new(guid: guid, name: "foo", instances: 1)
+    CfAppDiscovery::Parser::Target.new(guid: guid, name: "foo", instances: 1, state: "", env: {})
   end
 
   it "removes configuration files for old targets when no current targets exist" do
