@@ -1,13 +1,13 @@
 class CfAppDiscovery
   class Parser
-    attr_accessor :data
+    attr_accessor :api_response
 
-    def initialize(data)
-      self.data = data
+    def initialize(api_response)
+      self.api_response = api_response
     end
 
     def targets
-      data.fetch(:resources).map do |resource|
+      api_response.map do |resource|
         metadata = resource.fetch(:metadata)
         entity = resource.fetch(:entity)
 

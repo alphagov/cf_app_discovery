@@ -2,7 +2,7 @@ module StubbableEndpoint
   module Auth
   module_function
 
-    def method
+    def http_method
       :post
     end
 

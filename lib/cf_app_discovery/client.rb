@@ -7,8 +7,13 @@ class CfAppDiscovery
       self.api_token = api_token
     end
 
-    def apps(next_url = nil)
-      get(next_url || "/v2/apps")
+    def apps
+      paginator = Paginator.new do |next_url|
+        get(next_url || "/v2/apps")
+      end
+      paginator.flat_map do |page|
+        page.fetch(:resources)
+      end
     end
 
   private

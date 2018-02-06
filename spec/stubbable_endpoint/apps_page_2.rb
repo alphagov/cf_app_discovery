@@ -1,5 +1,5 @@
 module StubbableEndpoint
-  module Apps
+  module AppsPage2
   module_function
 
     def http_method
@@ -7,7 +7,7 @@ module StubbableEndpoint
     end
 
     def url
-      "https://api.example.com:80/v2/apps"
+      "https://api.example.com:80/v2/apps?page=2"
     end
 
     def request_headers
@@ -24,21 +24,14 @@ module StubbableEndpoint
 
     def response_body
       {
-        next_url: "/v2/apps?page=2",
+        next_url: nil,
         prev_url: nil,
         resources: [
           {
-            metadata: { guid: "app-1-guid" },
+            metadata: { guid: "app-3-guid" },
             entity: {
-              name: "app-1",
-              instances: 2,
-            },
-          },
-          {
-            metadata: { guid: "app-2-guid" },
-            entity: {
-              name: "app-2",
-              instances: 3,
+              name: "app-3",
+              instances: 1,
             },
           },
         ]

@@ -1,6 +1,6 @@
 module StubHelper
   def stub_endpoint(endpoint)
-    stub_request(endpoint.method, endpoint.url)
+    stub_request(endpoint.http_method, endpoint.url)
       .with(
         body: endpoint.request_body,
         headers: endpoint.request_headers,

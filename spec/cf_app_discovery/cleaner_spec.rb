@@ -15,7 +15,7 @@ RSpec.describe CfAppDiscovery::Cleaner do
     FileUtils.touch(filename)
 
     expect { subject.remove_old_targets([]) }
-      .to change { File.exists?(filename) }
+      .to change { File.exist?(filename) }
       .from(true)
       .to(false)
   end
@@ -27,9 +27,9 @@ RSpec.describe CfAppDiscovery::Cleaner do
     FileUtils.touch(current_target_filename)
 
     expect { subject.remove_old_targets([current_target]) }
-      .to change { File.exists?(old_target_filename) }
+      .to change { File.exist?(old_target_filename) }
       .from(true)
       .to(false)
-    expect(File.exists?(current_target_filename)).to eq(true)
+    expect(File.exist?(current_target_filename)).to eq(true)
   end
 end

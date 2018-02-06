@@ -11,20 +11,21 @@ class CfAppDiscovery
       api_token: auth.access_token,
     )
 
-    paginator = Paginator.new do |next_url|
-      client.apps(next_url)
-    end
+    parser = Parser.new(client.apps)
+    targets = parser.targets
 
-    paginator.each do |page|
-      parser = Parser.new(page)
+    template = Template.new(
+      targets_path: targets_path,
+      targets: targets,
+      paas_domain: paas_domain,
+    )
 
-      template = Template.new(
-        targets_path: targets_path,
-        targets: parser.targets,
-        paas_domain: paas_domain,
-      )
+    template.write_targets
 
-      template.write_targets
-    end
+    cleaner = Cleaner.new(
+      targets_path: targets_path,
+    )
+
+    cleaner.remove_old_targets(targets)
   end
 end

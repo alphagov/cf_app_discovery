@@ -3,8 +3,11 @@ require "spec_helper"
 RSpec.describe CfAppDiscovery::Client do
   include StubHelper
 
-  let(:endpoint) { StubbableEndpoint::Apps }
-  before { stub_endpoint(endpoint) }
+  let(:first_page) { StubbableEndpoint::Apps }
+  let(:second_page) { StubbableEndpoint::AppsPage2 }
+
+  before { stub_endpoint(first_page) }
+  before { stub_endpoint(second_page) }
 
   subject do
     described_class.new(
@@ -14,14 +17,10 @@ RSpec.describe CfAppDiscovery::Client do
   end
 
   it "returns the apps data from the api" do
-    expect(subject.apps).to eq(endpoint.response_body)
-  end
+    all_apps = first_page.response_body.fetch(:resources)
+    all_apps += second_page.response_body.fetch(:resources)
 
-  it "can be paginated" do
-    stub_request(:get, /second-page/)
-      .to_return(body: { title: "Second page of results" }.to_json)
-
-    result = subject.apps("/second-page")
-    expect(result).to eq(title: "Second page of results")
+    expect(Net::HTTP).to receive(:start).twice.and_call_original
+    expect(subject.apps).to eq(all_apps)
   end
 end
