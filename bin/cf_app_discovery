@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
-$LOAD_PATH.unshift("lib")
+lib = File.expand_path("#{__dir__}/../lib")
+$LOAD_PATH.unshift(lib)
 
 require "bundler/setup"
 require "cf_app_discovery"
