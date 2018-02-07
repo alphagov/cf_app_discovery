@@ -58,16 +58,16 @@ RSpec.describe CfAppDiscovery::Template do
         targets: ["app-1.example.com/metrics"],
         labels: {
           __param_cf_app_guid: "app-1-guid",
-          __param_cf_app_instance_index: 0,
-          cf_app_instance: 0,
+          __param_cf_app_instance_index: "0",
+          cf_app_instance: "0",
         },
       },
       {
         targets: ["app-1.example.com/metrics"],
         labels: {
           __param_cf_app_guid: "app-1-guid",
-          __param_cf_app_instance_index: 1,
-          cf_app_instance: 1,
+          __param_cf_app_instance_index: "1",
+          cf_app_instance: "1",
         },
       },
     ]
@@ -77,8 +77,8 @@ RSpec.describe CfAppDiscovery::Template do
         targets: ["app-2.example.com/prometheus"],
         labels: {
           __param_cf_app_guid: "app-2-guid",
-          __param_cf_app_instance_index: 0,
-          cf_app_instance: 0,
+          __param_cf_app_instance_index: "0",
+          cf_app_instance: "0",
         },
       },
     ]

@@ -27,8 +27,8 @@ class CfAppDiscovery
           targets: ["#{target.name}.#{paas_domain}#{target.prometheus_path}"],
           labels: {
             __param_cf_app_guid: target.guid,
-            __param_cf_app_instance_index: index,
-            cf_app_instance: index,
+            __param_cf_app_instance_index: index.to_s,
+            cf_app_instance: index.to_s,
           }
         }
       end
