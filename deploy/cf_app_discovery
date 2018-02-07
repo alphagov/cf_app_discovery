@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+function get_param {
+  aws ssm get-parameter \
+    --region eu-west-1 \
+    --name $1 \
+    --with-decryption \
+    --query "Parameter.{Value:Value}" \
+    --output text
+}
+
+export API_ENDPOINT='https://api.cloud.service.gov.uk'
+export UAA_ENDPOINT='https://uaa.cloud.service.gov.uk'
+export UAA_USERNAME=$(get_param /reliability/prometheus/discovery/uaa_username)
+export UAA_PASSWORD=$(get_param /reliability/prometheus/discovery/uaa_password)
+export PAAS_DOMAIN='cloudapps.digital'
+export TARGETS_PATH='/etc/prometheus/targets'
+
+../bin/cf_app_discovery
