@@ -24,8 +24,9 @@ class CfAppDiscovery
     def json_content(target)
       data = target.instances.times.map do |index|
         {
-          targets: ["#{target.name}.#{paas_domain}#{target.prometheus_path}"],
+          targets: ["#{target.name}.#{paas_domain}"],
           labels: {
+            __metrics_path__: target.prometheus_path,
             __param_cf_app_guid: target.guid,
             __param_cf_app_instance_index: index.to_s,
             cf_app_instance: index.to_s,

@@ -55,16 +55,18 @@ RSpec.describe CfAppDiscovery::Template do
     last = JSON.parse(contents.last, symbolize_names: true)
     expect(first).to eq [
       {
-        targets: ["app-1.example.com/metrics"],
+        targets: ["app-1.example.com"],
         labels: {
+          __metrics_path__: "/metrics",
           __param_cf_app_guid: "app-1-guid",
           __param_cf_app_instance_index: "0",
           cf_app_instance: "0",
         },
       },
       {
-        targets: ["app-1.example.com/metrics"],
+        targets: ["app-1.example.com"],
         labels: {
+          __metrics_path__: "/metrics",
           __param_cf_app_guid: "app-1-guid",
           __param_cf_app_instance_index: "1",
           cf_app_instance: "1",
@@ -74,8 +76,9 @@ RSpec.describe CfAppDiscovery::Template do
 
     expect(last).to eq [
       {
-        targets: ["app-2.example.com/prometheus"],
+        targets: ["app-2.example.com"],
         labels: {
+          __metrics_path__: "/prometheus",
           __param_cf_app_guid: "app-2-guid",
           __param_cf_app_instance_index: "0",
           cf_app_instance: "0",
