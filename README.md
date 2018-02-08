@@ -37,7 +37,7 @@ $ export UAA_PASSWORD=<password>
 $ export PAAS_DOMAIN=<paas_domain>
 $ export TARGETS_PATH=<targets_folder>
 
-$ bundle && ./cf_app_discovery
+$ ./cf_app_discovery
 ```
 
 ## Forward Proxy
