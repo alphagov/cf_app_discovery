@@ -23,7 +23,7 @@ PROMETHEUS_METRICS_PATH: /prometheus
 
 #### Diagram
 
-![Diagram of Cloud Foundry service discovery for Prometheus](diagrams/discovery_app_funtionality.jpg)
+![alt Diagram of Cloud Foundry service discovery for Prometheus](./diagrams/discovery_app_functionality.jpg "Diagram of Cloud Foundry service discovery for Prometheus")
 
 ## Usage
 
