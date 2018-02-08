@@ -21,6 +21,10 @@ To configure a PaaS application to be discovered need to have defined an environ
 PROMETHEUS_METRICS_PATH: /prometheus
 ```
 
+#### Diagram
+
+![Diagram of Cloud Foundry service discovery for Prometheus](diagrams/discovery_app_funtionality.jpg)
+
 ## Usage
 
 ```bash
