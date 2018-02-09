@@ -64,6 +64,11 @@ server {
 Currently, Prometheus doesn't support setting headers (other than basic auth) on
 outbound requests.
 
+## User Agent
+
+This application sets a custom user agent string of
+`cf_app_discovery - GDS - RE` to requests to fetch the application data.
+
 ## Deployment
 
 There's [a script in `deploy/`](./deploy/cf_app_discovery)

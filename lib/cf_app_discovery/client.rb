@@ -20,9 +20,10 @@ class CfAppDiscovery
 
     def get(path)
       uri = URI.parse("#{api_endpoint}#{path}")
-
       request = Net::HTTP::Get.new(uri)
+
       request["Authorization"] = "bearer #{api_token}"
+      request["User-Agent"] = "cf_app_discovery - GDS - RE"
 
       response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
         http.request(request)
