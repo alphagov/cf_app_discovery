@@ -15,11 +15,13 @@ RSpec.describe CfAppDiscovery::Filter do
         name: "app-2",
         instances: 3,
         state: "STOPPED",
-        env: {},
+        env: {
+          PROMETHEUS_METRICS_PATH: "/prometheus"
+        }
       ),
       CfAppDiscovery::Parser::Target.new(
-        guid: "app-1-guid",
-        name: "app-1",
+        guid: "app-3-guid",
+        name: "app-3",
         instances: 2,
         state: "STARTED",
         env: {
@@ -34,6 +36,6 @@ RSpec.describe CfAppDiscovery::Filter do
   end
 
   it "should filter target not configured for prometheus" do
-    expect(subject.filter_prometheus_available(targets)).to eq [targets.last]
+    expect(subject.filter_prometheus_available(targets, ["app-3-guid"])).to eq [targets.last]
   end
 end

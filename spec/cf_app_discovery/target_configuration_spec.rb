@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.describe CfAppDiscovery::Template do
+RSpec.describe CfAppDiscovery::TargetConfiguration do
   include StubHelper
 
   let(:targets) do
@@ -28,7 +28,6 @@ RSpec.describe CfAppDiscovery::Template do
 
   subject do
     described_class.new(
-      targets: targets,
       targets_path: targets_path,
       paas_domain: "example.com",
     )
@@ -37,7 +36,7 @@ RSpec.describe CfAppDiscovery::Template do
   let(:targets_path) { Dir.mktmpdir }
 
   it "writes files named after the target guids" do
-    subject.write_targets
+    subject.write_targets(targets)
 
     listing = Dir["#{targets_path}/*.json"]
     names = listing.map { |s| File.basename(s) }
@@ -46,7 +45,7 @@ RSpec.describe CfAppDiscovery::Template do
   end
 
   it "writes an entry per instance for each target" do
-    subject.write_targets
+    subject.write_targets(targets)
 
     listing = Dir["#{targets_path}/*.json"]
     contents = listing.map { |path| File.read(path) }
@@ -89,7 +88,7 @@ RSpec.describe CfAppDiscovery::Template do
 
   context "when the target files already exist" do
     before do
-      subject.write_targets
+      subject.write_targets(targets)
       @first, @second = Dir["#{targets_path}/*.json"]
 
       File.open(@first, "w") { |f| f.write("this content is out of date") }
@@ -99,10 +98,17 @@ RSpec.describe CfAppDiscovery::Template do
     end
 
     it "only writes files that have changed" do
-      subject.write_targets
+      subject.write_targets(targets)
 
       expect(File.mtime(@first).to_i).not_to eq(0), "File should have been written"
       expect(File.mtime(@second).to_i).to eq(0), "File should not have been written"
+    end
+
+    it "lists the apps which have been configured" do
+      subject.write_targets(targets)
+
+      configured_apps = subject.configured_apps
+      expect(configured_apps.to_set).to eq(Set.new(["app-1-guid", "app-2-guid"]))
     end
   end
 end

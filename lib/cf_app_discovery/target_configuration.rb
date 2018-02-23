@@ -1,18 +1,38 @@
 class CfAppDiscovery
-  class Template
-    attr_accessor :targets_path, :targets, :paas_domain
+  class TargetConfiguration
+    attr_accessor :targets_path, :paas_domain
 
-    def initialize(targets_path:, targets:, paas_domain:)
+    def initialize(targets_path:, paas_domain:)
       self.targets_path = targets_path
-      self.targets = targets
       self.paas_domain = paas_domain
     end
 
-    def write_targets
+    def write_targets(targets)
       targets.each { |t| write_if_changed(t) }
     end
 
+    def configured_apps
+      running_targets + stopped_targets
+    end
+
   private
+
+    def running_targets
+      app_guids_from_path(targets_path)
+    end
+
+    def stopped_targets
+      app_guids_from_path("#{targets_path}/stopped/")
+    end
+
+    def app_guids_from_path(path)
+      app_guid_filename = /.*\/(.*)\.json/
+      app_guids = Dir["#{path}/*.json"].map do |filename|
+        app_guid = app_guid_filename.match(filename)
+        app_guid[1] unless app_guid.nil?
+      end
+      app_guids.compact
+    end
 
     def write_if_changed(target)
       json = json_content(target)

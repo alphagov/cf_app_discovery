@@ -1,5 +1,10 @@
 class CfAppDiscovery
   def self.run(api_endpoint:, uaa_endpoint:, uaa_username:, uaa_password:, paas_domain:, targets_path:)
+    target_configuration = TargetConfiguration.new(
+      targets_path: targets_path,
+      paas_domain: paas_domain,
+    )
+
     auth = Auth.new(
       uaa_endpoint: uaa_endpoint,
       uaa_username: uaa_username,
@@ -15,21 +20,19 @@ class CfAppDiscovery
     targets = parser.targets
 
     filter = Filter.new
-    running_targets = filter.filter_stopped(targets)
-    configured_targets = filter.filter_prometheus_available(running_targets)
-
-    template = Template.new(
-      targets_path: targets_path,
-      targets: configured_targets,
-      paas_domain: paas_domain,
+    configured_targets = filter.filter_prometheus_available(
+      targets,
+      target_configuration.configured_apps
     )
+    running_targets = filter.filter_stopped(configured_targets)
+    stopped_targets = configured_targets - running_targets
 
-    template.write_targets
+    target_configuration.write_targets(running_targets)
 
     cleaner = Cleaner.new(
       targets_path: targets_path,
     )
-
-    cleaner.remove_old_targets(targets)
+    # Moving the stopped targets first so they are not removed by Cleaner
+    cleaner.move_stopped_targets(stopped_targets)
   end
 end
