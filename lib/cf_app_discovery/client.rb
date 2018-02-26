@@ -16,6 +16,10 @@ class CfAppDiscovery
       end
     end
 
+    def app(app_guid)
+      get("/v2/apps/#{app_guid}")
+    end
+
   private
 
     def get(path)

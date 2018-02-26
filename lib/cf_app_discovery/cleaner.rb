@@ -13,6 +13,11 @@ class CfAppDiscovery
       end
     end
 
+    def remove_old_target(target_guid)
+      filename = "#{targets_path}/#{target_guid}.json"
+      FileUtils.rm(filename, force: true)
+    end
+
   private
 
     def current_target?(filename, current_targets)
