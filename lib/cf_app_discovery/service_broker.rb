@@ -38,7 +38,7 @@ class CfAppDiscovery
       render({})
     end
 
-    put "/v2/service_instances/:instance_id/service_bindings/:id" do |instance_id, binding_id|
+    put "/v2/service_instances/:instance_id/service_bindings/:id" do |_, binding_id|
       content_type :json
       cf_request = request.body.read
       puts cf_request
@@ -56,13 +56,18 @@ class CfAppDiscovery
       render({})
     end
 
-    delete "/v2/service_instances/:instance_id/service_bindings/:id" do |instance_id, binding_id|
-      puts request.body.read
+    delete "/v2/service_instances/:instance_id/service_bindings/:id" do |_, binding_id|
       content_type :json
+      puts request.body.read
+      service_binding = client.service_binding(binding_id)
+      puts service_binding
+      app_guid = service_binding.fetch(:entity).fetch(:app_guid)
+      cleaner = Cleaner.new(targets_path: settings.targets_path)
+      cleaner.remove_old_target(app_guid)
       render({})
     end
 
-    delete "/v2/service_instances/:instance_id" do |instance_id|
+    delete "/v2/service_instances/:instance_id" do |_|
       content_type :json
       render({})
     end

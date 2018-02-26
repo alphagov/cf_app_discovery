@@ -20,6 +20,10 @@ class CfAppDiscovery
       get("/v2/apps/#{app_guid}")
     end
 
+    def service_binding(service_binding_id)
+      get("/v2/service_bindings/#{service_binding_id}")
+    end
+
   private
 
     def get(path)
