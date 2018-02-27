@@ -26,6 +26,4 @@ RSpec.describe CfAppDiscovery do
 
     expect(names).to eq(%w(app-2-guid.json app-3-guid.json))
   end
-
-  it "sets the user agent to something"
 end

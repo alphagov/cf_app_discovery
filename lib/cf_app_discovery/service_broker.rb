@@ -1,6 +1,5 @@
 class CfAppDiscovery
   class ServiceBroker < Sinatra::Application
-
     configure do
       set :api_endpoint, ENV.fetch("API_ENDPOINT")
       set :uaa_endpoint, ENV.fetch("UAA_ENDPOINT")
@@ -31,14 +30,14 @@ class CfAppDiscovery
       )
     end
 
-    put "/v2/service_instances/:id" do |id|
+    put "/v2/service_instances/:id" do
       content_type :json
       puts request.body.read
       # {"service_id":"fd609087-70e0-4c8c-8916-b6885ac156a3","plan_id":"b5998c91-d379-4df7-b329-11450f8459f1","organization_guid":"b92cf390-3dbb-4a6e-a24d-04a811c4624b","space_guid":"f523b565-a298-4efb-994b-b637dd97ace2","context":{"platform":"cloudfoundry","organization_guid":"b92cf390-3dbb-4a6e-a24d-04a811c4624b","space_guid":"f523b565-a298-4efb-994b-b637dd97ace2"}}
       render({})
     end
 
-    put "/v2/service_instances/:instance_id/service_bindings/:id" do |_, binding_id|
+    put "/v2/service_instances/:instance_id/service_bindings/:id" do
       content_type :json
       cf_request = request.body.read
       puts cf_request
@@ -67,12 +66,12 @@ class CfAppDiscovery
       render({})
     end
 
-    delete "/v2/service_instances/:instance_id" do |_|
+    delete "/v2/service_instances/:instance_id" do
       content_type :json
       render({})
     end
 
-    private
+  private
 
     def render(payload)
       content_type :json
