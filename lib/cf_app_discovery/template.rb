@@ -18,7 +18,19 @@ class CfAppDiscovery
       json = json_content(target)
       path = guid_path(target)
 
-      write(json, path) unless identical?(json, path)
+      if target.is_started?
+        if target_file_exist?
+          write(json, path) unless identical?(json, path)
+        else
+          if is_in_stopped_folder?
+            move_target_to_targets
+          end
+        end
+      else
+        if is_in_targets_folder?
+          move_to_stopped
+        end
+      end
     end
 
     def json_content(target)

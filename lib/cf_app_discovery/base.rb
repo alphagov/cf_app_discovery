@@ -14,13 +14,13 @@ class CfAppDiscovery
     parser = Parser.new(client.apps)
     targets = parser.targets
 
-    filter = Filter.new
-    running_targets = filter.filter_stopped(targets)
-    configured_targets = filter.filter_prometheus_available(running_targets)
+    # filter = Filter.new
+    # running_targets = filter.filter_stopped(targets)
+    # configured_targets = filter.filter_prometheus_available(running_targets)
 
     template = Template.new(
       targets_path: targets_path,
-      targets: configured_targets,
+      targets: targets,
       paas_domain: paas_domain,
     )
 
