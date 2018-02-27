@@ -40,11 +40,9 @@ class CfAppDiscovery
     put "/v2/service_instances/:instance_id/service_bindings/:id" do
       content_type :json
       cf_request = request.body.read
-      puts cf_request
       body_json = JSON.parse(cf_request, symbolize_names: true)
       app_guid = body_json.fetch(:bind_resource).fetch(:app_guid)
       app_data = client.app(app_guid)
-      puts app_data
       parser = Parser.new([app_data])
       template = Template.new(
         targets_path: settings.targets_path,
@@ -57,9 +55,7 @@ class CfAppDiscovery
 
     delete "/v2/service_instances/:instance_id/service_bindings/:id" do |_, binding_id|
       content_type :json
-      puts request.body.read
       service_binding = client.service_binding(binding_id)
-      puts service_binding
       app_guid = service_binding.fetch(:entity).fetch(:app_guid)
       cleaner = Cleaner.new(targets_path: settings.targets_path)
       cleaner.remove_old_target(app_guid)

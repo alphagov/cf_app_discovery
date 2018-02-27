@@ -5,7 +5,11 @@ require "webmock/rspec"
 require "stub_helper"
 require "stubbable_endpoint/auth"
 require "stubbable_endpoint/apps"
+require "stubbable_endpoint/app"
+require "stubbable_endpoint/binding"
 require "stubbable_endpoint/apps_page_2"
+
+require 'rack/test'
 
 ENV["API_ENDPOINT"] = 'http://api.example.com'
 ENV["UAA_ENDPOINT"] = 'http://uaa.example.com'
