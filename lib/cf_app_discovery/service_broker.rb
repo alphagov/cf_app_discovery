@@ -32,8 +32,6 @@ class CfAppDiscovery
 
     put "/v2/service_instances/:id" do
       content_type :json
-      puts request.body.read
-      # {"service_id":"fd609087-70e0-4c8c-8916-b6885ac156a3","plan_id":"b5998c91-d379-4df7-b329-11450f8459f1","organization_guid":"b92cf390-3dbb-4a6e-a24d-04a811c4624b","space_guid":"f523b565-a298-4efb-994b-b637dd97ace2","context":{"platform":"cloudfoundry","organization_guid":"b92cf390-3dbb-4a6e-a24d-04a811c4624b","space_guid":"f523b565-a298-4efb-994b-b637dd97ace2"}}
       render({})
     end
 
@@ -44,12 +42,11 @@ class CfAppDiscovery
       app_guid = body_json.fetch(:bind_resource).fetch(:app_guid)
       app_data = client.app(app_guid)
       parser = Parser.new([app_data])
-      template = Template.new(
+      template = TargetConfiguration.new(
         targets_path: settings.targets_path,
-        targets: parser.targets,
         paas_domain: settings.paas_domain
       )
-      template.write_targets
+      template.write_targets(parser.targets)
       render({})
     end
 

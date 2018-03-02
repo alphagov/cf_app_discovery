@@ -35,7 +35,7 @@ module StubbableEndpoint
             entity: {
               name: "app-1",
               instances: 2,
-              state: "STARTED",
+              state: "STOPPED",
               environment_json: {},
             },
           },
