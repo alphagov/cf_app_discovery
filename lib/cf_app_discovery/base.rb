@@ -1,7 +1,9 @@
 class CfAppDiscovery
   def self.run(api_endpoint:, uaa_endpoint:, uaa_username:, uaa_password:, paas_domain:, targets_path:)
+    filestore_manager = S3Manager.new('engineering.reliability.gds.prometheus.targets')
+
     target_configuration = TargetConfiguration.new(
-      targets_path: targets_path,
+      filestore_manager: filestore_manager,
       paas_domain: paas_domain,
     )
 

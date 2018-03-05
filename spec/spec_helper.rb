@@ -8,6 +8,7 @@ require "stubbable_endpoint/apps"
 require "stubbable_endpoint/app"
 require "stubbable_endpoint/binding"
 require "stubbable_endpoint/apps_page_2"
+require "local_manager"
 
 require 'rack/test'
 

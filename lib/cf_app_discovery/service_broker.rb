@@ -42,8 +42,9 @@ class CfAppDiscovery
       app_guid = body_json.fetch(:bind_resource).fetch(:app_guid)
       app_data = client.app(app_guid)
       parser = Parser.new([app_data])
+      filestore_manager = S3Manager.new('engineering.reliability.gds.prometheus.targets')
       template = TargetConfiguration.new(
-        targets_path: settings.targets_path,
+        filestore_manager: filestore_manager,
         paas_domain: settings.paas_domain
       )
       template.write_targets(parser.targets)

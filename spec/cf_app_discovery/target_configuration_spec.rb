@@ -28,7 +28,7 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
 
   subject do
     described_class.new(
-      targets_path: targets_path,
+      filestore_manager: LocalManager.new(targets_path: targets_path),
       paas_domain: "example.com",
     )
   end

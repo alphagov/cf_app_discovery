@@ -18,11 +18,11 @@ class CfAppDiscovery
   private
 
     def running_targets
-      app_guids_from_path("/active")
+      app_guids_from_path("active")
     end
 
     def stopped_targets
-      app_guids_from_path("/inactive")
+      app_guids_from_path("inactive")
     end
 
     def app_guids_from_path(path)
@@ -58,15 +58,16 @@ class CfAppDiscovery
     end
 
     def guid_path(target)
-      "#{targets_path}/#{target.guid}.json"
+      "#{target.guid}.json"
     end
 
     def write(content, path)
-      File.open(path, "w") { |f| f.write(content) }
+      filestore_manager.write(content, path)
     end
 
     def identical?(content, path)
-      File.exist?(path) && md5(File.read(path)) == md5(content)
+      filestore_manager.exist?(path) &&
+        md5(filestore_manager.read(path)) == md5(content)
     end
 
     def md5(content)
