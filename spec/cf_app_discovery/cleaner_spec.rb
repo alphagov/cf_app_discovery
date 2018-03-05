@@ -1,12 +1,16 @@
 require "spec_helper"
 
 RSpec.describe CfAppDiscovery::Cleaner do
-  subject { described_class.new(targets_path: targets_path) }
+  subject { described_class.new(filestore_manager: LocalManager.new(targets_path: targets_path, folders: %w(active inactive))) }
 
   let(:targets_path) { Dir.mktmpdir }
-  let(:stopped_targets_path) {
-    FileUtils.mkdir_p("#{targets_path}/stopped")
-    "#{targets_path}/stopped"
+  let(:active_targets_path) {
+    FileUtils.mkdir_p("#{targets_path}/active")
+    "#{targets_path}/active"
+  }
+  let(:inactive_targets_path) {
+    FileUtils.mkdir_p("#{targets_path}/inactive")
+    "#{targets_path}/inactive"
   }
   let(:guid) { "00000000-0000-0000-0000-000000000001" }
   let(:old_guid) { "00000000-0000-0000-0000-000000000000" }
@@ -18,8 +22,8 @@ RSpec.describe CfAppDiscovery::Cleaner do
   end
 
   it "overwrites any existing stopped target with same name" do
-    configured_target_filename = "#{targets_path}/#{old_guid}.json"
-    stopped_target_filename = "#{stopped_targets_path}/#{old_guid}.json"
+    configured_target_filename = "#{active_targets_path}/#{old_guid}.json"
+    stopped_target_filename = "#{inactive_targets_path}/#{old_guid}.json"
     FileUtils.touch(configured_target_filename)
     FileUtils.touch(stopped_target_filename)
 
@@ -31,8 +35,8 @@ RSpec.describe CfAppDiscovery::Cleaner do
   end
 
   it "moves stopped targets out of target dir" do
-    stopped_target_filename = "#{targets_path}/#{old_guid}.json"
-    current_target_filename = "#{targets_path}/#{guid}.json"
+    stopped_target_filename = "#{active_targets_path}/#{old_guid}.json"
+    current_target_filename = "#{active_targets_path}/#{guid}.json"
     FileUtils.touch(stopped_target_filename)
     FileUtils.touch(current_target_filename)
 
@@ -41,12 +45,12 @@ RSpec.describe CfAppDiscovery::Cleaner do
       .from(true)
       .to(false)
     expect(File.exist?(current_target_filename)).to eq(true)
-    expect(File.exist?("#{stopped_targets_path}/#{old_guid}.json")).to eq(true)
+    expect(File.exist?("#{inactive_targets_path}/#{old_guid}.json")).to eq(true)
   end
 
   it "removes configured and stopped targets" do
-    stopped_target_filename = "#{stopped_targets_path}/#{guid}.json"
-    current_target_filename = "#{targets_path}/#{guid}.json"
+    stopped_target_filename = "#{inactive_targets_path}/#{guid}.json"
+    current_target_filename = "#{active_targets_path}/#{guid}.json"
     FileUtils.touch(stopped_target_filename)
     FileUtils.touch(current_target_filename)
 

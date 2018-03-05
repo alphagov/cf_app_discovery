@@ -13,4 +13,5 @@ CfAppDiscovery.run(
   uaa_password: ENV.fetch("UAA_PASSWORD"),
   paas_domain:  ENV.fetch("PAAS_DOMAIN"),
   targets_path: ENV.fetch("TARGETS_PATH"),
+  environment:  ENV.fetch("ENVIRONMENT"),
 )
