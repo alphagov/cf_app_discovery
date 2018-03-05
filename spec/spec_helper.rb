@@ -8,6 +8,7 @@ require "stubbable_endpoint/apps"
 require "stubbable_endpoint/app"
 require "stubbable_endpoint/binding"
 require "stubbable_endpoint/apps_page_2"
+require "local_manager"
 
 require 'rack/test'
 
@@ -17,6 +18,7 @@ ENV["UAA_USERNAME"] = 'uaa-username'
 ENV["UAA_PASSWORD"] = 'uaa-password'
 ENV["PAAS_DOMAIN"] = 'example.com'
 ENV["TARGETS_PATH"] = Dir.mktmpdir
+ENV["ENVIRONMENT"] = 'local'
 
 require "cf_app_discovery"
 
@@ -25,3 +27,6 @@ RSpec.configure do |config|
   config.formatter = :doc
   config.color = true
 end
+
+FileUtils.mkdir_p("#{ENV.fetch('TARGETS_PATH')}/active")
+FileUtils.mkdir_p("#{ENV.fetch('TARGETS_PATH')}/inactive")

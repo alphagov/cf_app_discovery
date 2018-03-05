@@ -1,22 +1,20 @@
 class CfAppDiscovery
   class Cleaner
-    attr_accessor :targets_path
+    attr_accessor :filestore_manager
 
-    def initialize(targets_path:)
-      self.targets_path = targets_path
+    def initialize(filestore_manager:)
+      self.filestore_manager = filestore_manager
     end
 
     def remove_old_target(target_guid)
-      target_filename = "#{targets_path}/#{target_guid}.json"
-      FileUtils.rm(target_filename, force: true)
-      stopped_target_filename = "#{stopped_targets_path}/#{target_guid}.json"
-      FileUtils.rm(stopped_target_filename, force: true)
+      filestore_manager.remove("/active/#{target_guid}.json", "/inactive/#{target_guid}.json")
     end
 
     def move_stopped_targets(stopped_targets)
-      target_files = Dir["#{targets_path}/*.json"]
+      target_files = filestore_manager.filenames('active')
       target_files.each do |filename|
-        FileUtils.mv(filename, stopped_targets_path) if file_in_targets?(filename, stopped_targets)
+        filename = filename.split('/').last
+        filestore_manager.move("active/#{filename}", "inactive/#{filename}") if file_in_targets?(filename, stopped_targets)
       end
     end
 
@@ -26,12 +24,6 @@ class CfAppDiscovery
       current_targets.any? do |target|
         filename.include?(target.guid)
       end
-    end
-
-    def stopped_targets_path
-      path = "#{targets_path}/stopped"
-      FileUtils.mkdir(path) unless Dir.exist?(path)
-      path
     end
   end
 end

@@ -5,8 +5,9 @@ class CfAppDiscovery
       set :uaa_endpoint, ENV.fetch("UAA_ENDPOINT")
       set :uaa_username, ENV.fetch("UAA_USERNAME")
       set :uaa_password, ENV.fetch("UAA_PASSWORD")
-      set :paas_domain,  ENV.fetch("PAAS_DOMAIN")
+      set :paas_domain, ENV.fetch("PAAS_DOMAIN")
       set :targets_path, ENV.fetch("TARGETS_PATH")
+      set :environment, ENV.fetch("ENVIRONMENT")
     end
 
     get "/v2/catalog" do
@@ -43,10 +44,10 @@ class CfAppDiscovery
       app_data = client.app(app_guid)
       parser = Parser.new([app_data])
       template = TargetConfiguration.new(
-        targets_path: settings.targets_path,
+        filestore_manager: filestore_manager,
         paas_domain: settings.paas_domain
       )
-      template.write_targets(parser.targets)
+      template.write_active_targets(parser.targets)
       render({})
     end
 
@@ -54,7 +55,7 @@ class CfAppDiscovery
       content_type :json
       service_binding = client.service_binding(binding_id)
       app_guid = service_binding.fetch(:entity).fetch(:app_guid)
-      cleaner = Cleaner.new(targets_path: settings.targets_path)
+      cleaner = Cleaner.new(filestore_manager: filestore_manager)
       cleaner.remove_old_target(app_guid)
       render({})
     end
@@ -65,6 +66,13 @@ class CfAppDiscovery
     end
 
   private
+
+    def filestore_manager
+      @filestore_manager ||= FilestoreManagerFactory.filestore_manager_builder(
+        settings.environment,
+        settings.targets_path
+      )
+    end
 
     def render(payload)
       content_type :json

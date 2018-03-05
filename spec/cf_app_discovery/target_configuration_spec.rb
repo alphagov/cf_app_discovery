@@ -28,26 +28,33 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
 
   subject do
     described_class.new(
-      targets_path: targets_path,
+      filestore_manager: LocalManager.new(targets_path: targets_path),
       paas_domain: "example.com",
     )
   end
 
-  let(:targets_path) { Dir.mktmpdir }
+  let(:targets_path) do
+    path = Dir.mktmpdir
+
+    FileUtils.mkdir_p("#{path}/active")
+    FileUtils.mkdir_p("#{path}/inactive")
+
+    path
+  end
 
   it "writes files named after the target guids" do
-    subject.write_targets(targets)
+    subject.write_active_targets(targets)
 
-    listing = Dir["#{targets_path}/*.json"]
+    listing = Dir["#{targets_path}/active/*.json"]
     names = listing.map { |s| File.basename(s) }
 
     expect(names).to eq(%w(app-1-guid.json app-2-guid.json))
   end
 
   it "writes an entry per instance for each target" do
-    subject.write_targets(targets)
+    subject.write_active_targets(targets)
 
-    listing = Dir["#{targets_path}/*.json"]
+    listing = Dir["#{targets_path}/active/*.json"]
     contents = listing.map { |path| File.read(path) }
 
     first = JSON.parse(contents.first, symbolize_names: true)
@@ -88,8 +95,8 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
 
   context "when the target files already exist" do
     before do
-      subject.write_targets(targets)
-      @first, @second = Dir["#{targets_path}/*.json"]
+      subject.write_active_targets(targets)
+      @first, @second = Dir["#{targets_path}/active/*.json"]
 
       File.open(@first, "w") { |f| f.write("this content is out of date") }
 
@@ -98,14 +105,14 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
     end
 
     it "only writes files that have changed" do
-      subject.write_targets(targets)
+      subject.write_active_targets(targets)
 
       expect(File.mtime(@first).to_i).not_to eq(0), "File should have been written"
       expect(File.mtime(@second).to_i).to eq(0), "File should not have been written"
     end
 
     it "lists the apps which have been configured" do
-      subject.write_targets(targets)
+      subject.write_active_targets(targets)
 
       configured_apps = subject.configured_apps
       expect(configured_apps.to_set).to eq(Set.new(["app-1-guid", "app-2-guid"]))

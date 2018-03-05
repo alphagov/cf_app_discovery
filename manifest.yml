@@ -1,0 +1,23 @@
+---
+defaults: &defaults
+  buildpack: ruby_buildpack
+  memory: 512MB
+  instances: 1
+  services:
+    - prometheus-targets-access
+  env:
+    AWS_DEFAULT_REGION: eu-west-2
+    API_ENDPOINT: https://api.cloud.service.gov.uk
+    UAA_ENDPOINT: https://uaa.cloud.service.gov.uk
+    PAAS_DOMAIN: cloudapps.digital
+    TARGETS_PATH: none
+    ENVIRONMENT: paas
+
+applications:
+  - name: prometheus-service-broker
+    <<: *defaults
+    command: export `./load_access` && bundle exec rackup -o 0.0.0.0 -p $PORT
+  - name: prometheus-target-updater
+    <<: *defaults
+    command: export `./load_access` && bundle exec clockwork bin/clock.rb
+    health-check-type: process

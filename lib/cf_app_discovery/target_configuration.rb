@@ -1,14 +1,18 @@
 class CfAppDiscovery
   class TargetConfiguration
-    attr_accessor :targets_path, :paas_domain
+    attr_accessor :filestore_manager, :paas_domain
 
-    def initialize(targets_path:, paas_domain:)
-      self.targets_path = targets_path
+    def initialize(filestore_manager:, paas_domain:)
+      self.filestore_manager = filestore_manager
       self.paas_domain = paas_domain
     end
 
-    def write_targets(targets)
-      targets.each { |t| write_if_changed(t) }
+    def write_active_targets(targets)
+      write_targets(targets, 'active')
+    end
+
+    def write_inactive_targets(targets)
+      write_targets(targets, 'inactive')
     end
 
     def configured_apps
@@ -17,27 +21,30 @@ class CfAppDiscovery
 
   private
 
+    def write_targets(targets, folder)
+      targets.each { |t| write_if_changed(t, folder) }
+    end
+
     def running_targets
-      app_guids_from_path(targets_path)
+      app_guids_from_path("active")
     end
 
     def stopped_targets
-      app_guids_from_path("#{targets_path}/stopped/")
+      app_guids_from_path("inactive")
     end
 
     def app_guids_from_path(path)
       app_guid_filename = /.*\/(.*)\.json/
-      app_guids = Dir["#{path}/*.json"].map do |filename|
+      app_guids = filestore_manager.filenames(path).map do |filename|
         app_guid = app_guid_filename.match(filename)
         app_guid[1] unless app_guid.nil?
       end
       app_guids.compact
     end
 
-    def write_if_changed(target)
+    def write_if_changed(target, folder)
       json = json_content(target)
-      path = guid_path(target)
-
+      path = guid_path(folder, target)
       write(json, path) unless identical?(json, path)
     end
 
@@ -57,16 +64,17 @@ class CfAppDiscovery
       JSON.pretty_generate(data)
     end
 
-    def guid_path(target)
-      "#{targets_path}/#{target.guid}.json"
+    def guid_path(folder, target)
+      "#{folder}/#{target.guid}.json"
     end
 
     def write(content, path)
-      File.open(path, "w") { |f| f.write(content) }
+      filestore_manager.write(content, path)
     end
 
     def identical?(content, path)
-      File.exist?(path) && md5(File.read(path)) == md5(content)
+      filestore_manager.exist?(path) &&
+        md5(filestore_manager.read(path)) == md5(content)
     end
 
     def md5(content)
