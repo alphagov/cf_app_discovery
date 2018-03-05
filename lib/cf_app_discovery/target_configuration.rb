@@ -1,9 +1,9 @@
 class CfAppDiscovery
   class TargetConfiguration
-    attr_accessor :targets_path, :paas_domain
+    attr_accessor :filestore_manager, :paas_domain
 
-    def initialize(targets_path:, paas_domain:)
-      self.targets_path = targets_path
+    def initialize(filestore_manager:, paas_domain:)
+      self.filestore_manager = filestore_manager
       self.paas_domain = paas_domain
     end
 
@@ -18,16 +18,16 @@ class CfAppDiscovery
   private
 
     def running_targets
-      app_guids_from_path(targets_path)
+      app_guids_from_path("/active")
     end
 
     def stopped_targets
-      app_guids_from_path("#{targets_path}/stopped/")
+      app_guids_from_path("/inactive")
     end
 
     def app_guids_from_path(path)
       app_guid_filename = /.*\/(.*)\.json/
-      app_guids = Dir["#{path}/*.json"].map do |filename|
+      app_guids = filestore_manager.filenames(path).map do |filename|
         app_guid = app_guid_filename.match(filename)
         app_guid[1] unless app_guid.nil?
       end
