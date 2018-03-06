@@ -9,7 +9,7 @@ class CfAppDiscovery
     end
 
     def filenames(path)
-      bucket.objects(prefix: path)
+      bucket.objects(prefix: path).map(&:key)
     end
 
     def exist?(filename)
@@ -17,7 +17,7 @@ class CfAppDiscovery
     end
 
     def read(filename)
-      bucket.object(filename).get.body
+      bucket.object(filename).get.body.read
     end
 
     def write(content, filename)
