@@ -3,8 +3,10 @@ require 'clockwork'
 
 module Clockwork
   handler do |job|
-    puts "Running #{job}"
+    system(job)
   end
 
-  every(10, 'frequent.job')
+  every(300, 'Update targets') {
+    `rake update_targets`
+  }
 end

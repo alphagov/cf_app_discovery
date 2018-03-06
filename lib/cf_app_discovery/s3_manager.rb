@@ -8,7 +8,7 @@ class CfAppDiscovery
       self.bucket = Aws::S3::Bucket.new(bucket_name)
     end
 
-    def filenames(path:)
+    def filenames(path)
       bucket.objects(prefix: path)
     end
 
