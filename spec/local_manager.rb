@@ -8,7 +8,7 @@ class LocalManager
   end
 
   def filenames(folder)
-    Dir["#{@targets_path}#{folder}/*.json"]
+    Dir["#{@targets_path}/#{folder}/*.json"]
   end
 
   def exist?(path)

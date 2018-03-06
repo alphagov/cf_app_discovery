@@ -26,11 +26,11 @@ class CfAppDiscovery
     end
 
     def running_targets
-      app_guids_from_path("/active")
+      app_guids_from_path("active")
     end
 
     def stopped_targets
-      app_guids_from_path("/inactive")
+      app_guids_from_path("inactive")
     end
 
     def app_guids_from_path(path)
