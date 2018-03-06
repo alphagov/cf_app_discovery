@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+require "json"
+
+json = ENV.fetch("VCAP_SERVICES")
+vcap_services = JSON.parse(json)
+user_provided = vcap_services.fetch("user-provided")
+prometheus_access = user_provided.detect { |e| e["name"] == "prometheus-targets-access" }
+
+raise "The prometheus-targets-access user-provided service has not been set up." unless prometheus_access
+
+prometheus_access.fetch("credentials").each { |k, v| print "#{k}=#{v} " }
