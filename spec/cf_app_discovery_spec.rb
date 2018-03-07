@@ -40,10 +40,10 @@ RSpec.describe CfAppDiscovery do
       environment: 'local',
     )
     names = filenames("#{active_targets_path}/*.json")
-    expect(names).to eq(%w(app-2-guid.json app-3-guid.json))
+    expect(names).to contain_exactly('app-2-guid.json', 'app-3-guid.json')
 
     names = filenames("#{inactive_targets_path}/*.json")
-    expect(names).to eq(%w(app-1-guid.json app-2-guid.json))
+    expect(names).to contain_exactly('app-1-guid.json', 'app-2-guid.json')
   end
 
   def filenames(path)
