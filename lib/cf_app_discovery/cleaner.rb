@@ -7,7 +7,7 @@ class CfAppDiscovery
     end
 
     def remove_old_target(target_guid)
-      filestore_manager.remove("/active/#{target_guid}.json", "/inactive/#{target_guid}.json")
+      filestore_manager.remove("active/#{target_guid}.json", "inactive/#{target_guid}.json")
     end
 
     def move_stopped_targets(stopped_targets)
