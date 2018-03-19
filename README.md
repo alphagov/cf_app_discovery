@@ -1,44 +1,20 @@
 ## cf_app_discovery
 
-Discover apps using the Cloud Foundry API and write a Prometheus targets config.
+A Cloud Foundry
+[Service Broker](https://docs.cloudfoundry.org/services/overview.html)
+that can be bound to apps on the
+[GOV.UK PaaS](https://docs.cloud.service.gov.uk) so they can be discovered by
+Prometheus.
 
 ## Overview
 
-Tool for application discovery in the [PaaS](https://docs.cloud.service.gov.uk) platform to allow dynamic creation of target files for Prometheus metrics re-collection.
-
-## Detail
-
-The tools use the PaaS Cloud Foundry API to discover running apps in the platform.
-
-Once the list of available apps has been obtained, it filters out "STOPPED" applications or applications not configured to work with Prometheus.
-
-With the final list of running applications configured fro Prometheus, the corresponding target files are created to allow Prometheus to load the new targets.
-
-#### When an application is configured for Prometheus?
-
-To configure a PaaS application to be discovered need to have defined an environment variable with the scrapping path:
-```
-PROMETHEUS_METRICS_PATH: /prometheus
-```
-
-#### Diagram
-
-![alt Diagram of Cloud Foundry service discovery for Prometheus](./diagrams/discovery_app_functionality.jpg "Diagram of Cloud Foundry service discovery for Prometheus")
-
-## Usage
-
-```bash
-$ bundle --without development
-
-$ export API_ENDPOINT=<api_endpoint>
-$ export UAA_ENDPOINT=<uaa_endpoint>
-$ export UAA_USERNAME=<username>
-$ export UAA_PASSWORD=<password>
-$ export PAAS_DOMAIN=<paas_domain>
-$ export TARGETS_PATH=<targets_folder>
-
-$ ./cf_app_discovery
-```
+This application can be run as a Service Broker. It serves an API that is called
+by the platform when apps are registered/scaled/terminated on the PaaS. This
+application builds a Prometheus targets file for active targets and writes them
+to an S3 bucket. The contents of this bucket can then be synchronized to a
+Prometheus server
+[via cron](https://github.com/alphagov/prometheus-aws-configuration/blob/master/terraform/modules/prometheus/cloud.conf#L105-L109),
+or some other means.
 
 ## Forward Proxy
 
@@ -71,9 +47,6 @@ This application sets a custom user agent string of
 
 ## Deployment
 
-There's [a script in `deploy/`](./deploy/cf_app_discovery)
-that shows how we run the application. We fetch
-the secrets from
-[AWS Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-paramstore.html)
-and run the application every few minutes with Cron. Our terraform scripts
-can be found [here](https://github.com/alphagov/prometheus-aws-configuration).
+The application has a `manifest.yml` and can be deployed to the PaaS. You
+shouldn't need to do this yourself. Instead, raise a ticket with GDS Reliability
+Engineering to add the existing Service Broker to your Space.
