@@ -67,6 +67,7 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
           __param_cf_app_guid: "app-1-guid",
           __param_cf_app_instance_index: "0",
           cf_app_instance: "0",
+          job: "app-1",
         },
       },
       {
@@ -76,6 +77,7 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
           __param_cf_app_guid: "app-1-guid",
           __param_cf_app_instance_index: "1",
           cf_app_instance: "1",
+          job: "app-1",
         },
       },
     ]
@@ -88,6 +90,7 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
           __param_cf_app_guid: "app-2-guid",
           __param_cf_app_instance_index: "0",
           cf_app_instance: "0",
+          job: "app-2",
         },
       },
     ]
