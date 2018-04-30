@@ -14,13 +14,13 @@ class CfAppDiscovery
       render(
         services: [
           {
-            id: "fd609087-70e0-4c8c-8916-b6885ac156a3",
-            name: "gds-prometheus",
+            id: "f8f97205-c322-4bdf-8d95-6ec481ff46dd",
+            name: "gds-prometheus-live",
             description: "GDS internal Prometheus monitoring alpha https://reliability-engineering.cloudapps.digital/#metrics",
             bindable: true,
             plans: [
               {
-                id: "b5998c91-d379-4df7-b329-11450f8459f1",
+                id: "fdca14d7-8431-4158-8164-8702e9dde165",
                 name: "prometheus",
                 description: "Monitor your apps using Prometheus",
                 free: true,

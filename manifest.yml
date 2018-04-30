@@ -4,7 +4,7 @@ defaults: &defaults
   memory: 512MB
   instances: 1
   services:
-    - dev-access
+    - live-access
   env:
     AWS_REGION: eu-west-1
     API_ENDPOINT: https://api.cloud.service.gov.uk
@@ -14,10 +14,10 @@ defaults: &defaults
     ENVIRONMENT: paas
 
 applications:
-  - name: dev-broker
+  - name: prometheus-service-broker-live
     <<: *defaults
     command: export $(./load_access) && bundle exec rackup -o 0.0.0.0 -p $PORT
-  - name: dev-updater
+  - name: prometheus-target-updater-live
     <<: *defaults
     command: export $(./load_access) && bundle exec clockwork bin/clock.rb
     health-check-type: process
