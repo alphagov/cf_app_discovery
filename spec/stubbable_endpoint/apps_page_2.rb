@@ -37,6 +37,7 @@ module StubbableEndpoint
                 PROMETHEUS_METRICS_PATH: "/prometheus"
               },
             },
+            route: "test-3a"
           },
         ]
       }

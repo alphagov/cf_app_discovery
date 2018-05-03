@@ -8,6 +8,10 @@ RSpec.describe CfAppDiscovery::Client do
 
   before { stub_endpoint(first_page) }
   before { stub_endpoint(second_page) }
+  before { stub_endpoint(StubbableEndpoint::Routes) }
+  before { stub_endpoint(StubbableEndpoint::Routes0) }
+  before { stub_endpoint(StubbableEndpoint::Routes00) }
+
 
   subject do
     described_class.new(
@@ -20,7 +24,7 @@ RSpec.describe CfAppDiscovery::Client do
     all_apps = first_page.response_body.fetch(:resources)
     all_apps += second_page.response_body.fetch(:resources)
 
-    expect(Net::HTTP).to receive(:start).twice.and_call_original
+    expect(Net::HTTP).to receive(:start).exactly(5).times.and_call_original
     expect(subject.apps).to eq(all_apps)
   end
 end

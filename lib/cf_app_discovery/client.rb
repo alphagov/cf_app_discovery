@@ -11,13 +11,21 @@ class CfAppDiscovery
       paginator = Paginator.new do |next_url|
         get(next_url || "/v2/apps")
       end
-      paginator.flat_map do |page|
+
+      res = paginator.flat_map do |page|
         page.fetch(:resources)
       end
+
+      res.each do |resource|
+        resource[:route] = routes(resource.fetch(:metadata).fetch(:guid)).fetch(:resources)[0].fetch(:entity).fetch(:host)
+      end
+      res
     end
 
     def app(app_guid)
-      get("/v2/apps/#{app_guid}")
+      res = get("/v2/apps/#{app_guid}")
+      res[:route] = routes(res.fetch(:metadata).fetch(:guid)).fetch(:resources)[0].fetch(:entity).fetch(:host)
+      res
     end
 
     def service_binding(service_binding_id)

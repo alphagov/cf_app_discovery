@@ -1,10 +1,9 @@
 class CfAppDiscovery
   class Parser
-    attr_accessor :api_response, :route
+    attr_accessor :api_response
 
-    def initialize(api_response, route_data=[])
+    def initialize(api_response)
       self.api_response = api_response
-      self.route = route
     end
 
     def targets
@@ -15,8 +14,8 @@ class CfAppDiscovery
         require "json"
         STDERR.puts "targets###"
         STDERR.puts JSON.dump resource
-        STDERR.puts "route###"
-        STDERR.puts JSON.dump route
+
+        route = resource.fetch(:route)
 
         Target.new(
           guid: metadata.fetch(:guid),
@@ -24,19 +23,21 @@ class CfAppDiscovery
           instances: entity.fetch(:instances),
           state: entity.fetch(:state),
           env: entity.fetch(:environment_json),
+          route: route
         )
       end
     end
 
     class Target
-      attr_accessor :guid, :name, :instances, :state, :env
+      attr_accessor :guid, :name, :instances, :state, :env, :route
 
-      def initialize(guid:, name:, instances:, state:, env:)
+      def initialize(guid:, name:, instances:, state:, env:, route:)
         self.guid = guid
         self.name = name
         self.instances = instances
         self.state = state
         self.env = env
+        self.route = route
       end
 
       def prometheus_path

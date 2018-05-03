@@ -13,6 +13,7 @@ RSpec.describe CfAppDiscovery::Parser do
             PROMETHEUS_METRICS_PATH: "/prometheus"
           },
         },
+        route: "test-1a",
       },
       {
         metadata: { guid: "app-2-guid" },
@@ -22,6 +23,7 @@ RSpec.describe CfAppDiscovery::Parser do
           state: "STOPPED",
           environment_json: {},
         },
+        route: "test-2a",
       },
     ]
   end

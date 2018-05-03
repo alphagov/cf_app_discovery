@@ -1,5 +1,5 @@
 module StubbableEndpoint
-    module Routes
+    module Routes0
     module_function
 
       def http_method
@@ -7,7 +7,7 @@ module StubbableEndpoint
       end
 
       def url
-        "https://api.example.com:80/v2/apps/app-1-guid/routes"
+        "https://api.example.com:80/v2/apps/app-2-guid/routes"
       end
 
       def request_headers
@@ -30,12 +30,12 @@ module StubbableEndpoint
             "resources": [
                 {
                     "entity": {
-                        "host": "test-1a",
+                        "host": "test-2a",
                     }
                 },
                 {
                     "entity": {
-                        "host": "test-1b",
+                        "host": "test-2b",
                     }
                 }
             ]

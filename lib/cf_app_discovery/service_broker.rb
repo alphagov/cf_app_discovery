@@ -42,13 +42,7 @@ class CfAppDiscovery
       body_json = JSON.parse(cf_request, symbolize_names: true)
       app_guid = body_json.fetch(:bind_resource).fetch(:app_guid)
       app_data = client.app(app_guid)
-      routes_data = client.routes(app_guid)
-      require "json"
-
-      STDERR.puts "PUT###"
-      STDERR.puts JSON.dump routes_data
-
-      parser = Parser.new([app_data], routes_data.fetch(:resources)[0])
+      parser = Parser.new([app_data])
       template = TargetConfiguration.new(
         filestore_manager: filestore_manager,
         paas_domain: settings.paas_domain

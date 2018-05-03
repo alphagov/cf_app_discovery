@@ -9,6 +9,8 @@ require "stubbable_endpoint/app"
 require "stubbable_endpoint/binding"
 require "stubbable_endpoint/apps_page_2"
 require "stubbable_endpoint/routes"
+require "stubbable_endpoint/routes0"
+require "stubbable_endpoint/routes00"
 require "local_manager"
 
 require 'rack/test'
