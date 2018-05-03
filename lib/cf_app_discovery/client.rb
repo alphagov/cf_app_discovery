@@ -24,7 +24,11 @@ class CfAppDiscovery
       get("/v2/service_bindings/#{service_binding_id}")
     end
 
-  private
+    def routes(service_binding_id)
+      get("/v2/apps/#{service_binding_id}/routes")
+    end
+
+    private
 
     def get(path)
       uri = URI.parse("#{api_endpoint}#{path}")

@@ -14,6 +14,7 @@ RSpec.describe CfAppDiscovery::ServiceBroker do
     stub_endpoint(StubbableEndpoint::Auth)
     stub_endpoint(StubbableEndpoint::App)
     stub_endpoint(StubbableEndpoint::Binding)
+    stub_endpoint(StubbableEndpoint::Routes)
   end
 
   def app
@@ -50,6 +51,8 @@ RSpec.describe CfAppDiscovery::ServiceBroker do
     end
 
     it 'return a 200 response' do
+      binding.pry
+
       expect(last_response.status).to eq(200)
     end
   end

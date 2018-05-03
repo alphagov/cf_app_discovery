@@ -1,15 +1,22 @@
 class CfAppDiscovery
   class Parser
-    attr_accessor :api_response
+    attr_accessor :api_response, :route
 
-    def initialize(api_response)
+    def initialize(api_response, route_data=[])
       self.api_response = api_response
+      self.route = route
     end
 
     def targets
       api_response.map do |resource|
         metadata = resource.fetch(:metadata)
         entity = resource.fetch(:entity)
+
+        require "json"
+        STDERR.puts "targets###"
+        STDERR.puts JSON.dump resource
+        STDERR.puts "route###"
+        STDERR.puts JSON.dump route
 
         Target.new(
           guid: metadata.fetch(:guid),
