@@ -10,4 +10,4 @@ task :update_targets do
   system("./bin/cf_app_discovery")
 end
 
-task default: [:spec, :lint]
+task default: %i[spec lint]
