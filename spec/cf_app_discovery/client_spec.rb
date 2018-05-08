@@ -11,6 +11,7 @@ RSpec.describe CfAppDiscovery::Client do
   before { stub_endpoint(StubbableEndpoint::Routes_1) }
   before { stub_endpoint(StubbableEndpoint::Routes_2) }
   before { stub_endpoint(StubbableEndpoint::Routes_3) }
+  before { stub_endpoint(StubbableEndpoint::Routes_4) }
 
 
   subject do
@@ -23,8 +24,8 @@ RSpec.describe CfAppDiscovery::Client do
   it "returns the apps data from the api" do
     all_apps = first_page.response_body.fetch(:resources)
     all_apps += second_page.response_body.fetch(:resources)
-
-    expect(Net::HTTP).to receive(:start).exactly(5).times.and_call_original
+    
+    expect(Net::HTTP).to receive(:start).exactly(7).times.and_call_original
     expect(subject.apps).to eq(all_apps)
   end
 end

@@ -52,6 +52,30 @@ module StubbableEndpoint
             },
             route: "route-2a"
           },
+          {
+            metadata: { guid: "app-3-guid" },
+            entity: {
+              name: "app-3",
+              instances: 3,
+              state: "STARTED",
+              environment_json: {
+                PROMETHEUS_METRICS_PATH: "/metrics"
+              },
+            },
+            route: "route-3a"
+          },
+          {
+            metadata: { guid: "app-4-guid" },
+            entity: {
+              name: "app-4",
+              instances: 3,
+              state: "STARTED",
+              environment_json: {
+                PROMETHEUS_METRICS_PATH: "/metrics"
+              },
+            },
+            route: "app-4"
+          },
         ]
       }
     end

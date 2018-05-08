@@ -19,6 +19,7 @@ class CfAppDiscovery
       resources.each do |resource|
         resource[:route] = get_first_route(resource)
       end
+
       resources
     end
 
@@ -40,7 +41,8 @@ class CfAppDiscovery
 
     def get_first_route(resource)
       routes_data = routes(resource.dig(:metadata, :guid)).fetch(:resources)
-      if routes_data.empty?
+
+      if routes_data.first.nil? || routes_data.first.dig(:entity, :host).nil?
         STDERR.puts "no routes"
         resource.dig :entity, :name
       else
