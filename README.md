@@ -47,6 +47,65 @@ This application sets a custom user agent string of
 
 ## Deployment
 
-The application has a `manifest.yml` and can be deployed to the PaaS. You
-shouldn't need to do this yourself. Instead, raise a ticket with GDS Reliability
-Engineering to add the existing Service Broker to your Space.
+### Pre-requisites
+
+In order to deploy this on PaaS you will need to set up a [user provided service][] containing the following block of credentials: 
+
+```shell
+cf cups prometheus-targets-access -p '{
+  "AWS_ACCESS_KEY_ID":"<AWS ACCESS KEY ID>",
+  "AWS_SECRET_ACCESS_KEY":"<AWS SECRET>",
+  "UAA_PASSWORD":"<UAA PASSWORD>",
+  "UAA_USERNAME":"<UAA USERNAME>"
+}'
+```
+
+This block of credentials can be found in the team `reng-pass` credentials store.
+
+### Deploying the service broker
+
+The application has a `manifest.yml` which has cloud foundry config and can be deployed to the PaaS by running `cf push`, this should create a `prometheus-service-broker` and a `prometheus-target-updater` app.
+
+### Developing the service broker
+
+You will probably also want to set up a different [user provided service](#pre-requisites) so that your changes do not affect the live settings. Information to get the staging settings can be found in the `reng-pass` credentials store, if you change the name of the service from the default, make sure that the name is updated in the `manifest.yml` and `load_access`.
+
+If you want to make changes to the service broker to you will probably want to deploy it within a test environment, to do this you will need to change the service id, service name and plan id in `service_broker.rb` and the service broker and target updater names in `manifest.yml`
+
+The s3 bucket name should be updated `gds-prometheus-targets-staging` in `filestore_manager_factory.rb` so that the live s3 bucket is not affected during testing.
+
+To generate a new guid, run `uuidgen | awk '{print tolower($0)}'`
+
+[Deploy the service broker](#deploying-the-service-broker)
+
+Then you will need to create the service-broker which will be limited to the space that the app was deployed to:
+
+`cf csb <service broker name> <username> <password> https://<route to service broker>.cloudapps.digital --space-scoped`
+
+Once testing is complete you must use the existing service and plan ids, service names and routes and then deploy the service broker with your code updates. 
+
+Remember to remove any test apps and services once testing is complete.
+
+### Binding apps
+
+In order to bind an app to the service broker you will to give gds-prometheus permissions to access your space
+
+`cf set-space-role prometheus-for-paas@digital.cabinet-office.gov.uk gds-tech-ops <your space name> SpaceAuditor`
+
+Show that the service is available in the cloud foundry marketplace:
+
+`cf marketplace`
+
+Next step is to create a local instance of the service:
+
+`cf create-service <service name in marketplace> prometheus <local service name>`
+
+Then bind the your app to the service:
+
+`cf bind-service <app name> <local service name>`
+
+To see the apps bound to a service:
+
+`cf services`
+
+[user provided service]: https://docs.cloudfoundry.org/devguide/services/user-provided.html#credentials
