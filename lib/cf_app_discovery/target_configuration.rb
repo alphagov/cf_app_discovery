@@ -61,7 +61,6 @@ class CfAppDiscovery
           }
         }
       end
-    #  STDERR.puts JSON.pretty_generate(data)
       JSON.pretty_generate(data)
     end
 

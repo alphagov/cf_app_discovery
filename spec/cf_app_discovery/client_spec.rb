@@ -8,9 +8,9 @@ RSpec.describe CfAppDiscovery::Client do
 
   before { stub_endpoint(first_page) }
   before { stub_endpoint(second_page) }
-  before { stub_endpoint(StubbableEndpoint::Routes) }
-  before { stub_endpoint(StubbableEndpoint::Routes0) }
-  before { stub_endpoint(StubbableEndpoint::Routes00) }
+  before { stub_endpoint(StubbableEndpoint::Routes_1) }
+  before { stub_endpoint(StubbableEndpoint::Routes_2) }
+  before { stub_endpoint(StubbableEndpoint::Routes_3) }
 
 
   subject do

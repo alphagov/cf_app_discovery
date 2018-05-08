@@ -11,19 +11,13 @@ class CfAppDiscovery
         metadata = resource.fetch(:metadata)
         entity = resource.fetch(:entity)
 
-        require "json"
-        STDERR.puts "targets###"
-        STDERR.puts JSON.dump resource
-
-        route = resource.fetch(:route)
-
         Target.new(
           guid: metadata.fetch(:guid),
           name: entity.fetch(:name),
           instances: entity.fetch(:instances),
           state: entity.fetch(:state),
           env: entity.fetch(:environment_json),
-          route: route
+          route: resource.fetch(:route)
         )
       end
     end

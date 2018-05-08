@@ -14,7 +14,7 @@ RSpec.describe CfAppDiscovery::ServiceBroker do
     stub_endpoint(StubbableEndpoint::Auth)
     stub_endpoint(StubbableEndpoint::App)
     stub_endpoint(StubbableEndpoint::Binding)
-    stub_endpoint(StubbableEndpoint::Routes)
+    stub_endpoint(StubbableEndpoint::Routes_1)
   end
 
   def app

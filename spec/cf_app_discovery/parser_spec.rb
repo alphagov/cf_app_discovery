@@ -13,7 +13,7 @@ RSpec.describe CfAppDiscovery::Parser do
             PROMETHEUS_METRICS_PATH: "/prometheus"
           },
         },
-        route: "test-1a",
+        route: "route-1",
       },
       {
         metadata: { guid: "app-2-guid" },
@@ -23,7 +23,7 @@ RSpec.describe CfAppDiscovery::Parser do
           state: "STOPPED",
           environment_json: {},
         },
-        route: "test-2a",
+        route: "route-2",
       },
     ]
   end
@@ -39,11 +39,13 @@ RSpec.describe CfAppDiscovery::Parser do
     expect(first.instances).to eq(2)
     expect(first.state).to eq("STARTED")
     expect(first.env).to eq(PROMETHEUS_METRICS_PATH: "/prometheus")
+    expect(first.route).to eq("route-1")
 
     expect(second.guid).to eq("app-2-guid")
     expect(second.name).to eq("app-2")
     expect(second.instances).to eq(3)
     expect(second.state).to eq("STOPPED")
     expect(second.env).to eq({})
+    expect(second.route).to eq("route-2")
   end
 end

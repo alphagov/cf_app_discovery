@@ -12,20 +12,20 @@ class CfAppDiscovery
         get(next_url || "/v2/apps")
       end
 
-      res = paginator.flat_map do |page|
+      resources = paginator.flat_map do |page|
         page.fetch(:resources)
       end
 
-      res.each do |resource|
-        resource[:route] = routes(resource.fetch(:metadata).fetch(:guid)).fetch(:resources)[0].fetch(:entity).fetch(:host)
+      resources.each do |resource|
+        resource[:route] = get_first_route(resource)
       end
-      res
+      resources
     end
 
     def app(app_guid)
-      res = get("/v2/apps/#{app_guid}")
-      res[:route] = routes(res.fetch(:metadata).fetch(:guid)).fetch(:resources)[0].fetch(:entity).fetch(:host)
-      res
+      resource = get("/v2/apps/#{app_guid}")
+      resource[:route] = get_first_route(resource)
+      resource
     end
 
     def service_binding(service_binding_id)
@@ -37,6 +37,17 @@ class CfAppDiscovery
     end
 
     private
+
+    def get_first_route(resource)
+      routes_data = routes((resource.dig :metadata, :guid)).fetch(:resources)
+      if routes_data.first.nil?
+        STDERR.puts "no routes"
+        resource.dig :entity, :name
+      else
+        STDERR.puts "has routes"
+        routes_data.first.dig :entity, :host
+      end
+    end
 
     def get(path)
       uri = URI.parse("#{api_endpoint}#{path}")

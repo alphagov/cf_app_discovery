@@ -34,6 +34,7 @@ module StubbableEndpoint
           state: "STARTED",
           environment_json: {},
         },
+        route: "route-1"
       }
     end
   end

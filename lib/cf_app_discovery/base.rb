@@ -1,6 +1,5 @@
 class CfAppDiscovery
   def self.run(api_endpoint:, uaa_endpoint:, uaa_username:, uaa_password:, paas_domain:, targets_path:, environment:)
-    STDERR.puts "running this"
     filestore_manager = FilestoreManagerFactory.filestore_manager_builder(environment, targets_path)
 
     target_configuration = TargetConfiguration.new(
@@ -18,9 +17,7 @@ class CfAppDiscovery
       api_endpoint: api_endpoint,
       api_token: auth.access_token,
     )
-    STDERR.puts "Making new Parser!!!!"
     parser = Parser.new(client.apps)
-    STDERR.puts "Made new Parser!!!!"
     targets = parser.targets
 
     filter = Filter.new
@@ -31,6 +28,9 @@ class CfAppDiscovery
     )
     running_targets = filter.filter_stopped(configured_targets)
     stopped_targets = configured_targets - running_targets
+
+    STDERR.puts "stopped targets###"
+    STDERR.puts stopped_targets
 
     target_configuration.write_active_targets(running_targets)
 

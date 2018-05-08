@@ -38,7 +38,7 @@ module StubbableEndpoint
               state: "STOPPED",
               environment_json: {},
             },
-            route: "test-1a"
+            route: "route-1a"
           },
           {
             metadata: { guid: "app-2-guid" },
@@ -50,7 +50,7 @@ module StubbableEndpoint
                 PROMETHEUS_METRICS_PATH: "/metrics"
               },
             },
-            route: "test-2a"
+            route: "route-2a"
           },
         ]
       }
