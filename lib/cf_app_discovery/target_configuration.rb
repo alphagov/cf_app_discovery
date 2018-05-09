@@ -19,6 +19,10 @@ class CfAppDiscovery
       running_targets + stopped_targets
     end
 
+    def update_targets(targets)
+      update_targets_in_path(targets, "active")
+    end
+
   private
 
     def write_targets(targets, folder)
@@ -40,6 +44,24 @@ class CfAppDiscovery
         app_guid[1] unless app_guid.nil?
       end
       app_guids.compact
+    end
+
+    def update_targets_in_path(targets, path)
+      app_guid_filename = /.*\/(.*)\.json/
+      filestore_manager.filenames(path).map do |filename|
+        app_guid = app_guid_filename.match(filename)
+        if not app_guid.nil?
+          require "json"
+          STDERR.puts "targets###"
+          target = (targets.select { |target| target.guid == app_guid[1] }).first
+          STDERR.puts target.route
+          contents = read("#{path}/#{app_guid[1]}.json")
+          STDERR.puts "contents###"
+          STDERR.puts contents
+          json = JSON.parse(contents)
+          STDERR.puts json
+        end
+      end
     end
 
     def write_if_changed(target, folder)
@@ -70,6 +92,10 @@ class CfAppDiscovery
 
     def write(content, path)
       filestore_manager.write(content, path)
+    end
+
+    def read(path)
+      filestore_manager.read(path)
     end
 
     def identical?(content, path)

@@ -28,6 +28,31 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
     ]
   end
 
+  let(:updated_targets) do
+    [
+      CfAppDiscovery::Parser::Target.new(
+        guid: "app-1-guid",
+        name: "app-1",
+        instances: 2,
+        state: "STARTED",
+        env: {
+          PROMETHEUS_METRICS_PATH: "/metrics"
+        },
+        route: "route-1-changed"
+      ),
+      CfAppDiscovery::Parser::Target.new(
+        guid: "app-2-guid",
+        name: "app-2",
+        instances: 1,
+        state: "STARTED",
+        env: {
+          PROMETHEUS_METRICS_PATH: "/prometheus"
+        },
+        route: "route-2"
+      ),
+    ]
+  end
+
   subject do
     described_class.new(
       filestore_manager: LocalManager.new(targets_path: targets_path),
@@ -122,5 +147,10 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
       configured_apps = subject.configured_apps
       expect(configured_apps.to_set).to eq(Set.new(["app-1-guid", "app-2-guid"]))
     end
+
+    it "updates the routes in a matching target file" do
+      subject.write_active_targets(targets)
+      subject.update_targets(updated_targets)
+    end  
   end
 end

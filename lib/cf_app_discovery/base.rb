@@ -26,6 +26,8 @@ class CfAppDiscovery
       targets,
       target_configuration.configured_apps
     )
+    target_configuration.update_targets(targets)
+
     running_targets = filter.filter_stopped(configured_targets)
     stopped_targets = configured_targets - running_targets
 
