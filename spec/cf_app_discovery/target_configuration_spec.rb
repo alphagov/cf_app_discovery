@@ -147,10 +147,96 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
       configured_apps = subject.configured_apps
       expect(configured_apps.to_set).to eq(Set.new(["app-1-guid", "app-2-guid"]))
     end
-
-    it "updates the routes in a matching target file" do
-      subject.write_active_targets(targets)
-      subject.update_targets(updated_targets)
-    end  
   end
+
+  it "updates the file if content has changed" do
+      subject.write_active_targets(targets)
+      subject.write_active_targets(updated_targets)  
+      listing = Dir["#{targets_path}/active/*.json"]
+      contents = listing.map { |path| File.read(path) }
+  
+      first = JSON.parse(contents.first, symbolize_names: true)
+      last = JSON.parse(contents.last, symbolize_names: true)
+      expect(first).to eq [
+        {
+          targets: ["route-1-changed.example.com"],
+          labels: {
+            __metrics_path__: "/metrics",
+            __param_cf_app_guid: "app-1-guid",
+            __param_cf_app_instance_index: "0",
+            cf_app_instance: "0",
+            job: "app-1",
+          },
+        },
+        {
+          targets: ["route-1-changed.example.com"],
+          labels: {
+            __metrics_path__: "/metrics",
+            __param_cf_app_guid: "app-1-guid",
+            __param_cf_app_instance_index: "1",
+            cf_app_instance: "1",
+            job: "app-1",
+          },
+        },
+      ]
+  
+      expect(last).to eq [
+        {
+          targets: ["route-2.example.com"],
+          labels: {
+            __metrics_path__: "/prometheus",
+            __param_cf_app_guid: "app-2-guid",
+            __param_cf_app_instance_index: "0",
+            cf_app_instance: "0",
+            job: "app-2",
+          },
+        },
+      ]    
+  end
+
+  # it "updates the routes in a matching target file" do
+  #   subject.write_active_targets(targets)
+  #   subject.update_targets(updated_targets)
+
+  #   listing = Dir["#{targets_path}/active/*.json"]
+  #   contents = listing.map { |path| File.read(path) }
+
+  #   first = JSON.parse(contents.first, symbolize_names: true)
+  #   last = JSON.parse(contents.last, symbolize_names: true)
+  #   expect(first).to eq [
+  #     {
+  #       targets: ["route-1-changed.example.com"],
+  #       labels: {
+  #         __metrics_path__: "/metrics",
+  #         __param_cf_app_guid: "app-1-guid",
+  #         __param_cf_app_instance_index: "0",
+  #         cf_app_instance: "0",
+  #         job: "app-1",
+  #       },
+  #     },
+  #     {
+  #       targets: ["route-1-changed.example.com"],
+  #       labels: {
+  #         __metrics_path__: "/metrics",
+  #         __param_cf_app_guid: "app-1-guid",
+  #         __param_cf_app_instance_index: "1",
+  #         cf_app_instance: "1",
+  #         job: "app-1",
+  #       },
+  #     },
+  #   ]
+
+  #   expect(last).to eq [
+  #     {
+  #       targets: ["route-2.example.com"],
+  #       labels: {
+  #         __metrics_path__: "/prometheus",
+  #         __param_cf_app_guid: "app-2-guid",
+  #         __param_cf_app_instance_index: "0",
+  #         cf_app_instance: "0",
+  #         job: "app-2",
+  #       },
+  #     },
+  #   ]  
+  # end  
 end
