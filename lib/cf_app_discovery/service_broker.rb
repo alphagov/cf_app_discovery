@@ -54,9 +54,13 @@ class CfAppDiscovery
     delete "/v2/service_instances/:instance_id/service_bindings/:id" do |_, binding_id|
       content_type :json
       service_binding = client.service_binding(binding_id)
-      app_guid = service_binding.fetch(:entity).fetch(:app_guid)
-      cleaner = Cleaner.new(filestore_manager: filestore_manager)
-      cleaner.remove_old_target(app_guid)
+      if service_binding.has_key?(:entity) == false
+        STDERR.puts "service binding: #{service_binding}"
+      else
+        app_guid = service_binding.fetch(:entity).fetch(:app_guid)
+        cleaner = Cleaner.new(filestore_manager: filestore_manager)
+        cleaner.remove_old_target(app_guid)
+      end
       render({})
     end
 
