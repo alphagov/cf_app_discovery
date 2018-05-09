@@ -54,8 +54,8 @@ class CfAppDiscovery
     delete "/v2/service_instances/:instance_id/service_bindings/:id" do |_, binding_id|
       content_type :json
       service_binding = client.service_binding(binding_id)
-      STDERR.puts "delete###"
       if service_binding.has_key?(:entity) == false
+        STDERR.puts "service binding###"
         STDERR.puts service_binding
       else
         app_guid = service_binding.fetch(:entity).fetch(:app_guid)
