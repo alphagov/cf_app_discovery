@@ -42,11 +42,12 @@ class CfAppDiscovery
     def get_first_route(resource)
       routes_data = routes(resource.dig(:metadata, :guid)).fetch(:resources)
 
-      if routes_data.first.nil? || routes_data.first.dig(:entity, :host).nil?
-        STDERR.puts "no routes"
+      if routes_data.first.nil?
         resource.dig :entity, :name
+      # elsif routes_data.first.dig(:entity, :host).nil?
+      #   STDERR.puts "no host"
+      #   resource.dig :entity, :name
       else
-        STDERR.puts "has routes"
         routes_data.first.dig :entity, :host
       end
     end
