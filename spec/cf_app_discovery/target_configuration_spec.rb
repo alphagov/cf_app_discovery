@@ -13,6 +13,7 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
         env: {
           PROMETHEUS_METRICS_PATH: "/metrics"
         },
+        route: "route-1"
       ),
       CfAppDiscovery::Parser::Target.new(
         guid: "app-2-guid",
@@ -22,6 +23,7 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
         env: {
           PROMETHEUS_METRICS_PATH: "/prometheus"
         },
+        route: "route-2"
       ),
     ]
   end
@@ -61,7 +63,7 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
     last = JSON.parse(contents.last, symbolize_names: true)
     expect(first).to eq [
       {
-        targets: ["app-1.example.com"],
+        targets: ["route-1.example.com"],
         labels: {
           __metrics_path__: "/metrics",
           __param_cf_app_guid: "app-1-guid",
@@ -71,7 +73,7 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
         },
       },
       {
-        targets: ["app-1.example.com"],
+        targets: ["route-1.example.com"],
         labels: {
           __metrics_path__: "/metrics",
           __param_cf_app_guid: "app-1-guid",
@@ -84,7 +86,7 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
 
     expect(last).to eq [
       {
-        targets: ["app-2.example.com"],
+        targets: ["route-2.example.com"],
         labels: {
           __metrics_path__: "/prometheus",
           __param_cf_app_guid: "app-2-guid",

@@ -49,7 +49,7 @@ This application sets a custom user agent string of
 
 ### Pre-requisites
 
-In order to deploy this on PaaS you will need to set up a [user provided service][] containing the following block of credentials: 
+In order to deploy this on PaaS you will need to set up a [user provided service][] containing the following block of credentials:
 
 ```shell
 cf cups prometheus-targets-access -p '{
@@ -82,7 +82,7 @@ Then you will need to create the service-broker which will be limited to the spa
 
 `cf csb <service broker name> <username> <password> https://<route to service broker>.cloudapps.digital --space-scoped`
 
-Once testing is complete you must use the existing service and plan ids, service names and routes and then deploy the service broker with your code updates. 
+Once testing is complete you must use the existing service and plan ids, service names and routes and then deploy the service broker with your code updates.
 
 Remember to remove any test apps and services once testing is complete.
 
@@ -109,3 +109,7 @@ To see the apps bound to a service:
 `cf services`
 
 [user provided service]: https://docs.cloudfoundry.org/devguide/services/user-provided.html#credentials
+
+### Routes
+
+If an app is bound that doesn't have a route or if an app that's already bound has all its routes removed prometheus will not be able to scrape it.  As a result, the `up` metric for the app will show the app to be unavailable.

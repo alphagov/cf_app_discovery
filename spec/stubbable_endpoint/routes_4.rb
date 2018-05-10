@@ -1,5 +1,5 @@
 module StubbableEndpoint
-  module App
+  module Routes4
   module_function
 
     def http_method
@@ -7,7 +7,7 @@ module StubbableEndpoint
     end
 
     def url
-      "https://api.example.com:80/v2/apps/app-1-guid"
+      "https://api.example.com:80/v2/apps/app-4-guid/routes"
     end
 
     def request_headers
@@ -27,14 +27,7 @@ module StubbableEndpoint
 
     def response_body
       {
-        metadata: { guid: "app-1-guid" },
-        entity: {
-          name: "app-1",
-          instances: 2,
-          state: "STARTED",
-          environment_json: {},
-        },
-        route: "route-1"
+        resources: [],
       }
     end
   end

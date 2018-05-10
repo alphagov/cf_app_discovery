@@ -17,19 +17,21 @@ class CfAppDiscovery
           instances: entity.fetch(:instances),
           state: entity.fetch(:state),
           env: entity.fetch(:environment_json),
+          route: resource.fetch(:route)
         )
       end
     end
 
     class Target
-      attr_accessor :guid, :name, :instances, :state, :env
+      attr_accessor :guid, :name, :instances, :state, :env, :route
 
-      def initialize(guid:, name:, instances:, state:, env:)
+      def initialize(guid:, name:, instances:, state:, env:, route:)
         self.guid = guid
         self.name = name
         self.instances = instances
         self.state = state
         self.env = env
+        self.route = route
       end
 
       def prometheus_path
