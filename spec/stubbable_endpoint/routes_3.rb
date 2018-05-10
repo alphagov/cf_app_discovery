@@ -27,13 +27,14 @@ module StubbableEndpoint
 
       def response_body
         {
-            resources: [
-                {
-                    entity: {
-                        host: "route-3a",
-                    }
-                },
-            ]
+          resources: [
+            {
+              entity: {
+                  domain_url: "/v2/shared_domains/custom-domain-guid",
+                  host: "",
+              }
+            },
+          ]
         }
       end
   end

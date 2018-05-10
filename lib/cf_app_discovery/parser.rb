@@ -17,7 +17,7 @@ class CfAppDiscovery
           instances: entity.fetch(:instances),
           state: entity.fetch(:state),
           env: entity.fetch(:environment_json),
-          route: resource.fetch(:route)
+          route: resource.fetch(:route),
         )
       end
     end

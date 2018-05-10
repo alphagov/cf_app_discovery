@@ -14,6 +14,7 @@ RSpec.describe CfAppDiscovery::Parser do
           },
         },
         route: "route-1",
+        domain: "example.com"
       },
       {
         metadata: { guid: "app-2-guid" },
@@ -24,6 +25,7 @@ RSpec.describe CfAppDiscovery::Parser do
           environment_json: {},
         },
         route: "route-2",
+        domain: "example.com"
       },
     ]
   end

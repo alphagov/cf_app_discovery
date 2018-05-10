@@ -13,7 +13,7 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
         env: {
           PROMETHEUS_METRICS_PATH: "/metrics"
         },
-        route: "route-1"
+        route: "route-1.example.com",
       ),
       CfAppDiscovery::Parser::Target.new(
         guid: "app-2-guid",
@@ -23,7 +23,7 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
         env: {
           PROMETHEUS_METRICS_PATH: "/prometheus"
         },
-        route: "route-2"
+        route: "route-2.custom.com",
       ),
     ]
   end
@@ -31,7 +31,6 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
   subject do
     described_class.new(
       filestore_manager: LocalManager.new(targets_path: targets_path),
-      paas_domain: "example.com",
     )
   end
 
@@ -86,7 +85,7 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
 
     expect(last).to eq [
       {
-        targets: ["route-2.example.com"],
+        targets: ["route-2.custom.com"],
         labels: {
           __metrics_path__: "/prometheus",
           __param_cf_app_guid: "app-2-guid",

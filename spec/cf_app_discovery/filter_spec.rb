@@ -9,7 +9,7 @@ RSpec.describe CfAppDiscovery::Filter do
         instances: 2,
         state: "STARTED",
         env: {},
-        route: "route-1",
+        route: "route-1.example.com",
       ),
       CfAppDiscovery::Parser::Target.new(
         guid: "app-2-guid",
@@ -19,7 +19,7 @@ RSpec.describe CfAppDiscovery::Filter do
         env: {
           PROMETHEUS_METRICS_PATH: "/prometheus"
         },
-        route: "route-2",
+        route: "route-2.example.com",
       ),
       CfAppDiscovery::Parser::Target.new(
         guid: "app-3-guid",
@@ -29,7 +29,7 @@ RSpec.describe CfAppDiscovery::Filter do
         env: {
           PROMETHEUS_METRICS_PATH: "/prometheus"
         },
-        route: "route-3",
+        route: "route-3.custom.com",
       ),
     ]
   end

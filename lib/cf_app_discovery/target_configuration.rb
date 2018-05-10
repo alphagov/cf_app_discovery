@@ -1,10 +1,9 @@
 class CfAppDiscovery
   class TargetConfiguration
-    attr_accessor :filestore_manager, :paas_domain
+    attr_accessor :filestore_manager
 
-    def initialize(filestore_manager:, paas_domain:)
+    def initialize(filestore_manager:)
       self.filestore_manager = filestore_manager
-      self.paas_domain = paas_domain
     end
 
     def write_active_targets(targets)
@@ -51,7 +50,7 @@ class CfAppDiscovery
     def json_content(target)
       data = target.instances.times.map do |index|
         {
-          targets: ["#{target.route}.#{paas_domain}"],
+          targets: [target.route],
           labels: {
             __metrics_path__: target.prometheus_path,
             __param_cf_app_guid: target.guid,

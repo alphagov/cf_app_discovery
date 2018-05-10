@@ -1,10 +1,11 @@
 class CfAppDiscovery
   class Client
-    attr_accessor :api_endpoint, :api_token
+    attr_accessor :api_endpoint, :api_token, :paas_domain
 
-    def initialize(api_endpoint:, api_token:)
+    def initialize(api_endpoint:, api_token:, paas_domain:)
       self.api_endpoint = api_endpoint
       self.api_token = api_token
+      self.paas_domain = paas_domain
     end
 
     def apps
@@ -17,15 +18,14 @@ class CfAppDiscovery
       end
 
       resources.each do |resource|
-        resource[:route] = get_first_route(resource)
+        set_first_route(resource)
       end
       resources
     end
 
     def app(app_guid)
       resource = get("/v2/apps/#{app_guid}")
-      resource[:route] = get_first_route(resource)
-      resource
+      set_first_route(resource)
     end
 
     def service_binding(service_binding_id)
@@ -38,13 +38,23 @@ class CfAppDiscovery
 
   private
 
-    def get_first_route(resource)
+    def set_first_route(resource)
       routes_data = routes(resource.dig(:metadata, :guid)).fetch(:resources)
+
       if routes_data.first.nil?
-        resource.dig :entity, :name
+        app_name = resource.dig(:entity, :name)
+        resource[:route] = "#{app_name}.#{paas_domain}"
       else
-        routes_data.first.dig :entity, :host
+        domain_data = get(routes_data.first.dig(:entity, :domain_url))
+        host = routes_data.first.dig(:entity, :host)
+        domain_name = domain_data.dig(:entity, :name)
+        resource[:route] = if host.empty?
+                             domain_name
+                           else
+                             "#{host}.#{domain_name}"
+                           end
       end
+      resource
     end
 
     def get(path)

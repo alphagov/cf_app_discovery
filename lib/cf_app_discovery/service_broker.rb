@@ -48,7 +48,6 @@ class CfAppDiscovery
       parser = Parser.new([app_data])
       template = TargetConfiguration.new(
         filestore_manager: filestore_manager,
-        paas_domain: settings.paas_domain
       )
       template.write_active_targets(parser.targets)
       render({})
@@ -89,7 +88,8 @@ class CfAppDiscovery
     def client
       @client ||= Client.new(
         api_endpoint: settings.api_endpoint,
-        api_token: api_token
+        api_token: api_token,
+        paas_domain: settings.paas_domain
       )
     end
 

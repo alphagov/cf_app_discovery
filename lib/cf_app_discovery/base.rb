@@ -4,7 +4,6 @@ class CfAppDiscovery
 
     target_configuration = TargetConfiguration.new(
       filestore_manager: filestore_manager,
-      paas_domain: paas_domain,
     )
 
     auth = Auth.new(
@@ -16,6 +15,7 @@ class CfAppDiscovery
     client = Client.new(
       api_endpoint: api_endpoint,
       api_token: auth.access_token,
+      paas_domain: paas_domain,
     )
 
     parser = Parser.new(client.apps)
