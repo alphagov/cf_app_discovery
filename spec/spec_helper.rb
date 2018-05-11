@@ -23,6 +23,11 @@ ENV["UAA_PASSWORD"] = 'uaa-password'
 ENV["PAAS_DOMAIN"] = 'example.com'
 ENV["TARGETS_PATH"] = Dir.mktmpdir
 ENV["ENVIRONMENT"] = 'local'
+ENV["ACCESS_NAME"] = 'prometheus-targets-access-test'
+ENV["BUCKET_NAME"] = 'gds-prometheus-targets-test'
+ENV["SERVICE_ID"] = 'fd609087-70e0-4c8c-8916-b6885ac156a3'
+ENV["SERVICE_NAME"] = 'gds-prometheus-test'
+ENV["PLAN_ID"] = 'b5998c91-d379-4df7-b329-11450f8459f1'
 
 require "cf_app_discovery"
 
