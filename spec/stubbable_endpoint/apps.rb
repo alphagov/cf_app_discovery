@@ -38,43 +38,19 @@ module StubbableEndpoint
               state: "STOPPED",
               environment_json: {},
             },
-            route: "route-1a"
+            route: "route-1a.example.com",
           },
           {
             metadata: { guid: "app-2-guid" },
             entity: {
               name: "app-2",
-              instances: 3,
+              instances: 2,
               state: "STARTED",
               environment_json: {
                 PROMETHEUS_METRICS_PATH: "/metrics"
               },
             },
-            route: "route-2a"
-          },
-          {
-            metadata: { guid: "app-3-guid" },
-            entity: {
-              name: "app-3",
-              instances: 3,
-              state: "STARTED",
-              environment_json: {
-                PROMETHEUS_METRICS_PATH: "/metrics"
-              },
-            },
-            route: "route-3a"
-          },
-          {
-            metadata: { guid: "app-4-guid" },
-            entity: {
-              name: "app-4",
-              instances: 3,
-              state: "STARTED",
-              environment_json: {
-                PROMETHEUS_METRICS_PATH: "/metrics"
-              },
-            },
-            route: "app-4"
+            route: "route-2a.example.com",
           },
         ]
       }

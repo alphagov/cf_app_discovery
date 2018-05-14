@@ -30,14 +30,16 @@ module StubbableEndpoint
             resources: [
                 {
                     entity: {
+                        domain_url: "/v2/shared_domains/domain-guid",
                         host: "route-1a",
                     }
                 },
                 {
                     entity: {
+                        domain_url: "/v2/shared_domains/domain-guid",
                         host: "route-1b",
                     }
-                }
+                },
             ]
         }
       end

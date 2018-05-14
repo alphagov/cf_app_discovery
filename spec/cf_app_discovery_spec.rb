@@ -7,6 +7,8 @@ RSpec.describe CfAppDiscovery do
     stub_endpoint(StubbableEndpoint::Auth)
     stub_endpoint(StubbableEndpoint::Apps)
     stub_endpoint(StubbableEndpoint::AppsPage2)
+    stub_endpoint(StubbableEndpoint::Domain1)
+    stub_endpoint(StubbableEndpoint::Domain2)
     stub_endpoint(StubbableEndpoint::Routes1)
     stub_endpoint(StubbableEndpoint::Routes2)
     stub_endpoint(StubbableEndpoint::Routes3)

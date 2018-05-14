@@ -34,10 +34,22 @@ module StubbableEndpoint
               instances: 1,
               state: "STARTED",
               environment_json: {
-                PROMETHEUS_METRICS_PATH: "/prometheus"
+                PROMETHEUS_METRICS_PATH: "/metrics"
               },
             },
-            route: "route-3a"
+            route: "custom-domain.gov.uk",
+          },
+          {
+            metadata: { guid: "app-4-guid" },
+            entity: {
+              name: "app-4",
+              instances: 1,
+              state: "STARTED",
+              environment_json: {
+                PROMETHEUS_METRICS_PATH: "/metrics"
+              },
+            },
+            route: "app-4.example.com",
           },
         ]
       }

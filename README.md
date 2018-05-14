@@ -112,4 +112,8 @@ To see the apps bound to a service:
 
 ### Routes
 
+This application will only scrape metrics on the first route, so other routes will be ignored. 
+
+If routes for an bound app are updated, the update will be picked up by the `target updater` which is run every 5 minutes, so there may be a brief break in the metrics collected.
+
 If an app is bound that doesn't have a route or if an app that's already bound has all its routes removed prometheus will not be able to scrape it.  As a result, the `up` metric for the app will show the app to be unavailable.
