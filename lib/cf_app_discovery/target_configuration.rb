@@ -57,6 +57,8 @@ class CfAppDiscovery
             __param_cf_app_instance_index: index.to_s,
             cf_app_instance: index.to_s,
             job: target.name,
+            space: target.space,
+            org: target.org,
           }
         }
       end
