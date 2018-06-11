@@ -50,7 +50,7 @@ RSpec.describe CfAppDiscovery::ServiceBroker do
 
   describe "/v2/service_instances/:instance_id/service_bindings/:id" do
     before do
-      put "/v2/service_instances/:instance_id/service_bindings/:id", api_request
+      put '/v2/service_instances/:instance_id/service_bindings/:id', api_request
     end
 
     it 'return a 200 response' do
