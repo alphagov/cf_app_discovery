@@ -13,9 +13,9 @@ defaults: &defaults
     TARGETS_PATH: none
     ENVIRONMENT: paas
     BUCKET_NAME: gds-prometheus-targets-dev
-    SERVICE_ID: f5d81086-e875-4c9c-9370-09edead141f2
-    SERVICE_NAME: gds-prometheus-test
-    PLAN_ID: cc65268f-98e9-40ef-aa8c-8e595204064d
+    SERVICE_ID: c6221308-b7bb-46d2-9d79-a357f5a3837b
+    SERVICE_NAME: gds-prometheus-dev
+    PLAN_ID: 7ab58e11-3959-49b4-9218-807e3e78f9af
 
 applications:
   - name: prometheus-service-broker-dev
