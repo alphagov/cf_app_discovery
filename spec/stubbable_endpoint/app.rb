@@ -35,9 +35,6 @@ module StubbableEndpoint
           environment_json: {},
           space_url: "/v2/spaces/example-space-guid",
         },
-        route: "route-1",
-        space: "test-space-name",
-        org: "org-name",
       }
     end
   end

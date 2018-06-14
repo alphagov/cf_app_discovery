@@ -3,3 +3,6 @@
 *.json
 *.backup
 .DS_Store
+
+# expected json response block for spec
+!spec/fixtures/*.json

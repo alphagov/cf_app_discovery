@@ -39,9 +39,6 @@ module StubbableEndpoint
               environment_json: {},
               space_url: "/v2/spaces/example-space-guid",
             },
-            route: "route-1a.example.com",
-            space: "test-space-name",
-            org: "org-name",
           },
           {
             metadata: { guid: "app-2-guid" },
@@ -54,9 +51,6 @@ module StubbableEndpoint
               },
               space_url: "/v2/spaces/example-space-guid",
             },
-            route: "route-2a.example.com",
-            space: "test-space-name",
-            org: "org-name",
           },
         ]
       }
