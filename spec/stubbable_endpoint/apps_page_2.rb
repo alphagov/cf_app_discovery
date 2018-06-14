@@ -36,8 +36,8 @@ module StubbableEndpoint
               environment_json: {
                 PROMETHEUS_METRICS_PATH: "/metrics"
               },
+              space_url: "/v2/spaces/example-space-guid",
             },
-            route: "custom-domain.gov.uk",
           },
           {
             metadata: { guid: "app-4-guid" },
@@ -48,8 +48,8 @@ module StubbableEndpoint
               environment_json: {
                 PROMETHEUS_METRICS_PATH: "/metrics"
               },
+              space_url: "/v2/spaces/example-space-guid",
             },
-            route: "app-4.example.com",
           },
         ]
       }

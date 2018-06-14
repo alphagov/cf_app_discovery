@@ -1,0 +1,68 @@
+[
+  {
+    "metadata": {
+      "guid": "app-1-guid"
+    },
+    "entity": {
+      "name": "app-1",
+      "instances": 2,
+      "state": "STOPPED",
+      "environment_json": {},
+      "space_url": "/v2/spaces/example-space-guid"
+    },
+    "route": "route-1a.example.com",
+    "space": "test-space-name",
+    "org": "org-name"
+  },
+  {
+    "metadata": {
+      "guid": "app-2-guid"
+    },
+    "entity": {
+      "name": "app-2",
+      "instances": 2,
+      "state": "STARTED",
+      "environment_json": {
+        "PROMETHEUS_METRICS_PATH": "/metrics"
+      },
+      "space_url": "/v2/spaces/example-space-guid"
+    },
+    "route": "route-2a.example.com",
+    "space": "test-space-name",
+    "org": "org-name"
+  },
+  {
+    "metadata": {
+      "guid": "app-3-guid"
+    },
+    "entity": {
+      "name": "app-3",
+      "instances": 1,
+      "state": "STARTED",
+      "environment_json": {
+        "PROMETHEUS_METRICS_PATH": "/metrics"
+      },
+      "space_url": "/v2/spaces/example-space-guid"
+    },
+    "route": "custom-domain.gov.uk",
+    "space": "test-space-name",
+    "org": "org-name"
+  },
+  {
+    "metadata": {
+      "guid": "app-4-guid"
+    },
+    "entity": {
+      "name": "app-4",
+      "instances": 1,
+      "state": "STARTED",
+      "environment_json": {
+        "PROMETHEUS_METRICS_PATH": "/metrics"
+      },
+      "space_url": "/v2/spaces/example-space-guid"
+    },
+    "route": "app-4.example.com",
+    "space": "test-space-name",
+    "org": "org-name"
+  }
+]

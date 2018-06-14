@@ -37,8 +37,8 @@ module StubbableEndpoint
               instances: 2,
               state: "STOPPED",
               environment_json: {},
+              space_url: "/v2/spaces/example-space-guid",
             },
-            route: "route-1a.example.com",
           },
           {
             metadata: { guid: "app-2-guid" },
@@ -49,8 +49,8 @@ module StubbableEndpoint
               environment_json: {
                 PROMETHEUS_METRICS_PATH: "/metrics"
               },
+              space_url: "/v2/spaces/example-space-guid",
             },
-            route: "route-2a.example.com",
           },
         ]
       }

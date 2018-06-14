@@ -1,7 +1,12 @@
+require 'json'
 require "spec_helper"
 
 RSpec.describe CfAppDiscovery::Client do
   include StubHelper
+
+  spec_root = File.dirname __dir__
+  expected_responses_file = File.read("#{spec_root}/fixtures/expected_responses.json")
+  expected_responses = JSON.parse(expected_responses_file, symbolize_names: true)
 
   let(:first_page) { StubbableEndpoint::Apps }
   let(:second_page) { StubbableEndpoint::AppsPage2 }
@@ -10,11 +15,12 @@ RSpec.describe CfAppDiscovery::Client do
   before { stub_endpoint(second_page) }
   before { stub_endpoint(StubbableEndpoint::Domain1) }
   before { stub_endpoint(StubbableEndpoint::Domain2) }
+  before { stub_endpoint(StubbableEndpoint::Org1) }
   before { stub_endpoint(StubbableEndpoint::Routes1) }
   before { stub_endpoint(StubbableEndpoint::Routes2) }
   before { stub_endpoint(StubbableEndpoint::Routes3) }
   before { stub_endpoint(StubbableEndpoint::Routes4) }
-
+  before { stub_endpoint(StubbableEndpoint::Space1) }
 
   subject do
     described_class.new(
@@ -25,10 +31,9 @@ RSpec.describe CfAppDiscovery::Client do
   end
 
   it "returns the apps data from the api" do
-    all_apps = first_page.response_body.fetch(:resources)
-    all_apps += second_page.response_body.fetch(:resources)
+    first_page.response_body.fetch(:resources)
+    second_page.response_body.fetch(:resources)
 
-    expect(Net::HTTP).to receive(:start).exactly(9).times.and_call_original
-    expect(subject.apps).to eq(all_apps)
+    expect(subject.apps).to eq(expected_responses)
   end
 end

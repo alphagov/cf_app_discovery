@@ -70,9 +70,7 @@ The application has a `manifest.yml` which has cloud foundry config and can be d
 
 You will probably also want to set up a different [user provided service](#pre-requisites) so that your changes do not affect the live settings. Information to get the staging settings can be found in the `reng-pass` credentials store, if you change the name of the service from the default, make sure that the name is updated in the `manifest.yml` and `load_access`.
 
-If you want to make changes to the service broker to you will probably want to deploy it within a test environment, to do this you will need to change the service id, service name and plan id in `service_broker.rb` and the service broker and target updater names in `manifest.yml`
-
-The s3 bucket name should be updated `gds-prometheus-targets-staging` in `filestore_manager_factory.rb` so that the live s3 bucket is not affected during testing.
+If you want to make changes to the service broker to you will probably want to deploy it within a test environment, to do this you will need to change the service id, service name and plan id in `manifest.yml` and the service broker and target updater names in `manifest.yml`
 
 To generate a new guid, run `uuidgen | awk '{print tolower($0)}'`
 
@@ -110,9 +108,21 @@ To see the apps bound to a service:
 
 [user provided service]: https://docs.cloudfoundry.org/devguide/services/user-provided.html#credentials
 
+### Available target information
+
+Each target has a block of information attached to it that is captured by this application.
+
+ - targets - Route to the application
+
+This application also exposes a number of labels for each target to help organise metrics.
+
+ - job   - The app name, one job can have multiple instances
+ - org   - A group of users, applications and environments on PaaS
+ - space - This is the space within the PaaS org where the application is held
+
 ### Routes
 
-This application will only scrape metrics on the first route, so other routes will be ignored. 
+This application will only scrape metrics on the first route, so other routes will be ignored.
 
 If routes for an bound app are updated, the update will be picked up by the `target updater` which is run every 5 minutes, so there may be a brief break in the metrics collected.
 

@@ -18,6 +18,7 @@ class CfAppDiscovery
       end
 
       resources.each do |resource|
+        set_space_and_org(resource)
         set_first_route(resource)
       end
       resources
@@ -25,6 +26,7 @@ class CfAppDiscovery
 
     def app(app_guid)
       resource = get("/v2/apps/#{app_guid}")
+      set_space_and_org(resource)
       set_first_route(resource)
     end
 
@@ -54,6 +56,15 @@ class CfAppDiscovery
                              "#{host}.#{domain_name}"
                            end
       end
+      resource
+    end
+
+    def set_space_and_org(resource)
+      space_data = get(resource.dig(:entity, :space_url))
+      org_data = get(space_data.dig(:entity, :organization_url))
+
+      resource[:space] = space_data.dig(:entity, :name)
+      resource[:org] = org_data.dig(:entity, :name)
       resource
     end
 

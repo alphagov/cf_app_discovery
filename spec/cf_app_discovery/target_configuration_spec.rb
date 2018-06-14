@@ -14,6 +14,8 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
           PROMETHEUS_METRICS_PATH: "/metrics"
         },
         route: "route-1.example.com",
+        space: "test-space-name",
+        org: "test-org-name",
       ),
       CfAppDiscovery::Parser::Target.new(
         guid: "app-2-guid",
@@ -24,6 +26,8 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
           PROMETHEUS_METRICS_PATH: "/prometheus"
         },
         route: "route-2.custom.com",
+        space: "test-space-name",
+        org: "test-org-name",
       ),
     ]
   end
@@ -69,6 +73,8 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
           __param_cf_app_instance_index: "0",
           cf_app_instance: "0",
           job: "app-1",
+          space: "test-space-name",
+          org: "test-org-name",
         },
       },
       {
@@ -79,6 +85,8 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
           __param_cf_app_instance_index: "1",
           cf_app_instance: "1",
           job: "app-1",
+          space: "test-space-name",
+          org: "test-org-name",
         },
       },
     ]
@@ -92,6 +100,8 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
           __param_cf_app_instance_index: "0",
           cf_app_instance: "0",
           job: "app-2",
+          space: "test-space-name",
+          org: "test-org-name",
         },
       },
     ]
