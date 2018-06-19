@@ -70,8 +70,8 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
         labels: {
           __metrics_path__: "/metrics",
           __param_cf_app_guid: "app-1-guid",
-          __param_cf_app_instance_index: "0",
-          cf_app_instance: "0",
+          __param_cf_app_instance_index: "app-1/0",
+          cf_app_instance: "app-1/0",
           job: "app-1",
           space: "test-space-name",
           org: "test-org-name",
@@ -82,8 +82,8 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
         labels: {
           __metrics_path__: "/metrics",
           __param_cf_app_guid: "app-1-guid",
-          __param_cf_app_instance_index: "1",
-          cf_app_instance: "1",
+          __param_cf_app_instance_index: "app-1/1",
+          cf_app_instance: "app-1/1",
           job: "app-1",
           space: "test-space-name",
           org: "test-org-name",
@@ -97,8 +97,8 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
         labels: {
           __metrics_path__: "/prometheus",
           __param_cf_app_guid: "app-2-guid",
-          __param_cf_app_instance_index: "0",
-          cf_app_instance: "0",
+          __param_cf_app_instance_index: "app-2/0",
+          cf_app_instance: "app-2/0",
           job: "app-2",
           space: "test-space-name",
           org: "test-org-name",

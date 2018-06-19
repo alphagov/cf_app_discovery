@@ -54,8 +54,8 @@ class CfAppDiscovery
           labels: {
             __metrics_path__: target.prometheus_path,
             __param_cf_app_guid: target.guid,
-            __param_cf_app_instance_index: index.to_s,
-            cf_app_instance: index.to_s,
+            __param_cf_app_instance_index: "#{target.name}/#{index}",
+            cf_app_instance: "#{target.name}/#{index}",
             job: target.name,
             space: target.space,
             org: target.org,
