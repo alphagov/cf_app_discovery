@@ -52,25 +52,39 @@ This application sets a custom user agent string of
 In order to deploy this on PaaS you will need to set up a [user provided service][] containing the following block of credentials:
 
 ```shell
+# production credentials to access the s3 targets bucket
 cf cups prometheus-targets-access -p '{
   "AWS_ACCESS_KEY_ID":"<AWS ACCESS KEY ID>",
   "AWS_SECRET_ACCESS_KEY":"<AWS SECRET>",
   "UAA_PASSWORD":"<UAA PASSWORD>",
-  "UAA_USERNAME":"<UAA USERNAME>"
+  "UAA_USERNAME":"<UAA USERNAME>",
+  "access_name":"prometheus-targets-access"
 }'
 ```
 
-This block of credentials can be found in the team `reng-pass` credentials store.
+Note - for staging and dev environments the `access_name` should be `prometheus-targets-access-staging` and `prometheus-targets-access-dev` and the name of the user provided service, `prometheus-targets-access`, should also be updated to match this.
+
+The block of credentials for the different environments can be found in the team `reng-pass` credentials store.
 
 ### Deploying the service broker
 
-The application has a `manifest.yml` which has cloud foundry config and can be deployed to the PaaS by running `cf push`, this should create a `prometheus-service-broker` and a `prometheus-target-updater` app.
+In order to deploy to staging and production environments a `Makefile` is available:
+
+```shell
+# to deploy to staging
+make deploy-staging
+
+# to deploy to production
+make deploy-production
+```
+
+The `Makefile` sets the target to the correct space for deployment and makes use of `manifest-staging.yml` and `manifest-production.yml`.
 
 ### Developing the service broker
 
-You will probably also want to set up a different [user provided service](#pre-requisites) so that your changes do not affect the live settings. Information to get the staging settings can be found in the `reng-pass` credentials store, if you change the name of the service from the default, make sure that the name is updated in the `manifest.yml` and `load_access`.
+The application has a `manifest.yml` which has a cloud foundry config and can be deployed to the PaaS by running `cf push`, this should create a `prometheus-service-broker` and a `prometheus-target-updater` app. 
 
-[Deploy the service broker](#deploying-the-service-broker)
+`manifest.yml` uses the `prometheus-targets-access-dev` user provided service in order to access the dev targets s3 bucket, if this is not available in your space see [pre requisites](#Pre-requisites) for details on how to set up user provided services for dev credentials.
 
 Then you will need to create the service-broker which will be limited to the space that the app was deployed to:
 
