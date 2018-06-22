@@ -4,7 +4,7 @@ defaults: &defaults
   memory: 512MB
   instances: 1
   services:
-    - prometheus-targets-access-dev
+    - prometheus-targets-access
   env:
     AWS_REGION: eu-west-1
     API_ENDPOINT: https://api.cloud.service.gov.uk
@@ -12,16 +12,16 @@ defaults: &defaults
     PAAS_DOMAIN: cloudapps.digital
     TARGETS_PATH: none
     ENVIRONMENT: paas
-    BUCKET_NAME: gds-prometheus-targets-dev
-    SERVICE_ID: c6221308-b7bb-46d2-9d79-a357f5a3837b
-    SERVICE_NAME: gds-prometheus-dev
-    PLAN_ID: 7ab58e11-3959-49b4-9218-807e3e78f9af
+    BUCKET_NAME: gds-prometheus-targets
+    SERVICE_ID: fd609087-70e0-4c8c-8916-b6885ac156a3
+    SERVICE_NAME: gds-prometheus
+    PLAN_ID: b5998c91-d379-4df7-b329-11450f8459f1
 
 applications:
-  - name: prometheus-service-broker-dev
+  - name: prometheus-service-broker
     <<: *defaults
     command: export $(./load_access) && bundle exec rackup -o 0.0.0.0 -p $PORT
-  - name: prometheus-target-updater-dev
+  - name: prometheus-target-updater
     <<: *defaults
     command: export $(./load_access) && bundle exec clockwork bin/clock.rb
     health-check-type: process

@@ -19,7 +19,7 @@ class CfAppDiscovery
           {
             id: settings.service_id,
             name: settings.service_name,
-            description: "GDS internal Prometheus monitoring alpha https://reliability-engineering.cloudapps.digital/#metrics",
+            description: "GDS internal Prometheus monitoring beta https://reliability-engineering.cloudapps.digital/#metrics",
             bindable: true,
             plans: [
               {
