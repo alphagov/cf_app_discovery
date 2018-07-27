@@ -20,8 +20,8 @@ defaults: &defaults
 applications:
   - name: prometheus-service-broker
     <<: *defaults
-    command: export $(./load_access) && bundle exec rackup -o 0.0.0.0 -p $PORT
+    command: export $(./load_access.rb) && bundle exec rackup -o 0.0.0.0 -p $PORT
   - name: prometheus-target-updater
     <<: *defaults
-    command: export $(./load_access) && bundle exec clockwork bin/clock.rb
+    command: export $(./load_access.rb) && bundle exec clockwork bin/clock.rb
     health-check-type: process
