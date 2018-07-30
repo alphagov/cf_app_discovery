@@ -30,6 +30,7 @@ ENV["ENVIRONMENT"] = 'local'
 ENV["SERVICE_ID"] = 'fd609087-70e0-4c8c-8916-b6885ac156a3'
 ENV["SERVICE_NAME"] = 'gds-prometheus-test'
 ENV["PLAN_ID"] = 'b5998c91-d379-4df7-b329-11450f8459f1'
+ENV["VCAP_SERVICES"] = '{ "user-provided": [{ "name": "test-1", "credentials": {}}, { "name": "test-2", "credentials": {"access_name": "test-2"}}]}'
 
 require "cf_app_discovery"
 
