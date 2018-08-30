@@ -6,7 +6,7 @@ module Clockwork
     system(job)
   end
 
-  every(300, 'Update targets') {
+  every(60, 'Update targets') {
     `rake update_targets`
   }
 end
