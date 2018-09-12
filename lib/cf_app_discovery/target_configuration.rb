@@ -56,8 +56,8 @@ class CfAppDiscovery
             __param_cf_app_guid: target.guid,
             __param_cf_app_instance_index: index.to_s,
             cf_app_instance: index.to_s,
-            instance: "#{target.name}/#{index}",
-            job: target.name,
+            instance: "#{target.guid}:#{index}",
+            job: job_from(target.name),
             space: target.space,
             org: target.org,
           }
@@ -65,6 +65,12 @@ class CfAppDiscovery
       end
 
       JSON.pretty_generate(data)
+    end
+
+    def job_from(app_name)
+      # strip "-venerable" suffix from app names
+      # so that autopilot deploys don't rename metrics
+      app_name.sub(/-venerable$/, '')
     end
 
     def guid_path(folder, target)
