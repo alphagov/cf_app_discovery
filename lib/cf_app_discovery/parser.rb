@@ -38,6 +38,10 @@ class CfAppDiscovery
         self.org = org
       end
 
+      def paas_metric_exporter?
+        env[:GOPACKAGENAME] == "github.com/alphagov/paas-metric-exporter"
+      end
+
       def prometheus_path
         env[:PROMETHEUS_METRICS_PATH]
       end

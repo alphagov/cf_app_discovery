@@ -49,7 +49,14 @@ class CfAppDiscovery
 
     def json_content(target)
       data = target.instances.times.map do |index|
-        {
+        generate_json(target, index)
+      end
+
+      JSON.pretty_generate(data)
+    end
+
+    def generate_json(target, index)
+      data = {
           targets: [target.route],
           labels: {
             __metrics_path__: target.prometheus_path,
@@ -58,13 +65,14 @@ class CfAppDiscovery
             cf_app_instance: index.to_s,
             instance: "#{target.guid}:#{index}",
             job: job_from(target.name),
-            space: target.space,
             org: target.org,
           }
         }
+      unless target.paas_metric_exporter?
+        data[:labels][:space] = target.space
       end
-
-      JSON.pretty_generate(data)
+      
+      data
     end
 
     def job_from(app_name)
