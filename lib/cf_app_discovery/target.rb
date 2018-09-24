@@ -36,7 +36,7 @@ class CfAppDiscovery
       unless paas_metric_exporter?
         data[:labels][:space] = space
       end
-      
+
       data
     end
 

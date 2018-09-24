@@ -38,7 +38,7 @@ RSpec.describe CfAppDiscovery do
   end
 
   it "reads app instances from the API and writes to the targets directory" do
-    CfAppDiscovery.run(
+    described_class.run(
       api_endpoint: "http://api.example.com",
       uaa_endpoint: "http://uaa.example.com",
       uaa_username: "uaa-username",
