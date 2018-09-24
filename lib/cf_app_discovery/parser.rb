@@ -16,7 +16,6 @@ class CfAppDiscovery
           name: entity.fetch(:name),
           instances: entity.fetch(:instances),
           state: entity.fetch(:state),
-          env: entity.fetch(:environment_json),
           route: resource.fetch(:route),
           space: resource.fetch(:space),
           org: resource.fetch(:org),
@@ -26,14 +25,13 @@ class CfAppDiscovery
     end
 
     class Target
-      attr_accessor :guid, :name, :instances, :state, :env, :route, :space, :org, :detected_start_command
+      attr_accessor :guid, :name, :instances, :state, :route, :space, :org, :detected_start_command
 
-      def initialize(guid:, name:, instances:, state:, env:, route:, space:, org:, detected_start_command:)
+      def initialize(guid:, name:, instances:, state:, route:, space:, org:, detected_start_command:)
         self.guid = guid
         self.name = name
         self.instances = instances
         self.state = state
-        self.env = env
         self.route = route
         self.space = space
         self.org = org
@@ -42,10 +40,6 @@ class CfAppDiscovery
 
       def paas_metric_exporter?
         detected_start_command == "./bin/paas-metric-exporter"
-      end
-
-      def prometheus_path
-        env[:PROMETHEUS_METRICS_PATH]
       end
 
       def started?

@@ -9,9 +9,6 @@ RSpec.describe CfAppDiscovery::Parser do
           name: "app-1",
           instances: 2,
           state: "STARTED",
-          environment_json: {
-            PROMETHEUS_METRICS_PATH: "/prometheus",
-          },
           detected_start_command: "./bin/paas-metric-exporter",
         },
         route: "route-1",
@@ -25,7 +22,6 @@ RSpec.describe CfAppDiscovery::Parser do
           name: "app-2",
           instances: 3,
           state: "STOPPED",
-          environment_json: {},
           detected_start_command: nil,
         },
         route: "route-2",
@@ -39,9 +35,6 @@ RSpec.describe CfAppDiscovery::Parser do
           name: "app-3",
           instances: 2,
           state: "STARTED",
-          environment_json: {
-            PROMETHEUS_METRICS_PATH: "/prometheus",
-          },
           detected_start_command: nil,
         },
         route: "route-3",
@@ -62,7 +55,6 @@ RSpec.describe CfAppDiscovery::Parser do
     expect(first.name).to eq("app-1")
     expect(first.instances).to eq(2)
     expect(first.state).to eq("STARTED")
-    expect(first.env).to include(PROMETHEUS_METRICS_PATH: "/prometheus")
     expect(first.route).to eq("route-1")
     expect(first.paas_metric_exporter?).to be true
 
@@ -70,7 +62,6 @@ RSpec.describe CfAppDiscovery::Parser do
     expect(second.name).to eq("app-2")
     expect(second.instances).to eq(3)
     expect(second.state).to eq("STOPPED")
-    expect(second.env).to eq({})
     expect(second.route).to eq("route-2")
     expect(second.paas_metric_exporter?).to be false
 
@@ -79,7 +70,6 @@ RSpec.describe CfAppDiscovery::Parser do
     expect(third.name).to eq("app-3")
     expect(third.instances).to eq(2)
     expect(third.state).to eq("STARTED")
-    expect(third.env).to include(PROMETHEUS_METRICS_PATH: "/prometheus")
     expect(third.route).to eq("route-3")
     expect(third.paas_metric_exporter?).to be false
   end

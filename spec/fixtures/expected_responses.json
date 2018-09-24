@@ -7,7 +7,6 @@
       "name": "app-1",
       "instances": 2,
       "state": "STOPPED",
-      "environment_json": {},
       "detected_start_command": null,
       "space_url": "/v2/spaces/example-space-guid"
     },
@@ -23,9 +22,6 @@
       "name": "app-2",
       "instances": 2,
       "state": "STARTED",
-      "environment_json": {
-        "PROMETHEUS_METRICS_PATH": "/metrics"
-      },
       "detected_start_command": "./bin/paas-metric-exporter",
       "space_url": "/v2/spaces/example-space-guid"
     },
@@ -41,9 +37,6 @@
       "name": "app-3",
       "instances": 1,
       "state": "STARTED",
-      "environment_json": {
-        "PROMETHEUS_METRICS_PATH": "/metrics"
-      },
       "detected_start_command": "./bin/paas-metric-exporter",
       "space_url": "/v2/spaces/example-space-guid"
     },
@@ -59,9 +52,6 @@
       "name": "app-4",
       "instances": 1,
       "state": "STARTED",
-      "environment_json": {
-        "PROMETHEUS_METRICS_PATH": "/metrics"
-      },
       "detected_start_command": "./bin/paas-metric-exporter",
       "space_url": "/v2/spaces/example-space-guid"
     },

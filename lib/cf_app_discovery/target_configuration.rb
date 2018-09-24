@@ -59,7 +59,6 @@ class CfAppDiscovery
       data = {
           targets: [target.route],
           labels: {
-            __metrics_path__: target.prometheus_path,
             __param_cf_app_guid: target.guid,
             __param_cf_app_instance_index: index.to_s,
             cf_app_instance: index.to_s,

@@ -26,9 +26,6 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
           name: "app-1",
           instances: 2,
           state: "STARTED",
-          env: {
-            PROMETHEUS_METRICS_PATH: "/metrics"
-          },
           detected_start_command: nil,
           route: "route-1.example.com",
           space: "test-space-name",
@@ -39,9 +36,6 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
           name: "app-2",
           instances: 1,
           state: "STARTED",
-          env: {
-            PROMETHEUS_METRICS_PATH: "/prometheus"
-          },
           detected_start_command: nil,
           route: "route-2.custom.com",
           space: "test-space-name",
@@ -71,7 +65,6 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
           {
             targets: ["route-1.example.com"],
             labels: {
-              __metrics_path__: "/metrics",
               __param_cf_app_guid: "app-1-v2-guid",
               __param_cf_app_instance_index: "0",
               cf_app_instance: "0",
@@ -84,7 +77,6 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
           {
             targets: ["route-1.example.com"],
             labels: {
-              __metrics_path__: "/metrics",
               __param_cf_app_guid: "app-1-v2-guid",
               __param_cf_app_instance_index: "1",
               cf_app_instance: "1",
@@ -99,7 +91,6 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
           {
             targets: ["route-2.custom.com"],
             labels: {
-              __metrics_path__: "/prometheus",
               __param_cf_app_guid: "app-2-guid",
               __param_cf_app_instance_index: "0",
               cf_app_instance: "0",
@@ -148,9 +139,6 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
           name: "app-1-venerable",
           instances: 2,
           state: "STARTED",
-          env: {
-            PROMETHEUS_METRICS_PATH: "/metrics",
-          },
           detected_start_command: "./bin/paas-metric-exporter",
           route: "route-1.example.com",
           space: "test-space-name",
@@ -171,7 +159,6 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
           {
             targets: ["route-1.example.com"],
             labels: {
-              __metrics_path__: "/metrics",
               __param_cf_app_guid: "app-1-v1-guid",
               __param_cf_app_instance_index: "0",
               cf_app_instance: "0",
@@ -183,7 +170,6 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
           {
             targets: ["route-1.example.com"],
             labels: {
-              __metrics_path__: "/metrics",
               __param_cf_app_guid: "app-1-v1-guid",
               __param_cf_app_instance_index: "1",
               cf_app_instance: "1",
