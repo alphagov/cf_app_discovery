@@ -21,7 +21,7 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
   context "for normal apps" do
     let(:targets) do
       [
-        CfAppDiscovery::Parser::Target.new(
+        CfAppDiscovery::Target.new(
           guid: "app-1-v2-guid",
           name: "app-1",
           instances: 2,
@@ -31,7 +31,7 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
           space: "test-space-name",
           org: "test-org-name",
         ),
-        CfAppDiscovery::Parser::Target.new(
+        CfAppDiscovery::Target.new(
           guid: "app-2-guid",
           name: "app-2",
           instances: 1,
@@ -134,7 +134,7 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
   context "for paas-metric-exporter" do
     let(:targets) do
       [
-        CfAppDiscovery::Parser::Target.new(
+        CfAppDiscovery::Target.new(
           guid: "app-1-v1-guid",
           name: "app-1-venerable",
           instances: 2,
