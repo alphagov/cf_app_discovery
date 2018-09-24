@@ -8,6 +8,7 @@
       "instances": 2,
       "state": "STOPPED",
       "environment_json": {},
+      "detected_start_command": null,
       "space_url": "/v2/spaces/example-space-guid"
     },
     "route": "route-1a.example.com",
@@ -25,6 +26,7 @@
       "environment_json": {
         "PROMETHEUS_METRICS_PATH": "/metrics"
       },
+      "detected_start_command": "./bin/paas-metric-exporter",
       "space_url": "/v2/spaces/example-space-guid"
     },
     "route": "route-2a.example.com",
@@ -42,6 +44,7 @@
       "environment_json": {
         "PROMETHEUS_METRICS_PATH": "/metrics"
       },
+      "detected_start_command": "./bin/paas-metric-exporter",
       "space_url": "/v2/spaces/example-space-guid"
     },
     "route": "custom-domain.gov.uk",
@@ -59,6 +62,7 @@
       "environment_json": {
         "PROMETHEUS_METRICS_PATH": "/metrics"
       },
+      "detected_start_command": "./bin/paas-metric-exporter",
       "space_url": "/v2/spaces/example-space-guid"
     },
     "route": "app-4.example.com",

@@ -36,6 +36,7 @@ module StubbableEndpoint
               environment_json: {
                 PROMETHEUS_METRICS_PATH: "/metrics"
               },
+              detected_start_command: "./bin/paas-metric-exporter",
               space_url: "/v2/spaces/example-space-guid",
             },
           },
@@ -48,6 +49,7 @@ module StubbableEndpoint
               environment_json: {
                 PROMETHEUS_METRICS_PATH: "/metrics"
               },
+              detected_start_command: "./bin/paas-metric-exporter",
               space_url: "/v2/spaces/example-space-guid",
             },
           },

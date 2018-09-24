@@ -33,6 +33,7 @@ module StubbableEndpoint
           instances: 2,
           state: "STARTED",
           environment_json: {},
+          detected_start_command: nil,
           space_url: "/v2/spaces/example-space-guid",
         },
       }

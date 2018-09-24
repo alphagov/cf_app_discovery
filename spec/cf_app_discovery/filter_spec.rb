@@ -9,6 +9,7 @@ RSpec.describe CfAppDiscovery::Filter do
         instances: 2,
         state: "STARTED",
         env: {},
+        detected_start_command: nil,
         route: "route-1.example.com",
         space: "test-space-name",
         org: "org-name"
@@ -21,6 +22,7 @@ RSpec.describe CfAppDiscovery::Filter do
         env: {
           PROMETHEUS_METRICS_PATH: "/prometheus"
         },
+        detected_start_command: "./bin/paas-metric-exporter",
         route: "route-2.example.com",
         space: "test-space-name",
         org: "org-name"
@@ -33,6 +35,7 @@ RSpec.describe CfAppDiscovery::Filter do
         env: {
           PROMETHEUS_METRICS_PATH: "/prometheus"
         },
+        detected_start_command: "./bin/paas-metric-exporter",
         route: "route-3.custom.com",
         space: "test-space-name",
         org: "org-name"

@@ -29,6 +29,7 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
           env: {
             PROMETHEUS_METRICS_PATH: "/metrics"
           },
+          detected_start_command: nil,
           route: "route-1.example.com",
           space: "test-space-name",
           org: "test-org-name",
@@ -41,6 +42,7 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
           env: {
             PROMETHEUS_METRICS_PATH: "/prometheus"
           },
+          detected_start_command: nil,
           route: "route-2.custom.com",
           space: "test-space-name",
           org: "test-org-name",
@@ -148,8 +150,8 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
           state: "STARTED",
           env: {
             PROMETHEUS_METRICS_PATH: "/metrics",
-            GOPACKAGENAME: "github.com/alphagov/paas-metric-exporter"
           },
+          detected_start_command: "./bin/paas-metric-exporter",
           route: "route-1.example.com",
           space: "test-space-name",
           org: "test-org-name",

@@ -11,8 +11,8 @@ RSpec.describe CfAppDiscovery::Parser do
           state: "STARTED",
           environment_json: {
             PROMETHEUS_METRICS_PATH: "/prometheus",
-            GOPACKAGENAME: "github.com/alphagov/paas-metric-exporter"
           },
+          detected_start_command: "./bin/paas-metric-exporter",
         },
         route: "route-1",
         domain: "example.com",
@@ -26,6 +26,7 @@ RSpec.describe CfAppDiscovery::Parser do
           instances: 3,
           state: "STOPPED",
           environment_json: {},
+          detected_start_command: nil,
         },
         route: "route-2",
         domain: "example.com",
@@ -40,8 +41,8 @@ RSpec.describe CfAppDiscovery::Parser do
           state: "STARTED",
           environment_json: {
             PROMETHEUS_METRICS_PATH: "/prometheus",
-            GOPACKAGENAME: "github.com/alphagov/not-an-exporter"
           },
+          detected_start_command: nil,
         },
         route: "route-3",
         domain: "example.com",
@@ -62,7 +63,6 @@ RSpec.describe CfAppDiscovery::Parser do
     expect(first.instances).to eq(2)
     expect(first.state).to eq("STARTED")
     expect(first.env).to include(PROMETHEUS_METRICS_PATH: "/prometheus")
-    expect(first.env).to include(GOPACKAGENAME: "github.com/alphagov/paas-metric-exporter")
     expect(first.route).to eq("route-1")
     expect(first.paas_metric_exporter?).to be true
 
@@ -80,7 +80,6 @@ RSpec.describe CfAppDiscovery::Parser do
     expect(third.instances).to eq(2)
     expect(third.state).to eq("STARTED")
     expect(third.env).to include(PROMETHEUS_METRICS_PATH: "/prometheus")
-    expect(third.env).to include(GOPACKAGENAME: "github.com/alphagov/not-an-exporter")
     expect(third.route).to eq("route-3")
     expect(third.paas_metric_exporter?).to be false
   end
