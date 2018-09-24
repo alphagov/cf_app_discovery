@@ -49,35 +49,10 @@ class CfAppDiscovery
 
     def json_content(target)
       data = target.instances.times.map do |index|
-        generate_json(target, index)
+        target.generate_json(index)
       end
 
       JSON.pretty_generate(data)
-    end
-
-    def generate_json(target, index)
-      data = {
-          targets: [target.route],
-          labels: {
-            __param_cf_app_guid: target.guid,
-            __param_cf_app_instance_index: index.to_s,
-            cf_app_instance: index.to_s,
-            instance: "#{target.guid}:#{index}",
-            job: job_from(target.name),
-            org: target.org,
-          }
-        }
-      unless target.paas_metric_exporter?
-        data[:labels][:space] = target.space
-      end
-      
-      data
-    end
-
-    def job_from(app_name)
-      # strip "-venerable" suffix from app names
-      # so that autopilot deploys don't rename metrics
-      app_name.sub(/-venerable$/, '')
     end
 
     def guid_path(folder, target)

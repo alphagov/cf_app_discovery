@@ -20,5 +20,30 @@ class CfAppDiscovery
     def started?
       state == "STARTED"
     end
+
+    def generate_json(index)
+      data = {
+          targets: [route],
+          labels: {
+            __param_cf_app_guid: guid,
+            __param_cf_app_instance_index: index.to_s,
+            cf_app_instance: index.to_s,
+            instance: "#{guid}:#{index}",
+            job: job_from(name),
+            org: org,
+          }
+        }
+      unless paas_metric_exporter?
+        data[:labels][:space] = space
+      end
+      
+      data
+    end
+
+    def job_from(app_name)
+      # strip "-venerable" suffix from app names
+      # so that autopilot deploys don't rename metrics
+      app_name.sub(/-venerable$/, '')
+    end
   end
 end
