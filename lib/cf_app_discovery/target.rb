@@ -28,8 +28,8 @@ class CfAppDiscovery
             __param_cf_app_guid: guid,
             __param_cf_app_instance_index: index.to_s,
             cf_app_instance: index.to_s,
-            instance: "#{guid}:#{index}",
-            job: job_from(name),
+            instance: instance(index),
+            job: job,
             org: org,
           }
         }
@@ -40,10 +40,14 @@ class CfAppDiscovery
       data
     end
 
-    def job_from(app_name)
+    def instance(index)
+      "#{guid}:#{index}"
+    end
+
+    def job
       # strip "-venerable" suffix from app names
       # so that autopilot deploys don't rename metrics
-      app_name.sub(/-venerable$/, '')
+      name.sub(/-venerable$/, '')
     end
   end
 end

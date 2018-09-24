@@ -28,4 +28,18 @@ RSpec.describe CfAppDiscovery::Target do
 
     expect(target.started?).to be false
   end
+
+  it "Strips 'venerable' from app names" do
+    target = CfAppDiscovery::Target.new(guid:nil, name:"app-name-venerable", instances:nil, state:nil, route:nil, space:nil, org:nil,
+      detected_start_command: nil)
+
+    expect(target.job).to eq("app-name")
+  end
+
+  it "Constructs instance index label" do
+    target = CfAppDiscovery::Target.new(guid:"guid", name:nil, instances:nil, state:nil, route:nil, space:nil, org:nil,
+      detected_start_command: nil)
+
+    expect(target.instance(0)).to eq("guid:0")
+  end
 end
