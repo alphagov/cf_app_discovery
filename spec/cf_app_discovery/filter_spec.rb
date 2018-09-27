@@ -3,36 +3,32 @@ require "spec_helper"
 RSpec.describe CfAppDiscovery::Filter do
   let(:targets) do
     [
-      CfAppDiscovery::Parser::Target.new(
+      CfAppDiscovery::Target.new(
         guid: "app-1-guid",
         name: "app-1",
         instances: 2,
         state: "STARTED",
-        env: {},
+        detected_start_command: nil,
         route: "route-1.example.com",
         space: "test-space-name",
         org: "org-name"
       ),
-      CfAppDiscovery::Parser::Target.new(
+      CfAppDiscovery::Target.new(
         guid: "app-2-guid",
         name: "app-2",
         instances: 3,
         state: "STOPPED",
-        env: {
-          PROMETHEUS_METRICS_PATH: "/prometheus"
-        },
+        detected_start_command: "./bin/paas-metric-exporter",
         route: "route-2.example.com",
         space: "test-space-name",
         org: "org-name"
       ),
-      CfAppDiscovery::Parser::Target.new(
+      CfAppDiscovery::Target.new(
         guid: "app-3-guid",
         name: "app-3",
         instances: 2,
         state: "STARTED",
-        env: {
-          PROMETHEUS_METRICS_PATH: "/prometheus"
-        },
+        detected_start_command: "./bin/paas-metric-exporter",
         route: "route-3.custom.com",
         space: "test-space-name",
         org: "org-name"

@@ -33,9 +33,7 @@ module StubbableEndpoint
               name: "app-3",
               instances: 1,
               state: "STARTED",
-              environment_json: {
-                PROMETHEUS_METRICS_PATH: "/metrics"
-              },
+              detected_start_command: "./bin/paas-metric-exporter",
               space_url: "/v2/spaces/example-space-guid",
             },
           },
@@ -45,9 +43,7 @@ module StubbableEndpoint
               name: "app-4",
               instances: 1,
               state: "STARTED",
-              environment_json: {
-                PROMETHEUS_METRICS_PATH: "/metrics"
-              },
+              detected_start_command: "./bin/paas-metric-exporter",
               space_url: "/v2/spaces/example-space-guid",
             },
           },

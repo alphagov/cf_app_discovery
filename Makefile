@@ -14,3 +14,7 @@ deploy-staging: ## Deploy to prometheus-staging
 deploy-production: ## Deploy to prometheus-production
 	cf target -s prometheus-production
 	cf push -f manifest-production.yml
+
+.PHONY: test
+test: ## Run rspec tests
+	rake
