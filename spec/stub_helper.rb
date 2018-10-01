@@ -6,8 +6,8 @@ module StubHelper
         headers: endpoint.request_headers,
       )
       .to_return(
-        body: endpoint.response_body.to_json,
-        headers: endpoint.response_headers,
+        body: endpoint[:response_body].to_json,
+        headers: endpoint[:response_headers],
       )
   end
 end

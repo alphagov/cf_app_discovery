@@ -16,7 +16,7 @@ RSpec.describe CfAppDiscovery::Client do
   before { stub_endpoint(StubbableEndpoint::Domain1) }
   before { stub_endpoint(StubbableEndpoint::Domain2) }
   before { stub_endpoint(StubbableEndpoint::Org1) }
-  before { stub_endpoint(StubbableEndpoint::Routes1) }
+  before { stub_endpoint(StubbableEndpoint::Routes1.route) }
   before { stub_endpoint(StubbableEndpoint::Routes2) }
   before { stub_endpoint(StubbableEndpoint::Routes3) }
   before { stub_endpoint(StubbableEndpoint::Routes4) }

@@ -11,6 +11,7 @@ gem "rspec"
 gem "sinatra"
 
 group :development do
+  gem "factory_bot", "~> 4.0"
   gem "govuk-lint"
   gem 'pry-byebug'
   gem 'rack-test', require: 'rack/test'
