@@ -9,6 +9,7 @@ defaults: &defaults
     AWS_REGION: eu-west-1
     API_ENDPOINT: https://api.cloud.service.gov.uk
     UAA_ENDPOINT: https://uaa.cloud.service.gov.uk
+    BROKER_ENDPOINT: https://prometheus-service-broker.cloudapps.digital
     PAAS_DOMAIN: cloudapps.digital
     TARGETS_PATH: none
     ENVIRONMENT: paas
