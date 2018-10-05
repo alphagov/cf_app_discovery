@@ -1,6 +1,7 @@
 require "rspec"
 require "pry"
 require "webmock/rspec"
+require "factory_bot"
 
 require "stub_helper"
 require "stubbable_endpoint/auth"
@@ -38,6 +39,12 @@ RSpec.configure do |config|
   config.disable_monkey_patching!
   config.formatter = :doc
   config.color = true
+
+  config.include FactoryBot::Syntax::Methods
+
+  config.before(:suite) do
+    FactoryBot.find_definitions
+  end
 end
 
 FileUtils.mkdir_p("#{ENV.fetch('TARGETS_PATH')}/active")
