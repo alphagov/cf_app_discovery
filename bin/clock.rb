@@ -7,6 +7,6 @@ module Clockwork
   end
 
   every(60, 'Update targets') {
-    `rake update_targets`
+    system("curl", "-d", "", "#{ENV.fetch("BROKER_ENDPOINT")}/update-targets")
   }
 end

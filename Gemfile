@@ -5,6 +5,7 @@ ruby '~> 2.5.1'
 gem "aws-sdk-s3"
 gem "cf-uaa-lib"
 gem "clockwork"
+gem "prometheus-client"
 gem "rake"
 # Needed to load the Rakefile
 gem "rspec"

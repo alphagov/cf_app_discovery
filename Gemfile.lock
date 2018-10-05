@@ -55,6 +55,8 @@ GEM
     parser (2.5.1.0)
       ast (~> 2.4.0)
     powerpack (0.1.2)
+    prometheus-client (0.8.0)
+      quantile (~> 0.2.1)
     pry (0.11.3)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -62,6 +64,7 @@ GEM
       byebug (~> 10.0)
       pry (~> 0.10)
     public_suffix (3.0.2)
+    quantile (0.2.1)
     rack (2.0.5)
     rack-protection (2.0.3)
       rack
@@ -128,6 +131,7 @@ DEPENDENCIES
   clockwork
   factory_bot
   govuk-lint
+  prometheus-client
   pry-byebug
   rack-test
   rake
@@ -139,4 +143,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.5
+   1.16.6
