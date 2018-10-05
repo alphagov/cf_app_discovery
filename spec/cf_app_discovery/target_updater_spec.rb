@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.describe CfAppDiscovery do
+RSpec.describe CfAppDiscovery::TargetUpdater do
   include StubHelper
 
   before do
@@ -18,6 +18,21 @@ RSpec.describe CfAppDiscovery do
     FileUtils.touch("#{active_targets_path}/app-1-guid.json")
     FileUtils.touch("#{inactive_targets_path}/app-2-guid.json")
     FileUtils.touch("#{active_targets_path}/app-3-guid.json")
+  end
+
+  subject do
+    described_class.new(
+      filestore_manager: LocalManager.new(targets_path: targets_path, folders: %w(active inactive)),
+      client: CfAppDiscovery::Client.new(
+        api_endpoint: "http://api.example.com",
+        api_token: CfAppDiscovery::Auth.new(
+          uaa_endpoint: "http://uaa.example.com",
+          uaa_username: "uaa-username",
+          uaa_password: "uaa-password"
+        ).access_token,
+        paas_domain: "example.com"
+      )
+    )
   end
 
   let(:targets_path) do
@@ -38,15 +53,7 @@ RSpec.describe CfAppDiscovery do
   end
 
   it "reads app instances from the API and writes to the targets directory" do
-    described_class.run(
-      api_endpoint: "http://api.example.com",
-      uaa_endpoint: "http://uaa.example.com",
-      uaa_username: "uaa-username",
-      uaa_password: "uaa-password",
-      paas_domain: "example.com",
-      targets_path: targets_path,
-      environment: 'local',
-    )
+    subject.run
     names = filenames("#{active_targets_path}/*.json")
     expect(names).to contain_exactly('app-2-guid.json', 'app-3-guid.json')
 
