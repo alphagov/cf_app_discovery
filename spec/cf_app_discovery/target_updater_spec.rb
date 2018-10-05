@@ -4,7 +4,6 @@ RSpec.describe CfAppDiscovery::TargetUpdater do
   include StubHelper
 
   before do
-    stub_endpoint(StubbableEndpoint::Auth)
     stub_endpoint(StubbableEndpoint::Apps)
     stub_endpoint(StubbableEndpoint::AppsPage2)
     stub_endpoint(StubbableEndpoint::Domain1)
@@ -25,11 +24,7 @@ RSpec.describe CfAppDiscovery::TargetUpdater do
       filestore_manager: LocalManager.new(targets_path: targets_path, folders: %w(active inactive)),
       client: CfAppDiscovery::Client.new(
         api_endpoint: "http://api.example.com",
-        api_token: CfAppDiscovery::Auth.new(
-          uaa_endpoint: "http://uaa.example.com",
-          uaa_username: "uaa-username",
-          uaa_password: "uaa-password"
-        ).access_token,
+        api_token: "dummy-oauth-token",
         paas_domain: "example.com"
       )
     )
