@@ -72,11 +72,18 @@ class CfAppDiscovery
     end
 
     post "/update-targets" do
-      CfAppDiscovery.run(api_endpoint: settings.api_endpoint, uaa_endpoint: settings.uaa_endpoint, uaa_username: settings.uaa_username, uaa_password: settings.uaa_password, paas_domain: settings.paas_domain, targets_path: settings.targets_path, environment: settings.environment)
+      target_updater.run
       render({})
     end
 
   private
+
+    def target_updater
+      @target_updater ||= TargetUpdater.new(
+        filestore_manager: filestore_manager,
+        client: client
+      )
+    end
 
     def filestore_manager
       @filestore_manager ||= FilestoreManagerFactory.filestore_manager_builder(
