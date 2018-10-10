@@ -2,3 +2,15 @@ require: rubocop-rspec
 
 AllCops:
   TargetRubyVersion: 2.5.1
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/DescribeClass:
+  Enabled: false
+
+RSpec/InstanceVariable:
+  Enabled: false
