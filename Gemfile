@@ -11,7 +11,7 @@ gem "rake"
 gem "rspec"
 gem "sinatra"
 
-group :development do
+group :development, :test do
   gem "factory_bot"
   gem "govuk-lint"
   gem 'pry-byebug'
