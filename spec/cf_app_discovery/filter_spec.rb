@@ -1,6 +1,8 @@
 require "spec_helper"
 
 RSpec.describe CfAppDiscovery::Filter do
+  subject(:filter) { described_class.new }
+
   let(:targets) do
     [
       CfAppDiscovery::Target.new(
@@ -36,11 +38,11 @@ RSpec.describe CfAppDiscovery::Filter do
     ]
   end
 
-  it "should filter target not running" do
-    expect(subject.filter_stopped(targets)).to eq [targets.first, targets.last]
+  it "filters target not running" do
+    expect(filter.filter_stopped(targets)).to eq [targets.first, targets.last]
   end
 
-  it "should filter target not configured for prometheus" do
-    expect(subject.filter_prometheus_available(targets, ["app-3-guid"])).to eq [targets.last]
+  it "filters target not configured for prometheus" do
+    expect(filter.filter_prometheus_available(targets, ["app-3-guid"])).to eq [targets.last]
   end
 end

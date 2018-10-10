@@ -1,6 +1,10 @@
 require "spec_helper"
 
 RSpec.describe CfAppDiscovery::Parser do
+  subject(:parser) do
+    described_class.new(api_response)
+  end
+
   let(:api_response) do
     [
       {
@@ -45,11 +49,9 @@ RSpec.describe CfAppDiscovery::Parser do
     ]
   end
 
-  subject { described_class.new(api_response) }
-
   it "parses a target per resource" do
-    expect(subject.targets.size).to eq(3)
-    first, second, third = subject.targets
+    expect(parser.targets.size).to eq(3)
+    first, second, third = parser.targets
 
     expect(first.guid).to eq("app-1-guid")
     expect(first.name).to eq("app-1")
