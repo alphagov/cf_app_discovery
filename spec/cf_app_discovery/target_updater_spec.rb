@@ -19,7 +19,7 @@ RSpec.describe CfAppDiscovery::TargetUpdater do
     FileUtils.touch("#{active_targets_path}/app-3-guid.json")
   end
 
-  subject do
+  subject(:target_updater) do
     described_class.new(
       filestore_manager: LocalManager.new(targets_path: targets_path, folders: %w(active inactive)),
       client: CfAppDiscovery::Client.new(
@@ -48,7 +48,7 @@ RSpec.describe CfAppDiscovery::TargetUpdater do
   end
 
   it "reads app instances from the API and writes to the targets directory" do
-    subject.run
+    target_updater.run
     names = filenames("#{active_targets_path}/*.json")
     expect(names).to contain_exactly('app-2-guid.json', 'app-3-guid.json')
 

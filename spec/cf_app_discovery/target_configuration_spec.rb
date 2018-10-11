@@ -3,7 +3,7 @@ require "spec_helper"
 RSpec.describe CfAppDiscovery::TargetConfiguration do
   include StubHelper
 
-  subject do
+  subject(:target_configuration) do
     described_class.new(
       filestore_manager: LocalManager.new(targets_path: targets_path),
     )
@@ -45,7 +45,7 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
     end
 
     it "writes files named after the target guids" do
-      subject.write_active_targets(targets)
+      target_configuration.write_active_targets(targets)
 
       listing = Dir["#{targets_path}/active/*.json"]
       names = listing.map { |s| File.basename(s) }
@@ -54,7 +54,7 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
     end
 
     it "writes an entry per instance for each target" do
-      subject.write_active_targets(targets)
+      target_configuration.write_active_targets(targets)
 
       listing = Dir["#{targets_path}/active/*.json"]
       contents = listing.map { |path| File.read(path) }
@@ -106,7 +106,7 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
 
     context "when the target files already exist" do
       before do
-        subject.write_active_targets(targets)
+        target_configuration.write_active_targets(targets)
         @first, @second = Dir["#{targets_path}/active/*.json"]
 
         File.open(@first, "w") { |f| f.write("this content is out of date") }
@@ -116,16 +116,16 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
       end
 
       it "only writes files that have changed" do
-        subject.write_active_targets(targets)
+        target_configuration.write_active_targets(targets)
 
         expect(File.mtime(@first).to_i).not_to eq(0), "File should have been written"
         expect(File.mtime(@second).to_i).to eq(0), "File should not have been written"
       end
 
       it "lists the apps which have been configured" do
-        subject.write_active_targets(targets)
+        target_configuration.write_active_targets(targets)
 
-        configured_apps = subject.configured_apps
+        configured_apps = target_configuration.configured_apps
         expect(configured_apps.to_set).to contain_exactly('app-1-v2-guid', 'app-2-guid')
       end
     end
@@ -148,7 +148,7 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
     end
 
     it "writes an entry per instance for each target, without the space label" do
-      subject.write_active_targets(targets)
+      target_configuration.write_active_targets(targets)
 
       listing = Dir["#{targets_path}/active/*.json"]
       contents = listing.map { |path| File.read(path) }

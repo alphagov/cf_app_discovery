@@ -13,14 +13,14 @@ RSpec.describe CfAppDiscovery::Paginator do
     end
   end
 
-  let(:client) { FakeClient.new }
-
-  subject do
+  subject(:paginator) do
     described_class.new { |url| client.apps(url) }
   end
 
+  let(:client) { FakeClient.new }
+
   it "yields pages until there's no next_url in the result" do
-    expect(subject.to_a).to eq [
+    expect(paginator.to_a).to eq [
       { title: "First", next_url: "/second-page" },
       { title: "Second", next_url: "/third-page" },
       { title: "Third", next_url: nil },

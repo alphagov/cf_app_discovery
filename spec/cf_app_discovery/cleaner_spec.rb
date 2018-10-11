@@ -1,7 +1,11 @@
 require "spec_helper"
 
 RSpec.describe CfAppDiscovery::Cleaner do
-  subject { described_class.new(filestore_manager: LocalManager.new(targets_path: targets_path, folders: %w(active inactive))) }
+  subject(:cleaner) do
+    described_class.new(
+      filestore_manager: LocalManager.new(targets_path: targets_path, folders: %w(active inactive))
+    )
+  end
 
   let(:targets_path) { Dir.mktmpdir }
   let(:active_targets_path) {
@@ -27,7 +31,7 @@ RSpec.describe CfAppDiscovery::Cleaner do
     FileUtils.touch(configured_target_filename)
     FileUtils.touch(stopped_target_filename)
 
-    expect { subject.move_stopped_targets([stopped_target]) }
+    expect { cleaner.move_stopped_targets([stopped_target]) }
       .to change { File.exist?(configured_target_filename) }
       .from(true)
       .to(false)
@@ -40,7 +44,7 @@ RSpec.describe CfAppDiscovery::Cleaner do
     FileUtils.touch(stopped_target_filename)
     FileUtils.touch(current_target_filename)
 
-    expect { subject.move_stopped_targets([stopped_target]) }
+    expect { cleaner.move_stopped_targets([stopped_target]) }
       .to change { File.exist?(stopped_target_filename) }
       .from(true)
       .to(false)
@@ -54,7 +58,7 @@ RSpec.describe CfAppDiscovery::Cleaner do
     FileUtils.touch(stopped_target_filename)
     FileUtils.touch(current_target_filename)
 
-    subject.remove_old_target(current_target.guid)
+    cleaner.remove_old_target(current_target.guid)
 
     expect(File.exist?(stopped_target_filename)).to eq(false)
     expect(File.exist?(current_target_filename)).to eq(false)
