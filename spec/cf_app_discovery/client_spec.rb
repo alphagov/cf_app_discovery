@@ -4,21 +4,8 @@ require "spec_helper"
 RSpec.describe CfAppDiscovery::Client do
   include StubHelper
 
-  spec_root = File.dirname __dir__
-  expected_responses_file = File.read("#{spec_root}/fixtures/expected_responses.json")
-  expected_responses = JSON.parse(expected_responses_file, symbolize_names: true)
-
   before do
-    stub_endpoint(first_page)
-    stub_endpoint(second_page)
-    stub_endpoint(StubbableEndpoint::Domain1)
-    stub_endpoint(StubbableEndpoint::Domain2)
-    stub_endpoint(StubbableEndpoint::Org1)
-    stub_endpoint(StubbableEndpoint::Routes1)
-    stub_endpoint(StubbableEndpoint::Routes2)
-    stub_endpoint(StubbableEndpoint::Routes3)
-    stub_endpoint(StubbableEndpoint::Routes4)
-    stub_endpoint(StubbableEndpoint::Space1)
+    stub_endpoint(StubbableEndpoint::Get)
   end
 
   subject(:client) do
@@ -29,13 +16,7 @@ RSpec.describe CfAppDiscovery::Client do
     )
   end
 
-  let(:first_page) { StubbableEndpoint::Apps }
-  let(:second_page) { StubbableEndpoint::AppsPage2 }
-
-  it "returns the apps data from the api" do
-    first_page.response_body.fetch(:resources)
-    second_page.response_body.fetch(:resources)
-
-    expect(client.apps).to eq(expected_responses)
+  it "performs a successful get request" do
+    expect(client.get("/v2/apps/test")).to eq(metadata: {}, entity: {})
   end
 end

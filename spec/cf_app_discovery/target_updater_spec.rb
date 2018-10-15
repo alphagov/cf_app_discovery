@@ -22,7 +22,7 @@ RSpec.describe CfAppDiscovery::TargetUpdater do
   subject(:target_updater) do
     described_class.new(
       filestore_manager: LocalManager.new(targets_path: targets_path, folders: %w(active inactive)),
-      client: CfAppDiscovery::Client.new(
+      banana: CfAppDiscovery::Banana.new(
         api_endpoint: "http://api.example.com",
         api_token: "dummy-oauth-token",
         paas_domain: "example.com"

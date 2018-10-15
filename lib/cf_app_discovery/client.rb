@@ -8,66 +8,6 @@ class CfAppDiscovery
       self.paas_domain = paas_domain
     end
 
-    def apps
-      paginator = Paginator.new do |next_url|
-        get(next_url || "/v2/apps")
-      end
-
-      resources = paginator.flat_map do |page|
-        page.fetch(:resources)
-      end
-
-      resources.each do |resource|
-        set_space_and_org(resource)
-        set_first_route(resource)
-      end
-      resources
-    end
-
-    def app(app_guid)
-      resource = get("/v2/apps/#{app_guid}")
-      set_space_and_org(resource)
-      set_first_route(resource)
-    end
-
-    def service_binding(service_binding_id)
-      get("/v2/service_bindings/#{service_binding_id}")
-    end
-
-    def routes(service_binding_id)
-      get("/v2/apps/#{service_binding_id}/routes")
-    end
-
-  private
-
-    def set_first_route(resource)
-      routes_data = routes(resource.dig(:metadata, :guid)).fetch(:resources)
-
-      if routes_data.first.nil?
-        app_name = resource.dig(:entity, :name)
-        resource[:route] = "#{app_name}.#{paas_domain}"
-      else
-        domain_data = get(routes_data.first.dig(:entity, :domain_url))
-        host = routes_data.first.dig(:entity, :host)
-        domain_name = domain_data.dig(:entity, :name)
-        resource[:route] = if host.empty?
-                             domain_name
-                           else
-                             "#{host}.#{domain_name}"
-                           end
-      end
-      resource
-    end
-
-    def set_space_and_org(resource)
-      space_data = get(resource.dig(:entity, :space_url))
-      org_data = get(space_data.dig(:entity, :organization_url))
-
-      resource[:space] = space_data.dig(:entity, :name)
-      resource[:org] = org_data.dig(:entity, :name)
-      resource
-    end
-
     def get(path)
       uri = URI.parse("#{api_endpoint}#{path}")
       request = Net::HTTP::Get.new(uri)
@@ -80,6 +20,24 @@ class CfAppDiscovery
       end
 
       JSON.parse(response.body, symbolize_names: true)
+    end
+
+    def service_binding(service_binding_id)
+      get("/v2/service_bindings/#{service_binding_id}")
+    end
+
+    def routes(service_binding_id)
+      get("/v2/apps/#{service_binding_id}/routes")
+    end
+
+    def app_info(app_guid)
+      get("/v2/apps/#{app_guid}")
+    end
+
+    def get_complete_list
+      Paginator.new do |next_url|
+        get(next_url || "/v2/apps")
+      end
     end
   end
 end
