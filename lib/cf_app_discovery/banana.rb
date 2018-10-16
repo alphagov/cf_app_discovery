@@ -1,6 +1,7 @@
 class CfAppDiscovery
   class Banana
-    attr_reader :client, :paas_domain
+    attr_reader :paas_domain
+    attr_accessor :client
 
     def initialize(api_endpoint:, api_token:, paas_domain:)
       @client = Client.new(
@@ -30,8 +31,6 @@ class CfAppDiscovery
       set_space_and_org(resource)
       set_first_route(resource)
     end
-
-  private
 
     def set_first_route(resource)
       routes_data = @client.routes(resource.dig(:metadata, :guid)).fetch(:resources)

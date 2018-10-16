@@ -2,23 +2,51 @@ require 'json'
 require "spec_helper"
 
 RSpec.describe CfAppDiscovery::Banana do
-  include StubHelper
+  class FakeClient
+    def get(path)
+      path_hash = {
+        "/v2/apps/sample_guid/routes" => {
+          resources: [],
+        },
+        "/v2/apps/sample_guid_with_host/routes" => {
+          resources: [{
+            entity: {
+              domain_url: "sample_domain_url",
+              host: "sample_host"
+            }
+          }]
+        },
+        "/v2/apps/sample_guid_without_host/routes" => {
+          resources: [{
+            entity: {
+              domain_url: "sample_domain_url",
+              host: ""
+            }
+          }]
+        },
+        "sample_domain_url" => {
+          entity: {
+            name: "sample_name.com"
+          }
+        },
+        "example_space.gov.uk" => {
+          entity: {
+            name: "example_space_name",
+            organization_url: "example_org.gov.uk"
+          }
+        },
+        "example_org.gov.uk" => {
+          entity: {
+            name: "example_org_name"
+          }
+        }
+      }
+      path_hash[path]
+    end
 
-  spec_root = File.dirname __dir__
-  expected_responses_file = File.read("#{spec_root}/fixtures/expected_responses.json")
-  expected_responses = JSON.parse(expected_responses_file, symbolize_names: true)
-
-  before do
-    stub_endpoint(first_page)
-    stub_endpoint(second_page)
-    stub_endpoint(StubbableEndpoint::Domain1)
-    stub_endpoint(StubbableEndpoint::Domain2)
-    stub_endpoint(StubbableEndpoint::Org1)
-    stub_endpoint(StubbableEndpoint::Routes1)
-    stub_endpoint(StubbableEndpoint::Routes2)
-    stub_endpoint(StubbableEndpoint::Routes3)
-    stub_endpoint(StubbableEndpoint::Routes4)
-    stub_endpoint(StubbableEndpoint::Space1)
+    def routes(path)
+      get("/v2/apps/#{path}/routes")
+    end
   end
 
   subject(:banana) do
@@ -29,13 +57,77 @@ RSpec.describe CfAppDiscovery::Banana do
     )
   end
 
-  let(:first_page) { StubbableEndpoint::Apps }
-  let(:second_page) { StubbableEndpoint::AppsPage2 }
+  before do
+    banana.client = FakeClient.new
+  end
 
-  it "returns the apps data from the api" do
-    first_page.response_body.fetch(:resources)
-    second_page.response_body.fetch(:resources)
+  describe "set_first_route" do
+    let(:resource) {
+      {
+        metadata: {
+          guid: "sample_guid"
+        },
+        entity: {
+          name: "test_name"
+        }
+      }
+    }
+    let(:resource_with_host) {
+      {
+        metadata: {
+          guid: "sample_guid_with_host"
+        },
+        entity: {
+          domain_url: "sample_domain_url"
+        }
+      }
+    }
+    let(:resource_without_host) {
+      {
+        metadata: {
+          guid: "sample_guid_without_host"
+        },
+        entity: {
+          domain_url: "sample_domain_url"
+        }
+      }
+    }
 
-    expect(banana.apps).to eq(expected_responses)
+    context "when resources field is nil" do
+      it "sets a route on the input resource" do
+        banana.set_first_route(resource)
+        expect(resource[:route]).to eq("test_name.example.com")
+      end
+    end
+
+    context "when resources field includes host" do
+      it "sets a route on the input resource" do
+        banana.set_first_route(resource_with_host)
+        expect(resource_with_host[:route]).to eq("sample_host.sample_name.com")
+      end
+    end
+
+    context "when resources field does not include host" do
+      it "sets a route on the input resource" do
+        banana.set_first_route(resource_without_host)
+        expect(resource_without_host[:route]).to eq("sample_name.com")
+      end
+    end
+  end
+
+  describe "set_space_and_org" do
+    let(:resource_org_and_space) {
+      {
+        entity: {
+        space_url: "example_space.gov.uk"
+        }
+      }
+    }
+
+    it "sets the org and space" do
+      banana.set_space_and_org(resource_org_and_space)
+      expect(resource_org_and_space[:org]).to eq("example_org_name")
+      expect(resource_org_and_space[:space]).to eq("example_space_name")
+    end
   end
 end
