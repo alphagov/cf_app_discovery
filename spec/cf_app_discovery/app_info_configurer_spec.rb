@@ -1,7 +1,7 @@
 require 'json'
 require "spec_helper"
 
-RSpec.describe CfAppDiscovery::Banana do
+RSpec.describe CfAppDiscovery::AppInfoConfigurer do
   class FakeClient
     def get(path)
       path_hash = {
@@ -49,7 +49,7 @@ RSpec.describe CfAppDiscovery::Banana do
     end
   end
 
-  subject(:banana) do
+  subject(:app_info_configurer) do
     described_class.new(
       api_endpoint: "http://api.example.com",
       api_token: "dummy-oauth-token",
@@ -58,7 +58,7 @@ RSpec.describe CfAppDiscovery::Banana do
   end
 
   before do
-    banana.client = FakeClient.new
+    app_info_configurer.client = FakeClient.new
   end
 
   describe "set_first_route" do
@@ -95,21 +95,21 @@ RSpec.describe CfAppDiscovery::Banana do
 
     context "when resources field is nil" do
       it "sets a route on the input resource" do
-        banana.set_first_route(resource)
+        app_info_configurer.set_first_route(resource)
         expect(resource[:route]).to eq("test_name.example.com")
       end
     end
 
     context "when resources field includes host" do
       it "sets a route on the input resource" do
-        banana.set_first_route(resource_with_host)
+        app_info_configurer.set_first_route(resource_with_host)
         expect(resource_with_host[:route]).to eq("sample_host.sample_name.com")
       end
     end
 
     context "when resources field does not include host" do
       it "sets a route on the input resource" do
-        banana.set_first_route(resource_without_host)
+        app_info_configurer.set_first_route(resource_without_host)
         expect(resource_without_host[:route]).to eq("sample_name.com")
       end
     end
@@ -125,7 +125,7 @@ RSpec.describe CfAppDiscovery::Banana do
     }
 
     it "sets the org and space" do
-      banana.set_space_and_org(resource_org_and_space)
+      app_info_configurer.set_space_and_org(resource_org_and_space)
       expect(resource_org_and_space[:org]).to eq("example_org_name")
       expect(resource_org_and_space[:space]).to eq("example_space_name")
     end

@@ -1,7 +1,7 @@
 require "spec_helper"
 
 RSpec.describe CfAppDiscovery::Paginator do
-  class FakeBanana
+  class FakeAppInfoConfigurer
     PAGES = {
       "/first-page" => { title: "First", next_url: "/second-page" },
       "/second-page" => { title: "Second", next_url: "/third-page" },
@@ -14,10 +14,10 @@ RSpec.describe CfAppDiscovery::Paginator do
   end
 
   subject(:paginator) do
-    described_class.new { |url| banana.apps(url) }
+    described_class.new { |url| app_info_configurer.apps(url) }
   end
 
-  let(:banana) { FakeBanana.new }
+  let(:app_info_configurer) { FakeAppInfoConfigurer.new }
 
   it "yields pages until there's no next_url in the result" do
     expect(paginator.to_a).to eq [

@@ -1,7 +1,7 @@
 require 'json'
 require "spec_helper"
 
-RSpec.describe CfAppDiscovery::Client do
+RSpec.describe CfAppDiscovery::CfClient do
   include StubHelper
 
   before do

@@ -1,5 +1,5 @@
 class CfAppDiscovery
-  class Client
+  class CfClient
     attr_accessor :api_endpoint, :api_token, :paas_domain
 
     def initialize(api_endpoint:, api_token:, paas_domain:)

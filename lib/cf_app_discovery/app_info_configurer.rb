@@ -1,10 +1,10 @@
 class CfAppDiscovery
-  class Banana
+  class AppInfoConfigurer
     attr_reader :paas_domain
     attr_accessor :client
 
     def initialize(api_endpoint:, api_token:, paas_domain:)
-      @client = Client.new(
+      @client = CfClient.new(
         api_endpoint: api_endpoint,
         api_token: api_token,
         paas_domain: paas_domain
