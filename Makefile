@@ -15,6 +15,22 @@ deploy-production: ## Deploy to prometheus-production
 	cf target -s prometheus-production
 	cf push -f manifest-production.yml
 
+.PHONY: update-service-broker-staging
+update-service-broker-staging:
+	# Note: you need to be a cloud foundry admin to run this task
+	scripts/update-service-broker.sh \
+		prometheus-staging \
+		prometheus-service-broker-staging \
+		prometheus-service-broker-staging
+
+.PHONY: update-service-broker-production
+update-service-broker-production:
+	# Note: you need to be a cloud foundry admin to run this task
+	scripts/update-service-broker.sh \
+		prometheus-production \
+		prometheus-service-broker \
+		prometheus-alpha
+
 .PHONY: test
 test: ## Run rspec tests
 	rake

@@ -80,6 +80,16 @@ make deploy-production
 
 The `Makefile` sets the target to the correct space for deployment and makes use of `manifest-staging.yml` and `manifest-production.yml`.
 
+If you need to update the service broker in cloud foundry (e.g. if you need to change it's description in `cf marketplace`) you will need a PaaS administrator to run the following make tasks:
+
+```shell
+# to update staging
+make update-service-broker-staging
+
+# to update production
+make update-service-broker-production
+```
+
 ### Developing the service broker
 
 The application has a `manifest.yml` which has a cloud foundry config and can be deployed to the PaaS by running `cf push`, this should create a `prometheus-service-broker` and a `prometheus-target-updater` app. 
