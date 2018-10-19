@@ -1,8 +1,8 @@
 class CfAppDiscovery
   class TargetUpdater
-    attr_accessor :client, :filestore_manager
-    def initialize(filestore_manager:, client:)
-      self.client = client
+    attr_accessor :app_info_configurer, :filestore_manager
+    def initialize(filestore_manager:, app_info_configurer:)
+      self.app_info_configurer = app_info_configurer
       self.filestore_manager = filestore_manager
     end
 
@@ -11,7 +11,7 @@ class CfAppDiscovery
         filestore_manager: filestore_manager,
       )
 
-      parser = Parser.new(client.apps)
+      parser = Parser.new(app_info_configurer.apps)
       targets = parser.targets
 
       filter = Filter.new

@@ -44,7 +44,7 @@ class CfAppDiscovery
       cf_request = request.body.read
       body_json = JSON.parse(cf_request, symbolize_names: true)
       app_guid = body_json.fetch(:bind_resource).fetch(:app_guid)
-      app_data = client.app(app_guid)
+      app_data = app_info_configurer.app(app_guid)
       parser = Parser.new([app_data])
       template = TargetConfiguration.new(
         filestore_manager: filestore_manager,
@@ -55,7 +55,7 @@ class CfAppDiscovery
 
     delete "/v2/service_instances/:instance_id/service_bindings/:id" do |_, binding_id|
       content_type :json
-      service_binding = client.service_binding(binding_id)
+      service_binding = app_info_configurer.client.service_binding(binding_id)
       if service_binding.has_key?(:entity)
         app_guid = service_binding.fetch(:entity).fetch(:app_guid)
         cleaner = Cleaner.new(filestore_manager: filestore_manager)
@@ -81,7 +81,7 @@ class CfAppDiscovery
     def target_updater
       @target_updater ||= TargetUpdater.new(
         filestore_manager: filestore_manager,
-        client: client
+        app_info_configurer: app_info_configurer
       )
     end
 
@@ -97,8 +97,8 @@ class CfAppDiscovery
       payload.to_json
     end
 
-    def client
-      @client ||= Client.new(
+    def app_info_configurer
+      @app_info_configurer ||= AppInfoConfigurer.new(
         api_endpoint: settings.api_endpoint,
         api_token: api_token,
         paas_domain: settings.paas_domain
