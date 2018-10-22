@@ -7,6 +7,6 @@ module Clockwork
   end
 
   every(60, 'Update targets') {
-    system("curl", "-d", "", "#{ENV.fetch('BROKER_ENDPOINT')}/update-targets")
+    system("curl", "-s", "-d", "", "#{ENV.fetch('BROKER_ENDPOINT')}/update-targets")
   }
 end
