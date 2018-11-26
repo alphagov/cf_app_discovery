@@ -14,7 +14,11 @@ class CfAppDiscovery
     end
 
     def paas_metric_exporter?
-      detected_start_command == "./bin/paas-metric-exporter"
+      # This flag is used as a indicator that the target running is either the paas-metric-exporter or the
+      # paas-prometheus-exporter. These two apps both require special treatement when generating their json.
+      # This function can likely be renamed to `paas_prometheus_exporter?` after prometheus support is removed from
+      # the pass-metric-exporter
+      %w(./bin/paas-metric-exporter ./bin/paas-prometheus-exporter).include?(detected_start_command)
     end
 
     def started?

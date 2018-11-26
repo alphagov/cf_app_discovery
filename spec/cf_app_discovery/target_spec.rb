@@ -6,6 +6,11 @@ RSpec.describe CfAppDiscovery::Target do
     expect(target.paas_metric_exporter?).to be true
   end
 
+  it "Detects a paas prometheus exporter instance" do
+    target = build(:target, detected_start_command: "./bin/paas-prometheus-exporter")
+    expect(target.paas_metric_exporter?).to be true
+  end
+
   it "Detects a normal app" do
     target = build(:target, detected_start_command: "")
     expect(target.paas_metric_exporter?).to be false
