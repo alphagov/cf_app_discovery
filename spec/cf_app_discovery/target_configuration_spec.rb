@@ -26,7 +26,7 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
           name: "app-1",
           instances: 2,
           state: "STARTED",
-          detected_start_command: nil,
+          detected_start_command: "",
           route: "route-1.example.com",
           space: "test-space-name",
           org: "test-org-name",
@@ -36,7 +36,7 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
           name: "app-2",
           instances: 1,
           state: "STARTED",
-          detected_start_command: nil,
+          detected_start_command: "",
           route: "route-2.custom.com",
           space: "test-space-name",
           org: "test-org-name",
@@ -144,6 +144,16 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
           space: "test-space-name",
           org: "test-org-name",
         ),
+        CfAppDiscovery::Target.new(
+          guid: "app-2-guid",
+          name: "app-2",
+          instances: 1,
+          state: "STARTED",
+          detected_start_command: "./bin/paas-prometheus-exporter",
+          route: "route-2.example.com",
+          space: "test-space-name",
+          org: "test-org-name",
+        ),
       ]
     end
 
@@ -175,6 +185,19 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
               cf_app_instance: "1",
               instance: "app-1-v1-guid:1",
               job: "app-1",
+              org: "test-org-name",
+            },
+          },
+        ],
+        [
+          {
+            targets: ["route-2.example.com"],
+            labels: {
+              __param_cf_app_guid: "app-2-guid",
+              __param_cf_app_instance_index: "0",
+              cf_app_instance: "0",
+              instance: "app-2-guid:0",
+              job: "app-2",
               org: "test-org-name",
             },
           },
