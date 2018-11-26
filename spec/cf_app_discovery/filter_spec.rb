@@ -10,7 +10,7 @@ RSpec.describe CfAppDiscovery::Filter do
         name: "app-1",
         instances: 2,
         state: "STARTED",
-        detected_start_command: nil,
+        detected_start_command: "start.py",
         route: "route-1.example.com",
         space: "test-space-name",
         org: "org-name"
