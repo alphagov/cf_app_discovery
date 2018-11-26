@@ -20,7 +20,7 @@ RSpec.describe CfAppDiscovery::Filter do
         name: "app-2",
         instances: 3,
         state: "STOPPED",
-        detected_start_command: "./bin/paas-metric-exporter",
+        detected_start_command: "start.py",
         route: "route-2.example.com",
         space: "test-space-name",
         org: "org-name"
@@ -30,7 +30,7 @@ RSpec.describe CfAppDiscovery::Filter do
         name: "app-3",
         instances: 2,
         state: "STARTED",
-        detected_start_command: "./bin/paas-metric-exporter",
+        detected_start_command: "start.py",
         route: "route-3.custom.com",
         space: "test-space-name",
         org: "org-name"
