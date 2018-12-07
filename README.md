@@ -32,7 +32,7 @@ server {
   location / {
     proxy_pass https://$host$uri;
     proxy_ssl_server_name on;
-    proxy_set_header X-CF-APP-INSTANCE $arg_cf_app_guid:$arg_cf_app_instance_index;
+    proxy_set_header X-CF-APP-INSTANCE $arg_cf_app_instance;
   }
 }
 ```
