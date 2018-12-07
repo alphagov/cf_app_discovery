@@ -31,7 +31,6 @@ class CfAppDiscovery
           labels: {
             __param_cf_app_guid: guid,
             __param_cf_app_instance_index: index.to_s,
-            cf_app_instance: index.to_s,
             instance: instance(index),
             job: job,
             org: org,
