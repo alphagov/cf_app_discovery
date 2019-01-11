@@ -17,6 +17,15 @@ RSpec.describe CfAppDiscovery::AppInfoConfigurer do
             }
           }]
         },
+        "/v2/apps/sample_guid_with_path/routes" => {
+          resources: [{
+            entity: {
+              domain_url: "sample_domain_url",
+              host: "",
+              path: "/sample_path"
+            }
+          }]
+        },
         "/v2/apps/sample_guid_with_host_and_path/routes" => {
           resources: [{
             entity: {
@@ -93,6 +102,16 @@ RSpec.describe CfAppDiscovery::AppInfoConfigurer do
         }
       }
     }
+    let(:resource_with_path) {
+      {
+        metadata: {
+          guid: "sample_guid_with_path"
+        },
+        entity: {
+          domain_url: "sample_domain_url"
+        }
+      }
+    }
     let(:resource_with_host_and_path) {
       {
         metadata: {
@@ -127,6 +146,14 @@ RSpec.describe CfAppDiscovery::AppInfoConfigurer do
         app_info_configurer.set_first_route(resource_with_host)
         expect(resource_with_host[:hostname]).to eq("sample_host.sample_name.com")
         expect(resource_with_host[:path]).to eq("")
+      end
+    end
+
+    context "when resources field includes path" do
+      it "sets a hostname and path on the input resource" do
+        app_info_configurer.set_first_route(resource_with_path)
+        expect(resource_with_path[:hostname]).to eq("sample_name.com")
+        expect(resource_with_path[:path]).to eq("/sample_path")
       end
     end
 
