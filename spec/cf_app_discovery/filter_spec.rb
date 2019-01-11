@@ -5,35 +5,20 @@ RSpec.describe CfAppDiscovery::Filter do
 
   let(:targets) do
     [
-      CfAppDiscovery::Target.new(
+      build(:target,
         guid: "app-1-guid",
         name: "app-1",
-        instances: 2,
         state: "STARTED",
-        detected_start_command: "start.py",
-        route: "route-1.example.com",
-        space: "test-space-name",
-        org: "org-name"
       ),
-      CfAppDiscovery::Target.new(
+      build(:target,
         guid: "app-2-guid",
         name: "app-2",
-        instances: 3,
         state: "STOPPED",
-        detected_start_command: "start.py",
-        route: "route-2.example.com",
-        space: "test-space-name",
-        org: "org-name"
       ),
-      CfAppDiscovery::Target.new(
+      build(:target,
         guid: "app-3-guid",
         name: "app-3",
-        instances: 2,
         state: "STARTED",
-        detected_start_command: "start.py",
-        route: "route-3.custom.com",
-        space: "test-space-name",
-        org: "org-name"
       ),
     ]
   end

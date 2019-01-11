@@ -19,10 +19,10 @@ RSpec.describe CfAppDiscovery::Cleaner do
   let(:guid) { "00000000-0000-0000-0000-000000000001" }
   let(:old_guid) { "00000000-0000-0000-0000-000000000000" }
   let(:current_target) do
-    CfAppDiscovery::Target.new(guid: guid, name: "foo", instances: 1, state: "", route: "", space: "", org: "", detected_start_command: "")
+    build(:target, guid: guid)
   end
   let(:stopped_target) do
-    CfAppDiscovery::Target.new(guid: old_guid, name: "foo", instances: 1, state: "", route: "", space: "", org: "", detected_start_command: "")
+    build(:target, guid: old_guid)
   end
 
   it "overwrites any existing stopped target with same name" do
