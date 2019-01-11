@@ -96,21 +96,21 @@ RSpec.describe CfAppDiscovery::AppInfoConfigurer do
     context "when resources field is nil" do
       it "sets a route on the input resource" do
         app_info_configurer.set_first_route(resource)
-        expect(resource[:route]).to eq("test_name.example.com")
+        expect(resource[:hostname]).to eq("test_name.example.com")
       end
     end
 
     context "when resources field includes host" do
       it "sets a route on the input resource" do
         app_info_configurer.set_first_route(resource_with_host)
-        expect(resource_with_host[:route]).to eq("sample_host.sample_name.com")
+        expect(resource_with_host[:hostname]).to eq("sample_host.sample_name.com")
       end
     end
 
     context "when resources field does not include host" do
       it "sets a route on the input resource" do
         app_info_configurer.set_first_route(resource_without_host)
-        expect(resource_without_host[:route]).to eq("sample_name.com")
+        expect(resource_without_host[:hostname]).to eq("sample_name.com")
       end
     end
   end

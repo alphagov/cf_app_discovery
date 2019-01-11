@@ -4,7 +4,7 @@ FactoryBot.define do
     name { nil }
     instances { nil }
     state { nil }
-    route { nil }
+    hostname { nil }
     space { nil }
     org { nil }
     detected_start_command { nil }
@@ -15,7 +15,7 @@ FactoryBot.define do
         name: name,
         instances: instances,
         state: state,
-        route: route,
+        hostname: hostname,
         space: space,
         org: org,
         detected_start_command: detected_start_command,

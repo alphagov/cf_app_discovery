@@ -1,13 +1,13 @@
 class CfAppDiscovery
   class Target
-    attr_accessor :guid, :name, :instances, :state, :route, :space, :org, :detected_start_command
+    attr_accessor :guid, :name, :instances, :state, :hostname, :space, :org, :detected_start_command
 
-    def initialize(guid:, name:, instances:, state:, route:, space:, org:, detected_start_command:)
+    def initialize(guid:, name:, instances:, state:, hostname:, space:, org:, detected_start_command:)
       self.guid = guid
       self.name = name
       self.instances = instances
       self.state = state
-      self.route = route
+      self.hostname = hostname
       self.space = space
       self.org = org
       self.detected_start_command = detected_start_command
@@ -27,7 +27,7 @@ class CfAppDiscovery
 
     def generate_json(index)
       data = {
-          targets: [route],
+          targets: [hostname],
           labels: {
             __param_cf_app_guid: guid,
             __param_cf_app_instance_index: index.to_s,
