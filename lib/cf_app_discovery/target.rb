@@ -16,7 +16,7 @@ class CfAppDiscovery
 
     def paas_metric_exporter?
       # This flag is used as a indicator that the target running is either the paas-metric-exporter or the
-      # paas-prometheus-exporter. These two apps both require special treatement when generating their json.
+      # paas-prometheus-exporter. These two apps both require special treatment when generating their json.
       # This function can likely be renamed to `paas_prometheus_exporter?` after prometheus support is removed from
       # the pass-metric-exporter
       %w(./bin/paas-metric-exporter ./bin/paas-prometheus-exporter).include?(detected_start_command)
@@ -41,6 +41,7 @@ class CfAppDiscovery
       unless paas_metric_exporter?
         data[:labels][:space] = space
       end
+      data[:labels][:__metrics_path__] = "#{path}/metrics" unless path.empty?
 
       data
     end
