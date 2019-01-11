@@ -38,9 +38,11 @@ class CfAppDiscovery
       if routes_data.first.nil?
         app_name = resource.dig(:entity, :name)
         resource[:hostname] = "#{app_name}.#{@paas_domain}"
+        resource[:path] = ""
       else
         domain_data = @client.get(routes_data.first.dig(:entity, :domain_url))
         host = routes_data.first.dig(:entity, :host)
+        resource[:path] = routes_data.first.dig(:entity, :path)
         domain_name = domain_data.dig(:entity, :name)
         resource[:hostname] = if host.empty?
                              domain_name
