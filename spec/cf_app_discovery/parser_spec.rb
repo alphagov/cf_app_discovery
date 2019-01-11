@@ -16,6 +16,7 @@ RSpec.describe CfAppDiscovery::Parser do
           detected_start_command: "./bin/paas-metric-exporter",
         },
         hostname: "route-1",
+        path: "",
         domain: "example.com",
         space: "test-space-name",
         org: "org-name",
@@ -29,6 +30,7 @@ RSpec.describe CfAppDiscovery::Parser do
           detected_start_command: "$HOME/boot.sh"
         },
         hostname: "route-2",
+        path: "",
         domain: "example.com",
         space: "test-space-name",
         org: "org-name",
@@ -42,6 +44,7 @@ RSpec.describe CfAppDiscovery::Parser do
           detected_start_command: ""
         },
         hostname: "route-3",
+        path: "",
         domain: "example.com",
         space: "test-space-name",
         org: "org-name",
@@ -58,6 +61,7 @@ RSpec.describe CfAppDiscovery::Parser do
     expect(first.instances).to eq(2)
     expect(first.state).to eq("STARTED")
     expect(first.hostname).to eq("route-1")
+    expect(first.path).to eq("")
     expect(first.detected_start_command).to eq("./bin/paas-metric-exporter")
 
     expect(second.guid).to eq("app-2-guid")
@@ -65,6 +69,7 @@ RSpec.describe CfAppDiscovery::Parser do
     expect(second.instances).to eq(3)
     expect(second.state).to eq("STOPPED")
     expect(second.hostname).to eq("route-2")
+    expect(second.path).to eq("")
     expect(second.detected_start_command).to eq("$HOME/boot.sh")
 
     expect(third.guid).to eq("app-3-guid")
@@ -72,6 +77,7 @@ RSpec.describe CfAppDiscovery::Parser do
     expect(third.instances).to eq(2)
     expect(third.state).to eq("STARTED")
     expect(third.hostname).to eq("route-3")
+    expect(third.path).to eq("")
     expect(third.detected_start_command).to eq("")
   end
 end

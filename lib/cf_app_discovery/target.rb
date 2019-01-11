@@ -1,13 +1,14 @@
 class CfAppDiscovery
   class Target
-    attr_accessor :guid, :name, :instances, :state, :hostname, :space, :org, :detected_start_command
+    attr_accessor :guid, :name, :instances, :state, :hostname, :path, :space, :org, :detected_start_command
 
-    def initialize(guid:, name:, instances:, state:, hostname:, space:, org:, detected_start_command:)
+    def initialize(guid:, name:, instances:, state:, hostname:, path:, space:, org:, detected_start_command:)
       self.guid = guid
       self.name = name
       self.instances = instances
       self.state = state
       self.hostname = hostname
+      self.path = path
       self.space = space
       self.org = org
       self.detected_start_command = detected_start_command

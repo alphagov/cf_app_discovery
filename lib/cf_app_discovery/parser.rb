@@ -17,6 +17,7 @@ class CfAppDiscovery
           instances: entity.fetch(:instances),
           state: entity.fetch(:state),
           hostname: resource.fetch(:hostname),
+          path: resource.fetch(:path),
           space: resource.fetch(:space),
           org: resource.fetch(:org),
           detected_start_command: entity.fetch(:detected_start_command)
