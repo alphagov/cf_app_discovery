@@ -115,7 +115,7 @@ RSpec.describe CfAppDiscovery::AppInfoConfigurer do
     }
 
     context "when resources field is nil" do
-      it "sets a route on the input resource" do
+      it "sets a hostname on the input resource" do
         app_info_configurer.set_first_route(resource)
         expect(resource[:hostname]).to eq("test_name.example.com")
         expect(resource[:path]).to eq("")
@@ -123,7 +123,7 @@ RSpec.describe CfAppDiscovery::AppInfoConfigurer do
     end
 
     context "when resources field includes host" do
-      it "sets a route on the input resource" do
+      it "sets a hostname on the input resource" do
         app_info_configurer.set_first_route(resource_with_host)
         expect(resource_with_host[:hostname]).to eq("sample_host.sample_name.com")
         expect(resource_with_host[:path]).to eq("")
@@ -131,7 +131,7 @@ RSpec.describe CfAppDiscovery::AppInfoConfigurer do
     end
 
     context "when resources field includes host and path" do
-      it "sets a route on the input resource" do
+      it "sets a hostname and path on the input resource" do
         app_info_configurer.set_first_route(resource_with_host_and_path)
         expect(resource_with_host_and_path[:hostname]).to eq("sample_host.sample_name.com")
         expect(resource_with_host_and_path[:path]).to eq("/sample_path")
@@ -139,7 +139,7 @@ RSpec.describe CfAppDiscovery::AppInfoConfigurer do
     end
 
     context "when resources field does not include host" do
-      it "sets a route on the input resource" do
+      it "sets a hostname on the input resource" do
         app_info_configurer.set_first_route(resource_without_host)
         expect(resource_without_host[:hostname]).to eq("sample_name.com")
         expect(resource_without_host[:path]).to eq("")
