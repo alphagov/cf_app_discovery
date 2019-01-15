@@ -32,6 +32,7 @@ module StubbableEndpoint
               entity: {
                   domain_url: "/v2/shared_domains/custom-domain-guid",
                   host: "",
+                  path: "",
               }
             },
           ]
