@@ -7,7 +7,7 @@ module StubbableEndpoint
     end
 
     def url
-      "https://api.example.com:80/v2/shared_domains/custom-domain-guid"
+      "http://api.example.com/v2/shared_domains/custom-domain-guid"
     end
 
     def request_headers

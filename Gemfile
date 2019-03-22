@@ -10,6 +10,9 @@ gem "rake"
 # Needed to load the Rakefile
 gem "rspec"
 gem "sinatra"
+gem "activesupport"
+gem "faraday"
+gem "faraday-manual-cache"
 
 group :development, :test do
   gem "factory_bot"

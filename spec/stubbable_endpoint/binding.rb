@@ -7,7 +7,7 @@ module StubbableEndpoint
     end
 
     def url
-      "https://api.example.com:80/v2/service_bindings/:id"
+      "http://api.example.com/v2/service_bindings/:id"
     end
 
     def request_headers

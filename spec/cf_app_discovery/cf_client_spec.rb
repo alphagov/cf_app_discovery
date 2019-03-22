@@ -20,7 +20,7 @@ RSpec.describe CfAppDiscovery::CfClient do
 
   context "when everything's fine" do
     it "performs a successful get request" do
-      expect(client.get("/v2/apps/test")).to eq(metadata: {}, entity: {})
+      expect(client.get("/v2/apps/test")).to eq({metadata: {}, entity: {}})
     end
   end
 

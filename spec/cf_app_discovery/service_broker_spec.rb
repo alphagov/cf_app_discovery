@@ -1,4 +1,5 @@
 require "spec_helper"
+require "pp"
 
 RSpec.describe CfAppDiscovery::ServiceBroker do
   include Rack::Test::Methods

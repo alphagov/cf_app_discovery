@@ -15,22 +15,22 @@ class CfAppDiscovery
 
     get "/v2/catalog" do
       render(
-        services: [
-          {
-            id: settings.service_id,
-            name: settings.service_name,
-            description: "GDS internal Prometheus monitoring beta https://reliability-engineering.cloudapps.digital",
-            bindable: true,
-            plans: [
+          services: [
               {
-                id: settings.plan_id,
-                name: "prometheus",
-                description: "Monitor your apps using Prometheus",
-                free: true,
-              },
-            ],
-          }
-        ]
+                  id: settings.service_id,
+                  name: settings.service_name,
+                  description: "GDS internal Prometheus monitoring beta https://reliability-engineering.cloudapps.digital",
+                  bindable: true,
+                  plans: [
+                      {
+                          id: settings.plan_id,
+                          name: "prometheus",
+                          description: "Monitor your apps using Prometheus",
+                          free: true,
+                      },
+                  ],
+              }
+          ]
       )
     end
 
@@ -47,7 +47,7 @@ class CfAppDiscovery
       app_data = app_info_configurer.app(app_guid)
       parser = Parser.new([app_data])
       template = TargetConfiguration.new(
-        filestore_manager: filestore_manager,
+          filestore_manager: filestore_manager,
       )
       template.write_active_targets(parser.targets)
       render({})
@@ -76,19 +76,19 @@ class CfAppDiscovery
       render({})
     end
 
-  private
+    private
 
     def target_updater
       @target_updater ||= TargetUpdater.new(
-        filestore_manager: filestore_manager,
-        app_info_configurer: app_info_configurer
+          filestore_manager: filestore_manager,
+          app_info_configurer: app_info_configurer
       )
     end
 
     def filestore_manager
       @filestore_manager ||= FilestoreManagerFactory.filestore_manager_builder(
-        settings.environment,
-        settings.targets_path
+          settings.environment,
+          settings.targets_path
       )
     end
 
@@ -99,17 +99,17 @@ class CfAppDiscovery
 
     def app_info_configurer
       @app_info_configurer ||= AppInfoConfigurer.new(
-        api_endpoint: settings.api_endpoint,
-        api_token: api_token,
-        paas_domain: settings.paas_domain
+          api_endpoint: settings.api_endpoint,
+          api_token: api_token,
+          paas_domain: settings.paas_domain
       )
     end
 
     def api_token
       auth = Auth.new(
-        uaa_endpoint: settings.uaa_endpoint,
-        uaa_username: settings.uaa_username,
-        uaa_password: settings.uaa_password,
+          uaa_endpoint: settings.uaa_endpoint,
+          uaa_username: settings.uaa_username,
+          uaa_password: settings.uaa_password,
       )
       auth.access_token
     end

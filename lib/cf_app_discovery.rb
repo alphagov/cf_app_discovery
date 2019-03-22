@@ -3,6 +3,11 @@ require "net/http"
 require "uaa"
 require "sinatra"
 
+require "active_support/cache"
+require "faraday"
+require "faraday-manual-cache"
+
+
 require "cf_app_discovery/target_updater"
 require "cf_app_discovery/auth"
 require "cf_app_discovery/app_info_configurer"
