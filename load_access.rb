@@ -10,6 +10,7 @@ def get_creds
   targets_access_name = prometheus_access['credentials']['access_name'] unless not prometheus_access
 
   raise "The user-provided service has not been set up." unless prometheus_access && prometheus_access["name"] == targets_access_name
+
   prometheus_access['credentials']
 end
 

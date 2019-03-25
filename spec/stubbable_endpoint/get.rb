@@ -1,6 +1,6 @@
 module StubbableEndpoint
   module Get
-  module_function
+    module_function
 
     def http_method
       :get

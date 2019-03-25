@@ -12,7 +12,7 @@ class CfAppDiscovery
           config.memory_store = ActiveSupport::Cache::MemoryStore.new
         end
         builder.use :manual_cache,
-                    conditions: ->(req) {req.method == :get || req.method == :head},
+                    conditions: ->(req) { req.method == :get || req.method == :head },
                     expires_in: ENV.fetch("CACHE_EXPIRY_TIME")
         builder.adapter Faraday.default_adapter
       end

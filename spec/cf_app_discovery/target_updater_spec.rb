@@ -3,6 +3,17 @@ require "spec_helper"
 RSpec.describe CfAppDiscovery::TargetUpdater do
   include StubHelper
 
+  subject(:target_updater) do
+    described_class.new(
+      filestore_manager: LocalManager.new(targets_path: targets_path, folders: %w(active inactive)),
+      app_info_configurer: CfAppDiscovery::AppInfoConfigurer.new(
+        api_endpoint: "http://api.example.com",
+        api_token: "dummy-oauth-token",
+        paas_domain: "example.com"
+      )
+    )
+  end
+
   before do
     stub_endpoint(StubbableEndpoint::Apps)
     stub_endpoint(StubbableEndpoint::AppsPage2)
@@ -17,17 +28,6 @@ RSpec.describe CfAppDiscovery::TargetUpdater do
     FileUtils.touch("#{active_targets_path}/app-1-guid.json")
     FileUtils.touch("#{inactive_targets_path}/app-2-guid.json")
     FileUtils.touch("#{active_targets_path}/app-3-guid.json")
-  end
-
-  subject(:target_updater) do
-    described_class.new(
-      filestore_manager: LocalManager.new(targets_path: targets_path, folders: %w(active inactive)),
-      app_info_configurer: CfAppDiscovery::AppInfoConfigurer.new(
-        api_endpoint: "http://api.example.com",
-        api_token: "dummy-oauth-token",
-        paas_domain: "example.com"
-      )
-    )
   end
 
   let(:targets_path) do

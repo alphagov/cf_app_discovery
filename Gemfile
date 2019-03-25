@@ -8,11 +8,11 @@ gem "clockwork"
 gem "prometheus-client"
 gem "rake"
 # Needed to load the Rakefile
-gem "rspec"
-gem "sinatra"
 gem "activesupport"
 gem "faraday"
 gem "faraday-manual-cache"
+gem "rspec"
+gem "sinatra"
 
 group :development, :test do
   gem "factory_bot"
