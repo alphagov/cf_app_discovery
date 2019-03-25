@@ -1,13 +1,13 @@
 module StubbableEndpoint
   module Binding
-  module_function
+    module_function
 
     def http_method
       :get
     end
 
     def url
-      "https://api.example.com:80/v2/service_bindings/:id"
+      "http://api.example.com/v2/service_bindings/:id"
     end
 
     def request_headers

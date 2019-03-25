@@ -1,13 +1,13 @@
 module StubbableEndpoint
   module Domain2
-  module_function
+    module_function
 
     def http_method
       :get
     end
 
     def url
-      "https://api.example.com:80/v2/shared_domains/custom-domain-guid"
+      "http://api.example.com/v2/shared_domains/custom-domain-guid"
     end
 
     def request_headers

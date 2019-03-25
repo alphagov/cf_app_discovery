@@ -1,13 +1,13 @@
 module StubbableEndpoint
   module Get
-  module_function
+    module_function
 
     def http_method
       :get
     end
 
     def url
-      "https://api.example.com:80/v2/apps/test"
+      "http://api.example.com/v2/apps/test"
     end
 
     def request_headers
@@ -28,7 +28,7 @@ module StubbableEndpoint
     def response_body
       {
         metadata: {},
-        entity: {},
+        entity: {}
       }
     end
   end

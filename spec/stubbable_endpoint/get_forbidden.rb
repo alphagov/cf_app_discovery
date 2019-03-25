@@ -1,19 +1,19 @@
 module StubbableEndpoint
   module GetForbidden
-  module_function
+    module_function
 
     def http_method
       :get
     end
 
     def url
-      "https://api.example.com:80/v2/apps/forbidden-endpoint"
+      "http://api.example.com/v2/apps/forbidden-endpoint"
     end
 
     def request_headers
       {
-        "Authorization" => "bearer dummy-oauth-token",
-        "User-Agent" => "cf_app_discovery - GDS - RE",
+          "Authorization" => "bearer dummy-oauth-token",
+          "User-Agent" => "cf_app_discovery - GDS - RE",
       }
     end
 
@@ -27,9 +27,9 @@ module StubbableEndpoint
 
     def response_body
       {
-        "description": "You are not authorized to perform the requested action",
-        "error_code": "CF-NotAuthorized",
-        "code": 10003
+          description: "You are not authorized to perform the requested action",
+          error_code: "CF-NotAuthorized",
+          code: 10003
       }
     end
   end

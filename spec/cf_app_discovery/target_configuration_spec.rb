@@ -18,10 +18,11 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
     path
   end
 
-  context "for normal apps" do
+  context "with normal apps" do
     let(:targets) do
       [
-        build(:target,
+        build(
+          :target,
           guid: "app-1-v2-guid",
           name: "app-1",
           instances: 2,
@@ -32,7 +33,8 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
           space: "test-space-name",
           org: "test-org-name",
         ),
-        build(:target,
+        build(
+          :target,
           guid: "app-2-guid",
           name: "app-2",
           instances: 1,
@@ -134,10 +136,11 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
     end
   end
 
-  context "for paas-metric-exporter" do
+  context "with paas-metric-exporter" do
     let(:targets) do
       [
-        build(:target,
+        build(
+          :target,
           guid: "app-1-v1-guid",
           name: "app-1-venerable",
           instances: 2,
@@ -148,7 +151,8 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
           space: "test-space-name",
           org: "test-org-name",
         ),
-        build(:target,
+        build(
+          :target,
           guid: "app-2-guid",
           name: "app-2",
           instances: 1,

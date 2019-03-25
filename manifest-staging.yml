@@ -1,6 +1,7 @@
 ---
 defaults: &defaults
-  buildpack: ruby_buildpack
+  buildpacks:
+    - ruby_buildpack
   memory: 512MB
   instances: 1
   services:
@@ -17,6 +18,7 @@ defaults: &defaults
     SERVICE_ID: 94cc7cf6-7c93-4820-8ee7-4c0f5bc5ad59
     SERVICE_NAME: gds-prometheus-staging
     PLAN_ID: 01889e73-78b3-41d9-b29e-71d6ccfc8821
+    CACHE_EXPIRY_TIME: 60
 
 applications:
   - name: prometheus-service-broker-staging

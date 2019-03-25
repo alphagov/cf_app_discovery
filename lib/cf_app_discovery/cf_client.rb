@@ -1,26 +1,32 @@
 class CfAppDiscovery
   class CfClient
-    attr_accessor :api_endpoint, :api_token, :paas_domain
+    attr_accessor :api_endpoint, :api_token, :paas_domain, :faraday_http_client
 
     def initialize(api_endpoint:, api_token:, paas_domain:)
       self.api_endpoint = api_endpoint
       self.api_token = api_token
       self.paas_domain = paas_domain
+
+      self.faraday_http_client = Faraday.new do |builder|
+        FaradayManualCache.configure do |config|
+          config.memory_store = ActiveSupport::Cache::MemoryStore.new
+        end
+        builder.use :manual_cache,
+                    conditions: ->(req) { req.method == :get || req.method == :head },
+                    expires_in: ENV.fetch("CACHE_EXPIRY_TIME")
+        builder.adapter Faraday.default_adapter
+      end
     end
 
     def get(path)
       uri = URI.parse("#{api_endpoint}#{path}")
-      request = Net::HTTP::Get.new(uri)
-
-      request["Authorization"] = "bearer #{api_token}"
-      request["User-Agent"] = "cf_app_discovery - GDS - RE"
-
-      response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
-        http.request(request)
+      response = faraday_http_client.get do |req|
+        req.url uri
+        req.headers["Authorization"] = "bearer #{api_token}"
+        req.headers["User-Agent"] = "cf_app_discovery - GDS - RE"
       end
-
-      if response.code != "200"
-        raise StandardError, "#{response.code}: #{response.body}"
+      if response.status != 200
+        raise StandardError, "#{response.status}: #{response.body}"
       else
         JSON.parse(response.body, symbolize_names: true)
       end

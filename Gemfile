@@ -8,6 +8,9 @@ gem "clockwork"
 gem "prometheus-client"
 gem "rake"
 # Needed to load the Rakefile
+gem "activesupport"
+gem "faraday"
+gem "faraday-manual-cache"
 gem "rspec"
 gem "sinatra"
 

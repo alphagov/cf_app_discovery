@@ -45,10 +45,10 @@ class CfAppDiscovery
         resource[:path] = routes_data.first.dig(:entity, :path)
         domain_name = domain_data.dig(:entity, :name)
         resource[:hostname] = if host.empty?
-                             domain_name
-                           else
-                             "#{host}.#{domain_name}"
-                           end
+                                domain_name
+                              else
+                                "#{host}.#{domain_name}"
+                              end
       end
       resource
     end

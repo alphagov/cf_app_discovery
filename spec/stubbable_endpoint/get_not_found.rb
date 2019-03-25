@@ -1,19 +1,19 @@
 module StubbableEndpoint
   module GetNotFound
-  module_function
+    module_function
 
     def http_method
       :get
     end
 
     def url
-      "https://api.example.com:80/v2/apps/not-found"
+      "http://api.example.com/v2/apps/not-found"
     end
 
     def request_headers
       {
-        "Authorization" => "bearer dummy-oauth-token",
-        "User-Agent" => "cf_app_discovery - GDS - RE",
+          "Authorization" => "bearer dummy-oauth-token",
+          "User-Agent" => "cf_app_discovery - GDS - RE"
       }
     end
 
@@ -27,9 +27,9 @@ module StubbableEndpoint
 
     def response_body
       {
-        "description": "The app could not be found: not-found",
-        "error_code": "CF-AppNotFound",
-        "code": 100004
+          description: "The app could not be found: not-found",
+          error_code: "CF-AppNotFound",
+          code: 100004
       }
     end
   end

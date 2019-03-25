@@ -1,13 +1,13 @@
 module StubbableEndpoint
   module AppsPage2
-  module_function
+    module_function
 
     def http_method
       :get
     end
 
     def url
-      "https://api.example.com:80/v2/apps?page=2"
+      "http://api.example.com/v2/apps?page=2"
     end
 
     def request_headers
