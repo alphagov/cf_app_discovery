@@ -62,7 +62,7 @@ cf cups prometheus-targets-access -p '{
 }'
 ```
 
-Note - for staging and dev environments the `access_name` should be `prometheus-targets-access-staging` and `prometheus-targets-access-dev` and the name of the user provided service, `prometheus-targets-access`, should also be updated to match this.
+Note - for the staging environment the `access_name` should be `prometheus-targets-access-staging` and the name of the user provided service, `prometheus-targets-access`, should also be updated to match this.
 
 The block of credentials for the different environments can be found in the team `reng-pass` credentials store.
 
@@ -92,9 +92,7 @@ make update-service-broker-production
 
 ### Developing the service broker
 
-The application has a `manifest.yml` which has a cloud foundry config and can be deployed to the PaaS by running `cf push`, this should create a `prometheus-service-broker` and a `prometheus-target-updater` app. 
-
-`manifest.yml` uses the `prometheus-targets-access-dev` user provided service in order to access the dev targets s3 bucket, if this is not available in your space see [pre requisites](#Pre-requisites) for details on how to set up user provided services for dev credentials.
+The application has `manifest-*.yml` files, which have a cloud foundry config and can be deployed to the PaaS by running `cf push`, this should create a `prometheus-service-broker` and a `prometheus-target-updater` app. 
 
 Then you will need to create the service-broker which will be limited to the space that the app was deployed to:
 
