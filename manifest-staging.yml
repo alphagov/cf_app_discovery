@@ -19,6 +19,7 @@ defaults: &defaults
     SERVICE_NAME: gds-prometheus-staging
     PLAN_ID: 01889e73-78b3-41d9-b29e-71d6ccfc8821
     CACHE_EXPIRY_TIME: 60
+    UPDATE_TARGETS_RATE_SECONDS: 180
 
 applications:
   - name: prometheus-service-broker-staging
