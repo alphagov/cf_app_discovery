@@ -4,6 +4,7 @@ defaults: &defaults
     - ruby_buildpack
   memory: 512MB
   instances: 1
+  stack: cflinuxfs3
   services:
     - prometheus-targets-access-staging
   env:
