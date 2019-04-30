@@ -222,8 +222,8 @@ RSpec.describe CfAppDiscovery::AppInfoConfigurer do
       end
     end
 
-    context "when resources include private and public apps" do
-      it "uses the first available public app" do
+    context "when resources include private and public routes" do
+      it "uses the first available public route" do
         app_info_configurer.set_first_route(resource_with_private_and_public)
         expect(resource_with_private_and_public[:hostname]).to eq("public_host.sample_name.com")
         expect(resource_with_private_and_public[:path]).to eq("/sample_public_path")
