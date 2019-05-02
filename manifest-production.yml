@@ -15,7 +15,7 @@ defaults: &defaults
     PAAS_DOMAIN: cloudapps.digital
     TARGETS_PATH: none
     ENVIRONMENT: paas
-    BUCKET_NAME: gds-prometheus-targets
+    BUCKET_NAME: govukobserve-targets-production
     SERVICE_ID: fd609087-70e0-4c8c-8916-b6885ac156a3
     SERVICE_NAME: gds-prometheus
     PLAN_ID: b5998c91-d379-4df7-b329-11450f8459f1
