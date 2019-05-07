@@ -34,15 +34,17 @@ class CfAppDiscovery
 
     def set_first_route(resource)
       routes_data = @client.routes(resource.dig(:metadata, :guid)).fetch(:resources)
-
       if routes_data.first.nil?
         app_name = resource.dig(:entity, :name)
         resource[:hostname] = "#{app_name}.#{@paas_domain}"
         resource[:path] = ""
       else
-        domain_data = @client.get(routes_data.first.dig(:entity, :domain_url))
-        host = routes_data.first.dig(:entity, :host)
-        resource[:path] = routes_data.first.dig(:entity, :path)
+        shared_domains_data = @client.get('/v2/shared_domains')
+        internal_domains = shared_domains_data[:resources].select { |r| r[:entity][:internal] }.map { |e| e[:metadata][:url] }
+        public_routes_data = routes_data.reject { |r| internal_domains.include?(r[:entity][:domain_url]) }
+        domain_data = @client.get(public_routes_data.first.dig(:entity, :domain_url))
+        host = public_routes_data.first.dig(:entity, :host)
+        resource[:path] = public_routes_data.first.dig(:entity, :path)
         domain_name = domain_data.dig(:entity, :name)
         resource[:hostname] = if host.empty?
                                 domain_name

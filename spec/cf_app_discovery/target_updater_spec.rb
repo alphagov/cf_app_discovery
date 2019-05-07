@@ -15,6 +15,7 @@ RSpec.describe CfAppDiscovery::TargetUpdater do
   end
 
   before do
+    stub_endpoint(StubbableEndpoint::SharedDomains)
     stub_endpoint(StubbableEndpoint::Apps)
     stub_endpoint(StubbableEndpoint::AppsPage2)
     stub_endpoint(StubbableEndpoint::Domain1)

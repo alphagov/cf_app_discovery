@@ -8,6 +8,17 @@ RSpec.describe CfAppDiscovery::AppInfoConfigurer do
         "/v2/apps/sample_guid/routes" => {
           resources: [],
         },
+        "/v2/shared_domains" => {
+          resources: [{
+            metadata: {
+              url: "sample_private_domain_url"
+              },
+            entity: {
+              name: "apps.internal",
+              internal: true
+              }
+            }],
+        },
         "/v2/apps/sample_guid_with_host/routes" => {
           resources: [{
             entity: {
@@ -35,6 +46,24 @@ RSpec.describe CfAppDiscovery::AppInfoConfigurer do
             }
           }]
         },
+        "/v2/apps/sample_guid_with_private_and_public_resources/routes" => {
+          resources: [
+            {
+              entity: {
+                domain_url: "sample_private_domain_url",
+                host: "private_host",
+                path: "/sample_private_path"
+              }
+            },
+            {
+            entity: {
+              domain_url: "sample_domain_url",
+              host: "public_host",
+              path: "/sample_public_path"
+            }
+          }
+        ]
+        },
         "/v2/apps/sample_guid_without_host/routes" => {
           resources: [{
             entity: {
@@ -47,6 +76,15 @@ RSpec.describe CfAppDiscovery::AppInfoConfigurer do
         "sample_domain_url" => {
           entity: {
             name: "sample_name.com"
+          }
+        },
+        "sample_private_domain_url" => {
+          entity: {
+            name: "apps.internal",
+            internal: true
+          },
+          metadata: {
+            url: "sample_private_domain_url"
           }
         },
         "example_space.gov.uk" => {
@@ -132,6 +170,17 @@ RSpec.describe CfAppDiscovery::AppInfoConfigurer do
         }
       }
     }
+    let(:resource_with_private_and_public) {
+      {
+        metadata: {
+          guid: "sample_guid_with_private_and_public_resources"
+        },
+        entity: {
+          name: "app-name",
+          domain_url: "sample_domain_url"
+        }
+      }
+    }
 
     context "when resources field is nil" do
       it "sets a hostname on the input resource" do
@@ -170,6 +219,14 @@ RSpec.describe CfAppDiscovery::AppInfoConfigurer do
         app_info_configurer.set_first_route(resource_without_host)
         expect(resource_without_host[:hostname]).to eq("sample_name.com")
         expect(resource_without_host[:path]).to eq("")
+      end
+    end
+
+    context "when resources include private and public routes" do
+      it "uses the first available public route" do
+        app_info_configurer.set_first_route(resource_with_private_and_public)
+        expect(resource_with_private_and_public[:hostname]).to eq("public_host.sample_name.com")
+        expect(resource_with_private_and_public[:path]).to eq("/sample_public_path")
       end
     end
   end

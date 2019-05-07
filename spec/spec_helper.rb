@@ -20,6 +20,7 @@ require "stubbable_endpoint/routes_2"
 require "stubbable_endpoint/routes_3"
 require "stubbable_endpoint/routes_4"
 require "stubbable_endpoint/space_1"
+require "stubbable_endpoint/shared_domains"
 require "local_manager"
 
 require 'rack/test'
