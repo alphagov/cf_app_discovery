@@ -5,16 +5,6 @@ SHELL := /bin/bash
 help:
 	@cat $(MAKEFILE_LIST) | grep -E '^[a-zA-Z_-]+:.*?## .*$$' | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-.PHONY: deploy-staging
-deploy-staging: ## Deploy to prometheus-staging
-	cf target -s prometheus-staging
-	cf push -f manifest-staging.yml
-
-.PHONY: deploy-production
-deploy-production: ## Deploy to prometheus-production
-	cf target -s prometheus-production
-	cf push -f manifest-production.yml
-
 .PHONY: update-service-broker-staging
 update-service-broker-staging:
 	# Note: you need to be a cloud foundry admin to run this task
