@@ -47,9 +47,17 @@ This application sets a custom user agent string of
 
 ## Deployment
 
+This is [continuously deployed by
+concourse](https://cd.gds-reliability.engineering/teams/autom8/pipelines/prometheus) -
+the pipeline is defined in [the prometheus
+repo](https://github.com/alphagov/prometheus-aws-configuration-beta/blob/master/pipeline.yml).
+
+If you want to set up a new instance of the service broker, there are
+some extra things you need to know. These are documented below.
+
 ### Pre-requisites
 
-In order to deploy this on PaaS you will need to set up a [user provided service][] containing the following block of credentials:
+In order to deploy a new instance of this on PaaS you will need to set up a [user provided service][] containing the following block of credentials:
 
 ```shell
 # production credentials to access the s3 targets bucket
@@ -64,21 +72,21 @@ cf cups prometheus-targets-access -p '{
 
 Note - for the staging environment the `access_name` should be `prometheus-targets-access-staging` and the name of the user provided service, `prometheus-targets-access`, should also be updated to match this.
 
-The block of credentials for the different environments can be found in the team `reng-pass` credentials store.
+The block of credentials for the different environments can be found in the team `re-secrets` credentials store.
 
 ### Deploying the service broker
 
-In order to deploy to staging and production environments a `Makefile` is available:
+In order to deploy to an environment, you need to target the appropriate space and push the appropriate manifest:
 
 ```shell
-# to deploy to staging
-make deploy-staging
-
-# to deploy to production
-make deploy-production
+# set the correct space
+cf target -o <org> -s <space>
+cf push manifest-<env>.yml
 ```
 
-The `Makefile` sets the target to the correct space for deployment and makes use of `manifest-staging.yml` and `manifest-production.yml`.
+There is `manifest-staging.yml` and `manifest-production.yml` for
+staging and production respectively.  These are deployed by concourse,
+so you shouldn't need to push them.
 
 If you need to update the service broker in cloud foundry (e.g. if you need to change it's description in `cf marketplace`) you will need a PaaS administrator to run the following make tasks:
 
