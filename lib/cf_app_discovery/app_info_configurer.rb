@@ -42,9 +42,15 @@ class CfAppDiscovery
         shared_domains_data = @client.get('/v2/shared_domains')
         internal_domains = shared_domains_data[:resources].select { |r| r[:entity][:internal] }.map { |e| e[:metadata][:url] }
         public_routes_data = routes_data.reject { |r| internal_domains.include?(r[:entity][:domain_url]) }
-        domain_data = @client.get(public_routes_data.first.dig(:entity, :domain_url))
-        host = public_routes_data.first.dig(:entity, :host)
-        resource[:path] = public_routes_data.first.dig(:entity, :path)
+        public_routes_metrics = public_routes_data.select { |r| r.dig(:entity, :path).end_with?('metrics') }
+        chosen_public_route = if public_routes_metrics.empty?
+                                public_routes_data.first
+                              else
+                                public_routes_metrics.first
+                              end
+        domain_data = @client.get(chosen_public_route.dig(:entity, :domain_url))
+        host = chosen_public_route.dig(:entity, :host)
+        resource[:path] = chosen_public_route.dig(:entity, :path)
         domain_name = domain_data.dig(:entity, :name)
         resource[:hostname] = if host.empty?
                                 domain_name

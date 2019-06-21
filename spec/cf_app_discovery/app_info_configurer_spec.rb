@@ -56,13 +56,31 @@ RSpec.describe CfAppDiscovery::AppInfoConfigurer do
               }
             },
             {
-            entity: {
-              domain_url: "sample_domain_url",
-              host: "public_host",
-              path: "/sample_public_path"
+              entity: {
+                domain_url: "sample_domain_url",
+                host: "public_host",
+                path: "/sample_public_path"
+              }
             }
-          }
-        ]
+          ]
+        },
+        "/v2/apps/sample_guid_with_metrics_and_nonmetrics_resources/routes" => {
+          resources: [
+            {
+              entity: {
+                domain_url: "sample_domain_url",
+                host: "public_host",
+                path: "/sample_public_path"
+              }
+            },
+            {
+              entity: {
+                domain_url: "sample_domain_url",
+                host: "public_host",
+                path: "/sample_public_path/metrics"
+              }
+            }
+          ]
         },
         "/v2/apps/sample_guid_without_host/routes" => {
           resources: [{
@@ -160,6 +178,16 @@ RSpec.describe CfAppDiscovery::AppInfoConfigurer do
         }
       }
     }
+    let(:resource_with_host_and_path_metrics_and_nonmetrics) {
+      {
+        metadata: {
+          guid: "sample_guid_with_metrics_and_nonmetrics_resources"
+        },
+        entity: {
+          domain_url: "sample_domain_url"
+        }
+      }
+    }
     let(:resource_without_host) {
       {
         metadata: {
@@ -211,6 +239,13 @@ RSpec.describe CfAppDiscovery::AppInfoConfigurer do
         app_info_configurer.set_first_route(resource_with_host_and_path)
         expect(resource_with_host_and_path[:hostname]).to eq("sample_host.sample_name.com")
         expect(resource_with_host_and_path[:path]).to eq("/sample_path")
+      end
+    end
+
+    context "when resources field includes metrics and nonmetrics paths" do
+      it "uses the metrics path" do
+        app_info_configurer.set_first_route(resource_with_host_and_path_metrics_and_nonmetrics)
+        expect(resource_with_host_and_path_metrics_and_nonmetrics[:path]).to eq("/sample_public_path/metrics")
       end
     end
 
