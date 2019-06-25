@@ -41,7 +41,7 @@ class CfAppDiscovery
       unless paas_metric_exporter?
         data[:labels][:space] = space
       end
-      if path.ends_with?("metrics")
+      if path.end_with?("metrics")
         data[:labels][:__metrics_path__] = path
       elsif not path.empty?
         data[:labels][:__metrics_path__] = "#{path}/metrics"
