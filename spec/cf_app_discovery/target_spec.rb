@@ -35,4 +35,19 @@ RSpec.describe CfAppDiscovery::Target do
     target = build(:target, guid: "guid")
     expect(target.instance(0)).to eq("guid:0")
   end
+
+  it "Does not generate metrics path given empty path" do
+    target = build(:target, guid: "guid")
+    expect(target.generate_json(0)[:labels].has_key?(:__metrics_path__)).to be false
+  end
+
+  it "Generates metrics path given path without metrics" do
+    target = build(:target, guid: "guid", path: "hello")
+    expect(target.generate_json(0)[:labels][:__metrics_path__]).to eq("hello/metrics")
+  end
+
+  it "Returns given metrics path given path with metrics" do
+    target = build(:target, guid: "guid", path: "hello/metrics")
+    expect(target.generate_json(0)[:labels][:__metrics_path__]).to eq("hello/metrics")
+  end
 end
