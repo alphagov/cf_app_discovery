@@ -29,7 +29,7 @@ module StubbableEndpoint
       {
           entity: {
               name: "example.com",
-          }
+          },
       }
     end
   end

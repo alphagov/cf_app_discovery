@@ -15,7 +15,7 @@ module StubbableEndpoint
     def request_headers
       {
         'Authorization' => 'bearer dummy-oauth-token',
-        'User-Agent' => 'cf_app_discovery - GDS - RE'
+        'User-Agent' => 'cf_app_discovery - GDS - RE',
       }
     end
 
@@ -31,8 +31,8 @@ module StubbableEndpoint
       {
         entity: {
           name: 'test-space-name',
-          organization_url: '/v2/organizations/example-org-guid'
-        }
+          organization_url: '/v2/organizations/example-org-guid',
+        },
       }
     end
   end

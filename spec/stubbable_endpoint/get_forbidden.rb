@@ -29,7 +29,7 @@ module StubbableEndpoint
       {
           description: "You are not authorized to perform the requested action",
           error_code: "CF-NotAuthorized",
-          code: 10003
+          code: 10003,
       }
     end
   end

@@ -27,7 +27,7 @@ RSpec.describe CfAppDiscovery::Parser do
           name: "app-2",
           instances: 3,
           state: "STOPPED",
-          detected_start_command: "$HOME/boot.sh"
+          detected_start_command: "$HOME/boot.sh",
         },
         hostname: "route-2",
         path: "",
@@ -41,7 +41,7 @@ RSpec.describe CfAppDiscovery::Parser do
           name: "app-3",
           instances: 2,
           state: "STARTED",
-          detected_start_command: ""
+          detected_start_command: "",
         },
         hostname: "route-3",
         path: "",

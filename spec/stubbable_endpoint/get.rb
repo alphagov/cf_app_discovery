@@ -28,7 +28,7 @@ module StubbableEndpoint
     def response_body
       {
         metadata: {},
-        entity: {}
+        entity: {},
       }
     end
   end

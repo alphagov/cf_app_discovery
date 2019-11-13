@@ -15,7 +15,7 @@ module StubbableEndpoint
     def request_headers
       {
         'Authorization' => 'bearer dummy-oauth-token',
-        'User-Agent' => 'cf_app_discovery - GDS - RE'
+        'User-Agent' => 'cf_app_discovery - GDS - RE',
       }
     end
 
@@ -29,7 +29,7 @@ module StubbableEndpoint
 
     def response_body
       {
-        resources: []
+        resources: [],
       }
     end
   end

@@ -29,7 +29,7 @@ module StubbableEndpoint
       {
           entity: {
               name: "custom-domain.gov.uk",
-          }
+          },
       }
     end
   end

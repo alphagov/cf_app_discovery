@@ -32,7 +32,7 @@ module StubbableEndpoint
     def response_body
       {
         access_token: 'dummy-oauth-token',
-        token_type: 'bearer'
+        token_type: 'bearer',
       }
     end
   end

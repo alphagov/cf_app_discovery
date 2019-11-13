@@ -11,12 +11,12 @@ RSpec.describe CfAppDiscovery::AppInfoConfigurer do
         "/v2/shared_domains" => {
           resources: [{
             metadata: {
-              url: "sample_private_domain_url"
+              url: "sample_private_domain_url",
               },
             entity: {
               name: "apps.internal",
-              internal: true
-              }
+              internal: true,
+              },
             }],
         },
         "/v2/apps/sample_guid_with_host/routes" => {
@@ -24,27 +24,27 @@ RSpec.describe CfAppDiscovery::AppInfoConfigurer do
             entity: {
               domain_url: "sample_domain_url",
               host: "sample_host",
-              path: ""
-            }
-          }]
+              path: "",
+            },
+          }],
         },
         "/v2/apps/sample_guid_with_path/routes" => {
           resources: [{
             entity: {
               domain_url: "sample_domain_url",
               host: "",
-              path: "/sample_path"
-            }
-          }]
+              path: "/sample_path",
+            },
+          }],
         },
         "/v2/apps/sample_guid_with_host_and_path/routes" => {
           resources: [{
             entity: {
               domain_url: "sample_domain_url",
               host: "sample_host",
-              path: "/sample_path"
-            }
-          }]
+              path: "/sample_path",
+            },
+          }],
         },
         "/v2/apps/sample_guid_with_private_and_public_resources/routes" => {
           resources: [
@@ -52,17 +52,17 @@ RSpec.describe CfAppDiscovery::AppInfoConfigurer do
               entity: {
                 domain_url: "sample_private_domain_url",
                 host: "private_host",
-                path: "/sample_private_path"
-              }
+                path: "/sample_private_path",
+              },
             },
             {
               entity: {
                 domain_url: "sample_domain_url",
                 host: "public_host",
-                path: "/sample_public_path"
-              }
+                path: "/sample_public_path",
+              },
             }
-          ]
+          ],
         },
         "/v2/apps/sample_guid_with_metrics_and_nonmetrics_resources/routes" => {
           resources: [
@@ -70,52 +70,52 @@ RSpec.describe CfAppDiscovery::AppInfoConfigurer do
               entity: {
                 domain_url: "sample_domain_url",
                 host: "public_host",
-                path: "/sample_public_path"
-              }
+                path: "/sample_public_path",
+              },
             },
             {
               entity: {
                 domain_url: "sample_domain_url",
                 host: "public_host",
-                path: "/sample_public_path/metrics"
-              }
+                path: "/sample_public_path/metrics",
+              },
             }
-          ]
+          ],
         },
         "/v2/apps/sample_guid_without_host/routes" => {
           resources: [{
             entity: {
               domain_url: "sample_domain_url",
               host: "",
-              path: ""
-            }
-          }]
+              path: "",
+            },
+          }],
         },
         "sample_domain_url" => {
           entity: {
-            name: "sample_name.com"
-          }
+            name: "sample_name.com",
+          },
         },
         "sample_private_domain_url" => {
           entity: {
             name: "apps.internal",
-            internal: true
+            internal: true,
           },
           metadata: {
-            url: "sample_private_domain_url"
-          }
+            url: "sample_private_domain_url",
+          },
         },
         "example_space.gov.uk" => {
           entity: {
             name: "example_space_name",
-            organization_url: "example_org.gov.uk"
-          }
+            organization_url: "example_org.gov.uk",
+          },
         },
         "example_org.gov.uk" => {
           entity: {
-            name: "example_org_name"
-          }
-        }
+            name: "example_org_name",
+          },
+        },
       }
       path_hash[path]
     end
@@ -141,72 +141,72 @@ RSpec.describe CfAppDiscovery::AppInfoConfigurer do
     let(:resource) {
       {
         metadata: {
-          guid: "sample_guid"
+          guid: "sample_guid",
         },
         entity: {
-          name: "test_name"
-        }
+          name: "test_name",
+        },
       }
     }
     let(:resource_with_host) {
       {
         metadata: {
-          guid: "sample_guid_with_host"
+          guid: "sample_guid_with_host",
         },
         entity: {
-          domain_url: "sample_domain_url"
-        }
+          domain_url: "sample_domain_url",
+        },
       }
     }
     let(:resource_with_path) {
       {
         metadata: {
-          guid: "sample_guid_with_path"
+          guid: "sample_guid_with_path",
         },
         entity: {
-          domain_url: "sample_domain_url"
-        }
+          domain_url: "sample_domain_url",
+        },
       }
     }
     let(:resource_with_host_and_path) {
       {
         metadata: {
-          guid: "sample_guid_with_host_and_path"
+          guid: "sample_guid_with_host_and_path",
         },
         entity: {
-          domain_url: "sample_domain_url"
-        }
+          domain_url: "sample_domain_url",
+        },
       }
     }
     let(:resource_with_host_and_path_metrics_and_nonmetrics) {
       {
         metadata: {
-          guid: "sample_guid_with_metrics_and_nonmetrics_resources"
+          guid: "sample_guid_with_metrics_and_nonmetrics_resources",
         },
         entity: {
-          domain_url: "sample_domain_url"
-        }
+          domain_url: "sample_domain_url",
+        },
       }
     }
     let(:resource_without_host) {
       {
         metadata: {
-          guid: "sample_guid_without_host"
+          guid: "sample_guid_without_host",
         },
         entity: {
-          domain_url: "sample_domain_url"
-        }
+          domain_url: "sample_domain_url",
+        },
       }
     }
     let(:resource_with_private_and_public) {
       {
         metadata: {
-          guid: "sample_guid_with_private_and_public_resources"
+          guid: "sample_guid_with_private_and_public_resources",
         },
         entity: {
           name: "app-name",
-          domain_url: "sample_domain_url"
-        }
+          domain_url: "sample_domain_url",
+        },
       }
     }
 
@@ -270,8 +270,8 @@ RSpec.describe CfAppDiscovery::AppInfoConfigurer do
     let(:resource_org_and_space) {
       {
         entity: {
-        space_url: "example_space.gov.uk"
-        }
+        space_url: "example_space.gov.uk",
+        },
       }
     }
 

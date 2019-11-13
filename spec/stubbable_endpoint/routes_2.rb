@@ -15,7 +15,7 @@ module StubbableEndpoint
     def request_headers
       {
         'Authorization' => 'bearer dummy-oauth-token',
-        'User-Agent' => 'cf_app_discovery - GDS - RE'
+        'User-Agent' => 'cf_app_discovery - GDS - RE',
       }
     end
 
@@ -34,17 +34,17 @@ module StubbableEndpoint
             entity: {
               domain_url: '/v2/shared_domains/domain-guid',
               host: 'route-2a',
-              path: ''
-            }
+              path: '',
+            },
           },
           {
             entity: {
               domain_url: '/v2/shared_domains/domain-guid',
               host: 'route-2b',
-              path: ''
-            }
+              path: '',
+            },
           }
-        ]
+        ],
       }
     end
   end

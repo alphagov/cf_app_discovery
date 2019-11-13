@@ -36,7 +36,7 @@ class CfAppDiscovery
             instance: instance(index),
             job: job,
             org: org,
-          }
+          },
         }
       unless paas_metric_exporter?
         data[:labels][:space] = space

@@ -15,7 +15,7 @@ module StubbableEndpoint
     def request_headers
       {
         'Authorization' => 'bearer dummy-oauth-token',
-        'User-Agent' => 'cf_app_discovery - GDS - RE'
+        'User-Agent' => 'cf_app_discovery - GDS - RE',
       }
     end
 
@@ -39,8 +39,8 @@ module StubbableEndpoint
               instances: 2,
               state: 'STOPPED',
               detected_start_command: nil,
-              space_url: '/v2/spaces/example-space-guid'
-            }
+              space_url: '/v2/spaces/example-space-guid',
+            },
           },
           {
             metadata: { guid: 'app-2-guid' },
@@ -49,10 +49,10 @@ module StubbableEndpoint
               instances: 2,
               state: 'STARTED',
               detected_start_command: './bin/paas-metric-exporter',
-              space_url: '/v2/spaces/example-space-guid'
-            }
+              space_url: '/v2/spaces/example-space-guid',
+            },
           }
-        ]
+        ],
       }
     end
   end
