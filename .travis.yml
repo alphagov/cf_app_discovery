@@ -1,9 +1,8 @@
 language: ruby
 rvm:
  - 2.5.3
-before_install:
-  - gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
-  - gem install bundler -v '< 2'
+before_install: # somehow travis isn't coming with bundler preinstalled any more?!
+  - gem install bundler -v '>= 2' || true
 script:
   - bundle exec rspec
   - bundle exec rubocop
