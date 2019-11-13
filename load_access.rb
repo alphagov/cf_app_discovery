@@ -7,7 +7,7 @@ def get_creds
   vcap_services = JSON.parse(json)
   user_provided = vcap_services.fetch("user-provided")
   prometheus_access = user_provided.find { |e| e["credentials"].key?("access_name") }
-  targets_access_name = prometheus_access["credentials"]["access_name"] unless not prometheus_access
+  targets_access_name = prometheus_access["credentials"]["access_name"] if prometheus_access
 
   raise "The user-provided service has not been set up." unless prometheus_access && prometheus_access["name"] == targets_access_name
 
