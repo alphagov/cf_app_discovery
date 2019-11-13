@@ -16,8 +16,8 @@ gem "sinatra"
 
 group :development, :test do
   gem "factory_bot"
-  gem "govuk-lint"
   gem 'pry-byebug'
   gem 'rack-test', require: 'rack/test'
+  gem 'rubocop-govuk'
   gem "webmock"
 end
