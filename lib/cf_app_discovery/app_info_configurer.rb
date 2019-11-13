@@ -9,7 +9,7 @@ class CfAppDiscovery
       @client = CfClient.new(
         api_endpoint: api_endpoint,
         api_token: api_token,
-        paas_domain: paas_domain
+        paas_domain: paas_domain,
       )
       @paas_domain = paas_domain
       @logger = Logger.new(STDOUT)

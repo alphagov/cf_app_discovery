@@ -8,7 +8,7 @@ module StubHelper
       .to_return(
         body: endpoint.response_body.to_json,
         headers: endpoint.response_headers,
-        status: status
+        status: status,
       )
   end
 end

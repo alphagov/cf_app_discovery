@@ -21,7 +21,7 @@ module StubbableEndpoint
         grant_type: "password",
         username: "uaa-username",
         password: "uaa-password",
-        scope: "cloud_controller.read"
+        scope: "cloud_controller.read",
       )
     end
 

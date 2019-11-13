@@ -11,7 +11,7 @@ RSpec.describe CfAppDiscovery::Filter do
         :target,
         guid: "app-1-guid",
         name: "app-1",
-        state: "STARTED"
+        state: "STARTED",
       ),
       build(:target,
             guid: "app-2-guid",

@@ -8,7 +8,7 @@ RSpec.describe CfAppDiscovery::CfClient do
     described_class.new(
       api_endpoint: "http://api.example.com",
       api_token: "dummy-oauth-token",
-      paas_domain: "example.com"
+      paas_domain: "example.com",
     )
   end
 

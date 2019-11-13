@@ -18,7 +18,7 @@ class CfAppDiscovery
 
       configured_targets = filter.filter_prometheus_available(
         targets,
-        target_configuration.configured_apps
+        target_configuration.configured_apps,
       )
       running_targets = filter.filter_stopped(configured_targets)
       stopped_targets = configured_targets - running_targets

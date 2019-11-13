@@ -105,7 +105,7 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
               org: "test-org-name",
             },
           },
-        ]
+        ],
       )
     end
 
@@ -210,7 +210,7 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
               org: "test-org-name",
             },
           },
-        ]
+        ],
       )
     end
   end

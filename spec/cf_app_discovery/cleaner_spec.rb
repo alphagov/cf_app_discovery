@@ -3,7 +3,7 @@ require "spec_helper"
 RSpec.describe CfAppDiscovery::Cleaner do
   subject(:cleaner) do
     described_class.new(
-      filestore_manager: LocalManager.new(targets_path: targets_path, folders: %w(active inactive))
+      filestore_manager: LocalManager.new(targets_path: targets_path, folders: %w(active inactive)),
     )
   end
 
