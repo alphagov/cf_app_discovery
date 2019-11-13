@@ -7,3 +7,6 @@ AllCops:
 
 Layout/AccessModifierIndentation:
   Enabled: false
+
+Style/StderrPuts:
+  Enabled: false
