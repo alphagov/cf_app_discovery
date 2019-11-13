@@ -36,27 +36,27 @@ RSpec.describe CfAppDiscovery::ServiceBroker do
       it "returns a 200 response" do
         expect(last_response.status).to eq(200)
         body = JSON.parse(last_response.body, symbolize_names: true)
-        expect(body.fetch(:services)[0].fetch(:id)).to eq('fd609087-70e0-4c8c-8916-b6885ac156a3')
+        expect(body.fetch(:services)[0].fetch(:id)).to eq("fd609087-70e0-4c8c-8916-b6885ac156a3")
       end
     end
   end
 
   describe "put /v2/service_instances/:id" do
     before do
-      put '/v2/service_instances/:id'
+      put "/v2/service_instances/:id"
     end
 
-    it 'return a 200 response' do
+    it "return a 200 response" do
       expect(last_response.status).to eq(200)
     end
   end
 
   describe "/v2/service_instances/:instance_id/service_bindings/:id" do
     before do
-      put '/v2/service_instances/:instance_id/service_bindings/:id', api_request
+      put "/v2/service_instances/:instance_id/service_bindings/:id", api_request
     end
 
-    it 'return a 200 response' do
+    it "return a 200 response" do
       expect(last_response.status).to eq(200)
     end
   end
@@ -66,7 +66,7 @@ RSpec.describe CfAppDiscovery::ServiceBroker do
       delete "/v2/service_instances/:instance_id/service_bindings/:id", api_request
     end
 
-    it 'return a 200 response' do
+    it "return a 200 response" do
       expect(last_response.status).to eq(200)
     end
   end

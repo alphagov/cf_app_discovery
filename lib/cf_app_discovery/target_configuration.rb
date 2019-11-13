@@ -7,11 +7,11 @@ class CfAppDiscovery
     end
 
     def write_active_targets(targets)
-      write_targets(targets, 'active')
+      write_targets(targets, "active")
     end
 
     def write_inactive_targets(targets)
-      write_targets(targets, 'inactive')
+      write_targets(targets, "inactive")
     end
 
     def configured_apps

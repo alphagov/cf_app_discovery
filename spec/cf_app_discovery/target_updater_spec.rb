@@ -51,10 +51,10 @@ RSpec.describe CfAppDiscovery::TargetUpdater do
   it "reads app instances from the API and writes to the targets directory" do
     target_updater.run
     names = filenames("#{active_targets_path}/*.json")
-    expect(names).to contain_exactly('app-2-guid.json', 'app-3-guid.json')
+    expect(names).to contain_exactly("app-2-guid.json", "app-3-guid.json")
 
     names = filenames("#{inactive_targets_path}/*.json")
-    expect(names).to contain_exactly('app-1-guid.json', 'app-2-guid.json')
+    expect(names).to contain_exactly("app-1-guid.json", "app-2-guid.json")
   end
 
   def filenames(path)

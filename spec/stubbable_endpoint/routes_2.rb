@@ -9,18 +9,18 @@ module StubbableEndpoint
     end
 
     def url
-      'http://api.example.com/v2/apps/app-2-guid/routes'
+      "http://api.example.com/v2/apps/app-2-guid/routes"
     end
 
     def request_headers
       {
-        'Authorization' => 'bearer dummy-oauth-token',
-        'User-Agent' => 'cf_app_discovery - GDS - RE',
+        "Authorization" => "bearer dummy-oauth-token",
+        "User-Agent" => "cf_app_discovery - GDS - RE",
       }
     end
 
     def request_body
-      ''
+      ""
     end
 
     def response_headers
@@ -32,16 +32,16 @@ module StubbableEndpoint
         resources: [
           {
             entity: {
-              domain_url: '/v2/shared_domains/domain-guid',
-              host: 'route-2a',
-              path: '',
+              domain_url: "/v2/shared_domains/domain-guid",
+              host: "route-2a",
+              path: "",
             },
           },
           {
             entity: {
-              domain_url: '/v2/shared_domains/domain-guid',
-              host: 'route-2b',
-              path: '',
+              domain_url: "/v2/shared_domains/domain-guid",
+              host: "route-2b",
+              path: "",
             },
           },
         ],

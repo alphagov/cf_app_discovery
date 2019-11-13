@@ -11,9 +11,9 @@ class CfAppDiscovery
     end
 
     def move_stopped_targets(stopped_targets)
-      target_files = filestore_manager.filenames('active')
+      target_files = filestore_manager.filenames("active")
       target_files.each do |filename|
-        filename = filename.split('/').last
+        filename = filename.split("/").last
         filestore_manager.move("active/#{filename}", "inactive/#{filename}") if file_in_targets?(filename, stopped_targets)
       end
     end

@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby '~> 2.5.1'
+ruby "~> 2.5.1"
 
 gem "aws-sdk-s3"
 gem "cf-uaa-lib"
@@ -16,8 +16,8 @@ gem "sinatra"
 
 group :development, :test do
   gem "factory_bot"
-  gem 'pry-byebug'
-  gem 'rack-test', require: 'rack/test'
-  gem 'rubocop-govuk'
+  gem "pry-byebug"
+  gem "rack-test", require: "rack/test"
+  gem "rubocop-govuk"
   gem "webmock"
 end

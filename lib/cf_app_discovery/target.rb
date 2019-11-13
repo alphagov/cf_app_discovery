@@ -57,7 +57,7 @@ class CfAppDiscovery
     def job
       # strip "-venerable" suffix from app names
       # so that autopilot deploys don't rename metrics
-      name.sub(/-venerable$/, '')
+      name.sub(/-venerable$/, "")
     end
   end
 end
