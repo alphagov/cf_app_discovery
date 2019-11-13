@@ -20,7 +20,7 @@ RSpec.describe CfAppDiscovery::Filter do
       build(:target,
             guid: 'app-3-guid',
             name: 'app-3',
-            state: 'STARTED')
+            state: 'STARTED'),
     ]
   end
 

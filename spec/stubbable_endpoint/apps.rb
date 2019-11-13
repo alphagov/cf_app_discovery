@@ -51,7 +51,7 @@ module StubbableEndpoint
               detected_start_command: './bin/paas-metric-exporter',
               space_url: '/v2/spaces/example-space-guid',
             },
-          }
+          },
         ],
       }
     end

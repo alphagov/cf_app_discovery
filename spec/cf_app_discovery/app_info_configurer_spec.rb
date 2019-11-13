@@ -61,7 +61,7 @@ RSpec.describe CfAppDiscovery::AppInfoConfigurer do
                 host: "public_host",
                 path: "/sample_public_path",
               },
-            }
+            },
           ],
         },
         "/v2/apps/sample_guid_with_metrics_and_nonmetrics_resources/routes" => {
@@ -79,7 +79,7 @@ RSpec.describe CfAppDiscovery::AppInfoConfigurer do
                 host: "public_host",
                 path: "/sample_public_path/metrics",
               },
-            }
+            },
           ],
         },
         "/v2/apps/sample_guid_without_host/routes" => {

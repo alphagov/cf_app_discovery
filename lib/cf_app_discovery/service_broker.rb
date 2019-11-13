@@ -29,7 +29,7 @@ class CfAppDiscovery
                 free: true,
               },
             ],
-          }
+          },
         ]
       )
     end

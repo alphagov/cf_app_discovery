@@ -43,7 +43,7 @@ module StubbableEndpoint
               host: 'route-2b',
               path: '',
             },
-          }
+          },
         ],
       }
     end

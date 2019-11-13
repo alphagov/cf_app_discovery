@@ -36,7 +36,7 @@ module StubbableEndpoint
               host: '',
               path: '',
             },
-          }
+          },
         ],
       }
     end
