@@ -20,7 +20,7 @@ class CfAppDiscovery
           path: resource.fetch(:path),
           space: resource.fetch(:space),
           org: resource.fetch(:org),
-          detected_start_command: entity.fetch(:detected_start_command)
+          detected_start_command: entity.fetch(:detected_start_command),
         )
       end
     end

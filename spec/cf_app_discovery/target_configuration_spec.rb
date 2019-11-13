@@ -54,7 +54,7 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
       listing = Dir["#{targets_path}/active/*.json"]
       names = listing.map { |s| File.basename(s) }
 
-      expect(names).to contain_exactly('app-1-v2-guid.json', 'app-2-guid.json')
+      expect(names).to contain_exactly("app-1-v2-guid.json", "app-2-guid.json")
     end
 
     it "writes an entry per instance for each target" do
@@ -105,7 +105,7 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
               org: "test-org-name",
             },
           },
-        ]
+        ],
       )
     end
 
@@ -131,7 +131,7 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
         target_configuration.write_active_targets(targets)
 
         configured_apps = target_configuration.configured_apps
-        expect(configured_apps.to_set).to contain_exactly('app-1-v2-guid', 'app-2-guid')
+        expect(configured_apps.to_set).to contain_exactly("app-1-v2-guid", "app-2-guid")
       end
     end
   end
@@ -210,7 +210,7 @@ RSpec.describe CfAppDiscovery::TargetConfiguration do
               org: "test-org-name",
             },
           },
-        ]
+        ],
       )
     end
   end

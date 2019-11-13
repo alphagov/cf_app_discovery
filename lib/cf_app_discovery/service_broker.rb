@@ -29,8 +29,8 @@ class CfAppDiscovery
                 free: true,
               },
             ],
-          }
-        ]
+          },
+        ],
       )
     end
 
@@ -81,14 +81,14 @@ class CfAppDiscovery
     def target_updater
       @target_updater ||= TargetUpdater.new(
         filestore_manager: filestore_manager,
-        app_info_configurer: app_info_configurer
+        app_info_configurer: app_info_configurer,
       )
     end
 
     def filestore_manager
       @filestore_manager ||= FilestoreManagerFactory.filestore_manager_builder(
         settings.environment,
-        settings.targets_path
+        settings.targets_path,
       )
     end
 
@@ -101,7 +101,7 @@ class CfAppDiscovery
       @app_info_configurer ||= AppInfoConfigurer.new(
         api_endpoint: settings.api_endpoint,
         api_token: api_token,
-        paas_domain: settings.paas_domain
+        paas_domain: settings.paas_domain,
       )
     end
 

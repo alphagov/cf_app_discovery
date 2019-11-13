@@ -27,7 +27,7 @@ module StubbableEndpoint
 
     def response_body
       {
-        resources: []
+        resources: [],
       }
     end
   end

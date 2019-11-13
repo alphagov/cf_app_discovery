@@ -9,8 +9,8 @@ RSpec.describe CfAppDiscovery::TargetUpdater do
       app_info_configurer: CfAppDiscovery::AppInfoConfigurer.new(
         api_endpoint: "http://api.example.com",
         api_token: "dummy-oauth-token",
-        paas_domain: "example.com"
-      )
+        paas_domain: "example.com",
+      ),
     )
   end
 
@@ -51,10 +51,10 @@ RSpec.describe CfAppDiscovery::TargetUpdater do
   it "reads app instances from the API and writes to the targets directory" do
     target_updater.run
     names = filenames("#{active_targets_path}/*.json")
-    expect(names).to contain_exactly('app-2-guid.json', 'app-3-guid.json')
+    expect(names).to contain_exactly("app-2-guid.json", "app-3-guid.json")
 
     names = filenames("#{inactive_targets_path}/*.json")
-    expect(names).to contain_exactly('app-1-guid.json', 'app-2-guid.json')
+    expect(names).to contain_exactly("app-1-guid.json", "app-2-guid.json")
   end
 
   def filenames(path)

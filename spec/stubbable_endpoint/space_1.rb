@@ -9,18 +9,18 @@ module StubbableEndpoint
     end
 
     def url
-      'http://api.example.com/v2/spaces/example-space-guid'
+      "http://api.example.com/v2/spaces/example-space-guid"
     end
 
     def request_headers
       {
-        'Authorization' => 'bearer dummy-oauth-token',
-        'User-Agent' => 'cf_app_discovery - GDS - RE'
+        "Authorization" => "bearer dummy-oauth-token",
+        "User-Agent" => "cf_app_discovery - GDS - RE",
       }
     end
 
     def request_body
-      ''
+      ""
     end
 
     def response_headers
@@ -30,9 +30,9 @@ module StubbableEndpoint
     def response_body
       {
         entity: {
-          name: 'test-space-name',
-          organization_url: '/v2/organizations/example-org-guid'
-        }
+          name: "test-space-name",
+          organization_url: "/v2/organizations/example-org-guid",
+        },
       }
     end
   end

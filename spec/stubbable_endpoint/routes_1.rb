@@ -33,16 +33,16 @@ module StubbableEndpoint
                       domain_url: "/v2/shared_domains/domain-guid",
                       host: "route-1a",
                       path: "",
-                  }
+                  },
               },
               {
                   entity: {
                       domain_url: "/v2/shared_domains/domain-guid",
                       host: "route-1b",
                       path: "",
-                  }
+                  },
               },
-          ]
+          ],
       }
     end
   end

@@ -1,19 +1,14 @@
-require: rubocop-rspec
+inherit_gem:
+  rubocop-govuk:
+    - config/default.yml
 
 AllCops:
   TargetRubyVersion: 2.5.3
-
-RSpec/ExampleLength:
-  Enabled: false
-
-RSpec/MultipleExpectations:
-  Enabled: false
-
-RSpec/DescribeClass:
-  Enabled: false
-
-RSpec/InstanceVariable:
-  Enabled: false
+  Exclude:
+    - 'vendor/**/*'
 
 Layout/AccessModifierIndentation:
+  Enabled: false
+
+Style/StderrPuts:
   Enabled: false

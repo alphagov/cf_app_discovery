@@ -1,8 +1,10 @@
 language: ruby
 rvm:
  - 2.5.3
+before_install: # somehow travis isn't coming with bundler preinstalled any more?!
+  - gem install bundler -v '>= 2' || true
 script:
   - bundle exec rspec
-  - bundle exec govuk-lint-ruby --diff
+  - bundle exec rubocop
 notifications:
   email: false

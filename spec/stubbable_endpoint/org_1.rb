@@ -29,7 +29,7 @@ module StubbableEndpoint
       {
           entity: {
             name: "org-name",
-          }
+          },
       }
     end
   end

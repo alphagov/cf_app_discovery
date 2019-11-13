@@ -13,7 +13,7 @@ module StubbableEndpoint
     def request_headers
       {
           "Authorization" => "bearer dummy-oauth-token",
-          "User-Agent" => "cf_app_discovery - GDS - RE"
+          "User-Agent" => "cf_app_discovery - GDS - RE",
       }
     end
 
@@ -29,7 +29,7 @@ module StubbableEndpoint
       {
           description: "The app could not be found: not-found",
           error_code: "CF-AppNotFound",
-          code: 100004
+          code: 100004,
       }
     end
   end

@@ -1,4 +1,4 @@
-require 'logger'
+require "logger"
 
 class CfAppDiscovery
   class AppInfoConfigurer
@@ -9,7 +9,7 @@ class CfAppDiscovery
       @client = CfClient.new(
         api_endpoint: api_endpoint,
         api_token: api_token,
-        paas_domain: paas_domain
+        paas_domain: paas_domain,
       )
       @paas_domain = paas_domain
       @logger = Logger.new(STDOUT)
@@ -37,7 +37,7 @@ class CfAppDiscovery
 
     def set_first_route(resource)
       routes_data = @client.routes(resource.dig(:metadata, :guid)).fetch(:resources)
-      shared_domains_data = @client.get('/v2/shared_domains')
+      shared_domains_data = @client.get("/v2/shared_domains")
       internal_domains = shared_domains_data[:resources].select { |r| r[:entity][:internal] }.map { |e| e[:metadata][:url] }
       public_routes_data = routes_data.reject { |r| internal_domains.include?(r[:entity][:domain_url]) }
       if public_routes_data.empty?
@@ -46,7 +46,7 @@ class CfAppDiscovery
         resource[:hostname] = "#{app_name}.#{@paas_domain}"
         resource[:path] = ""
       else
-        public_routes_metrics = public_routes_data.select { |r| r.dig(:entity, :path).end_with?('metrics') }
+        public_routes_metrics = public_routes_data.select { |r| r.dig(:entity, :path).end_with?("metrics") }
         chosen_public_route = if public_routes_metrics.empty?
                                 public_routes_data.first
                               else

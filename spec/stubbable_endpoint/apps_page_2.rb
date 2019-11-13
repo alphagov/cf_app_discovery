@@ -47,7 +47,7 @@ module StubbableEndpoint
               space_url: "/v2/spaces/example-space-guid",
             },
           },
-        ]
+        ],
       }
     end
   end

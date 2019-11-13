@@ -36,7 +36,7 @@ class CfAppDiscovery
             instance: instance(index),
             job: job,
             org: org,
-          }
+          },
         }
       unless paas_metric_exporter?
         data[:labels][:space] = space
@@ -57,7 +57,7 @@ class CfAppDiscovery
     def job
       # strip "-venerable" suffix from app names
       # so that autopilot deploys don't rename metrics
-      name.sub(/-venerable$/, '')
+      name.sub(/-venerable$/, "")
     end
   end
 end
