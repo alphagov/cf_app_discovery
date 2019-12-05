@@ -1,7 +1,7 @@
 ---
 defaults: &defaults
   buildpacks:
-    - https://github.com/andy-paine/env-map-buildpack.git
+    - https://github.com/alphagov/env-map-buildpack.git#v1
     - ruby_buildpack
   memory: 512MB
   instances: 1
