@@ -1,0 +1,17 @@
+env_vars:
+  UAA_USERNAME: |
+    ."user-provided"
+    | map(.credentials | select(has("access_name")))
+    | .[0].UAA_USERNAME
+  UAA_PASSWORD: |
+    ."user-provided"
+    | map(.credentials | select(has("access_name")))
+    | .[0].UAA_PASSWORD
+  AWS_ACCESS_KEY_ID: |
+    ."user-provided"
+    | map(.credentials | select(has("access_name")))
+    | .[0].AWS_ACCESS_KEY_ID
+  AWS_SECRET_ACCESS_KEY: |
+    ."user-provided"
+    | map(.credentials | select(has("access_name")))
+    | .[0].AWS_SECRET_ACCESS_KEY
