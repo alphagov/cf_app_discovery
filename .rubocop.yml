@@ -3,7 +3,7 @@ inherit_gem:
     - config/default.yml
 
 AllCops:
-  TargetRubyVersion: 2.5.3
+  TargetRubyVersion: 2.6.6
   Exclude:
     - 'vendor/**/*'
 
