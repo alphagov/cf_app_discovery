@@ -1,6 +1,6 @@
 language: ruby
 rvm:
- - 2.5.3
+ - 2.6.6
 before_install: # somehow travis isn't coming with bundler preinstalled any more?!
   - gem install bundler -v '>= 2' || true
 script:
