@@ -67,7 +67,7 @@ GEM
       pry (~> 0.10)
     public_suffix (3.0.3)
     quantile (0.2.1)
-    rack (2.0.6)
+    rack (2.2.2)
     rack-protection (2.0.5)
       rack
     rack-test (1.1.0)
