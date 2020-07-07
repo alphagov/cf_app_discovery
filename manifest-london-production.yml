@@ -1,0 +1,35 @@
+---
+defaults: &defaults
+  buildpacks:
+    - https://github.com/alphagov/env-map-buildpack.git#v1
+    - ruby_buildpack
+  memory: 512MB
+  instances: 1
+  stack: cflinuxfs3
+  services:
+    - prometheus-targets-access
+  path: .
+  env:
+    AWS_REGION: eu-west-1
+    API_ENDPOINT: https://api.london.cloud.service.gov.uk
+    UAA_ENDPOINT: https://uaa.london.cloud.service.gov.uk
+    BROKER_ENDPOINT: https://prometheus-service-broker.london.cloudapps.digital
+    PAAS_DOMAIN: london.cloudapps.digital
+    TARGETS_PATH: none
+    ENVIRONMENT: paas-london
+    BUCKET_NAME: govukobserve-london-targets-production
+    SERVICE_ID: fd609087-70e0-4c8c-8916-b6885ac156a3
+    SERVICE_NAME: gds-prometheus
+    PLAN_ID: b5998c91-d379-4df7-b329-11450f8459f1
+    CACHE_EXPIRY_TIME: 60
+    UPDATE_TARGETS_RATE_SECONDS: 180
+
+applications:
+  - name: prometheus-service-broker
+    <<: *defaults
+    command: bundle exec rackup -o 0.0.0.0 -p $PORT
+  - name: prometheus-target-updater
+    <<: *defaults
+    command: bundle exec clockwork bin/clock.rb
+    health-check-type: process
+
