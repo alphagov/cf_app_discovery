@@ -1,0 +1,24 @@
+on: pull_request
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "2.6.6"
+
+      - name: Install bundle
+        run: |
+          gem install bundler -v '>= 2'
+          bundle install --jobs 4 --retry 3
+
+      - name: RSpec
+        run: bundle exec rspec
+
+      - name: rubocop
+        run: bundle exec rubocop
